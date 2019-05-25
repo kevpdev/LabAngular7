@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as firebase from 'firebase';
+import { AuthentificationService } from '../services/authentification.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  loggedIn : boolean
+  constructor(private authenticationService : AuthentificationService) { }
+
 
   ngOnInit() {
+    firebase.auth().onAuthStateChanged(
+      (user)=>{
+        if(user){
+          this.loggedIn = true;
+        }else{
+          this.loggedIn = false;
+        }
+      }
+    );
+  }
+
+  onSignOut(){
+    this.authenticationService.signOutUser();
   }
 
 }
