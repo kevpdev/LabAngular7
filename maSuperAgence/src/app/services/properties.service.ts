@@ -9,11 +9,11 @@ import { Subject } from 'rxjs'; // librairie pour faire de la programmation réa
 export class PropertiesService {
 
   properties : Property[] = [];
-  propertiesSubject = new Subject<Property[]>(); // Observable
+  propertiesSubject = new Subject<Property[]>(); // Observable et observer a la fois
   constructor() { }
 
   /**
-   * Emettre la liste des biens immobiliers
+   * Emettre la liste des biens immobiliers (observer)
    */
   emitProperties() {
     this.propertiesSubject.next(this.properties);
@@ -43,7 +43,16 @@ export class PropertiesService {
    * @param property Supprimer 
    */
   removeProperty(property : Property){
-
+    const index = this.properties.findIndex(
+      (propertyElement) => {
+        if(propertyElement === property){
+          return true;
+        }
+      }
+    );
+    this.properties.splice(index, 1);
+    this.saveProperties();
+    this.emitProperties();
   }
   
   /***
@@ -54,6 +63,10 @@ export class PropertiesService {
       this.properties = data.val() ? data.val() : [];
       this.emitProperties();
     });
+  }
+
+  updateProperty(property : Property, id : number){
+    firebase.database().ref('/properties/'+ id).update(property);
   }
 
 }
