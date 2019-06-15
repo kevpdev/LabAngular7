@@ -4,6 +4,7 @@ import { PropertiesService } from 'src/app/services/properties.service';
 import { Property } from 'src/app/models/Property.model';
 import * as $ from 'jquery';
 import { Subscription } from 'rxjs';
+import { TouchSequence } from 'selenium-webdriver';
 @Component({
   selector: 'app-admin-properties',
   templateUrl: './admin-properties.component.html',
@@ -15,6 +16,9 @@ export class AdminPropertiesComponent implements OnInit, OnDestroy {
   properties: Property[];
   propertiesSubscription: Subscription; // Observateur
   editProperty: boolean = false;
+  photoUploading : boolean = false;
+  photoUploaded : boolean = false;
+  photosAdded : any[] = [];
 
 
   constructor(private formBuilder: FormBuilder,
@@ -51,7 +55,8 @@ export class AdminPropertiesComponent implements OnInit, OnDestroy {
     const surface = this.propertyForm.get('surface').value;
     const rooms = this.propertyForm.get('rooms').value;
     const description = this.propertyForm.get('description').value;
-    const newProperty = new Property(title, category, surface, rooms, description);
+    const photos = this.photosAdded ? this.photosAdded  : [];
+    const newProperty = new Property(title, category, surface, rooms, description, photos);
 
     if (this.editProperty) {
       this.propertiesService.updateProperty(newProperty, id);
@@ -65,6 +70,8 @@ export class AdminPropertiesComponent implements OnInit, OnDestroy {
     $('#propertiesFormModal').modal('hide');
     this.propertyForm.reset();
     this.editProperty = false;
+    this.photoUploaded = false;
+    this.photosAdded = [];
   }
 
   /**
@@ -75,6 +82,12 @@ export class AdminPropertiesComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProperty(property: Property) {
+
+    if(property.photos){
+      property.photos.forEach(photo =>{
+        this.propertiesService.removePropertyPhoto(photo)
+      }) 
+    }
     this.propertiesService.removeProperty(property);
   }
 
@@ -86,7 +99,29 @@ export class AdminPropertiesComponent implements OnInit, OnDestroy {
     this.propertyForm.get('surface').setValue(property.surface);
     this.propertyForm.get('rooms').setValue(property.rooms);
     this.propertyForm.get('description').setValue(property.description);
+    this.photosAdded = property.photos
     this.editProperty = true;
+  }
+
+  detectFile(event){
+    this.photoUploaded = false;
+    this.photoUploading = true;
+    this.propertiesService.uploadFile(event.target.files[0]).then(
+      (url : string)=>{
+        this.onAddedPhoto(url);
+        this.photoUploading = false;
+        this.photoUploaded = true;
+      }
+    )
+  }
+
+  onAddedPhoto(url : string){
+    this.photosAdded.push(url);
+  }
+
+  onRemoveAddedPhoto(id : number){
+    this.propertiesService.removePropertyPhoto(this.photosAdded[id])
+    this.photosAdded.splice(id, 1)
   }
 
 }
