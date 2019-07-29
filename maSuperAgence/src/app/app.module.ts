@@ -8,6 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { AdminSigninComponent } from './admin/admin-signin/admin-signin.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminPropertiesComponent } from './admin/admin-properties/admin-properties.component';
+import { HomeComponent } from './home/home.component';
+import { SinglePropertyComponent } from './single-property/single-property.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { AdminPropertiesComponent } from './admin/admin-properties/admin-propert
     HeaderComponent,
     AdminSigninComponent,
     AdminDashboardComponent,
-    AdminPropertiesComponent
+    AdminPropertiesComponent,
+    HomeComponent,
+    SinglePropertyComponent
   ],
   imports: [
     BrowserModule,
