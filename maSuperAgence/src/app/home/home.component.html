@@ -9,8 +9,9 @@
             <img *ngIf="first" [src]="photos" alt="Property photo" class="w-100">
           </div>
           <h3 class="font-weight-normal pt-3 pl-3 mb-0">{{ property.title }}</h3>
-          <small class="pl-3">{{ property.category }}, {{ property.surface }} m², {{ property.rooms }} pièce(s) </small>
+          <small class="pl-3">{{ property.category }}, {{ property.surface }} m², {{ property.rooms }} pièce(s)</small>
           <div class="d-flex">
+              <h4 class="font-weight-normal pt-3 pl-3">{{ property.price}} € </h4>
             <button class="btn btn-primary my-3 mx-auto" (click)="onViewProperty(i)">Voir ce bien</button>
           </div>
         </div>
