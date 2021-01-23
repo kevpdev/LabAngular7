@@ -8,6 +8,7 @@ import { ContainerComponent } from './container/container.component';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, ContainerComponent],
+  exports: [HeaderComponent, FooterComponent, ContainerComponent],
   imports: [
     CommonModule
   ]

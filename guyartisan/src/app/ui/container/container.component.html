@@ -1,6 +1,13 @@
 <header>
-  <app-header></app-header>
-</header>
-<footer>
-    <app-footer></app-footer>
+  <ng-content select="[header]"></ng-content>
+ </header>
+ <main>
+  <div class="body">
+    <div class="contents">
+      <ng-content select="[body]"></ng-content>
+    </div>
+  </div>
+ </main>
+ <footer>
+  <ng-content select="[footer]"></ng-content>
 </footer>
