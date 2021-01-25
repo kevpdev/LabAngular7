@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicComponent } from './public.component';
+import { PageAddBusinessComponent } from './page-add-business.component';
 
-describe('PublicComponent', () => {
-  let component: PublicComponent;
-  let fixture: ComponentFixture<PublicComponent>;
+describe('PageAddBusinessComponent', () => {
+  let component: PageAddBusinessComponent;
+  let fixture: ComponentFixture<PageAddBusinessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicComponent ]
+      declarations: [ PageAddBusinessComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicComponent);
+    fixture = TestBed.createComponent(PageAddBusinessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
