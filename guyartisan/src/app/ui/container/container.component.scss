@@ -1,6 +1,7 @@
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  height: 200px;
   width: 100%;
   background: #000000;
   color: #FFFFFF;
@@ -15,7 +16,7 @@ nav {
   color: #FFFFFF;
 }
 
-.body {
-margin: 0;
+main {
+padding-bottom: 200px;
  }
 
