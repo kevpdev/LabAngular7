@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Adress } from 'src/app/shared/models/adress';
+import { Business } from 'src/app/shared/models/business';
+import { BusinessService } from '../servces/business.service';
 
 @Component({
   selector: 'app-page-add-business',
@@ -16,7 +19,8 @@ export class PageAddBusinessComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private businessService: BusinessService
     ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,7 @@ export class PageAddBusinessComponent implements OnInit {
       additionalAdress: [''],
       zipCode: [''],
       city: [''],
+      pays: [''],
       email: [''],
       website: ['']
       // dayA: [''],
@@ -46,7 +51,25 @@ export class PageAddBusinessComponent implements OnInit {
   }
 
   onSaveBusiness(){
-    console.log(this.businessForm);
+     const newBusiness = new Business();
+     newBusiness.name = this.businessForm.get('businessName').value;
+     newBusiness.sector = this.businessForm.get('sector').value;
+     newBusiness.siret = this.businessForm.get('siret').value;
+     newBusiness.phone1 = this.businessForm.get('phone').value;
+     const newAdress = new Adress();
+     newAdress.nameStreet = this.businessForm.get('adress').value;
+     newAdress.additionalAdress = this.businessForm.get('additionalAdress').value;
+     newAdress.zipCode = this.businessForm.get('zipCode').value;
+     newAdress.city = this.businessForm.get('city').value;
+     newAdress.pays = this.businessForm.get('pays').value;
+     newBusiness.adress = newAdress;
+     newBusiness.email = this.businessForm.get('email').value;
+     newBusiness.website = this.businessForm.get('website').value;
+
+     console.log('newBusiness : ', newBusiness);
+     this.businessService.createBusiness(newBusiness);
+     console.log(this.businessService.businesses);
+     this.router.navigate(['/business']);
   }
 
   getHours(maxRange: number, minRange){

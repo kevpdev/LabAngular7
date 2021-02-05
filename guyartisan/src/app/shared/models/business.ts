@@ -4,6 +4,7 @@ import { Comment } from './comment';
 export class Business {
   id: number;
   name: string;
+  sector: string;
   siret: string;
   phone1: string;
   phone2: string;

@@ -12,7 +12,7 @@ import { BusinessService } from '../servces/business.service';
 export class PageBusinessComponent implements OnInit, OnDestroy {
 
   businesses: Business[];
-  mainBusiness: Business;
+ // mainBusiness: Business;
   businessSubscription: Subscription;
 
   constructor(
@@ -29,8 +29,16 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
       }
     );
     this.businessService.emitBusinesses();
-    this.mainBusiness = this.businesses[0];
+ //   this.mainBusiness = this.businesses[0];
+    console.log(this.businesses);
   }
+
+  onDeleteBusiness(index){
+    console.log(this.businesses.length);
+    this.businessService.deleteBusiness(index);
+    console.log(this.businesses.length);
+  }
+
 
   ngOnDestroy(){
     this.businessSubscription.unsubscribe();

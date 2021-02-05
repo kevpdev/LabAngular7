@@ -8,22 +8,25 @@ import { BusinessModule } from '../../business.module';
 })
 export class BusinessService {
 
-  businesses = [
-    {
-      id: 1,
-      name: 'SARL GERAULD ERIC',
-      siret: '500-855-762',
-      phone1: '0240568457',
-      email: 'contact@geraud-eric.com',
-      website: 'Geraud-eric.fr',
-      adress: {
-        nameStreet: '5 rue Fleur de Lys',
-        zipCode: '44400',
-        city: 'Reze',
-        pays: 'France'
-      }
-    }
-  ];
+  // businesses = [
+  //   {
+  //     id: 1,
+  //     name: 'SARL GERAULD ERIC',
+  //     siret: '500-855-762',
+  //     phone1: '0240568457',
+  //     email: 'contact@geraud-eric.com',
+  //     website: 'Geraud-eric.fr',
+  //     adress: {
+  //       nameStreet: '5 rue Fleur de Lys',
+  //       zipCode: '44400',
+  //       city: 'Reze',
+  //       pays: 'France'
+  //     }
+  //   }
+  // ];
+
+  businesses: Business[] = [];
+
   businessesSubject = new Subject<any[]>();
 
   constructor() { }
@@ -43,5 +46,14 @@ export class BusinessService {
   //     observer.error(error);
   //   }
   //  });
+  }
+
+  createBusiness(business: Business){
+    console.log(business);
+    this.businesses.push(business);
+  }
+
+  deleteBusiness(index){
+    this.businesses.splice(index, 1);
   }
 }
