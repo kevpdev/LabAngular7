@@ -1,19 +1,24 @@
 <div class="container">
   <h1>Mon Entreprise</h1>
   <hr />
+ <div *ngIf="!enableEditBusiness" id="add-business-bloc">
   <div class="row">
     <div class="col-xl-6 col-6">
       <button type="button" class="btn btn-success" routerLinkActive="active" routerLink="add"> Ajouter</button>
     </div>
   </div>
   <hr>
+ </div>
   <div class="row">
     <div class="col-xl-3 col-sm-2 col-1"></div>
     <div class="col-xl-6 col-sm-8 col-10">
-      <div class="bunisess-form" *ngFor="let business of businesses; let i = index">
+      <div class="bunisess-form" *ngFor="let business of businesses; let id = index">
         <div class="row">
           <div class="col-xl-6 col-6">
-            <button type="button" class="btn btn-danger" (click)="onDeleteBusiness(i)"> Supprimer</button>
+            <button type="button" class="btn btn-primary" routerLinkActive="active" [routerLink]="['edit', id]"> Modifier</button>
+          </div>
+          <div class="col-xl-6 col-6">
+            <button type="button" class="btn btn-danger" (click)="onDeleteBusiness(id)"> Supprimer</button>
           </div>
         </div>
         <hr>

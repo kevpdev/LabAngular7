@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { BusinessModule } from '../../business.module';
@@ -14,6 +15,8 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
   businesses: Business[];
  // mainBusiness: Business;
   businessSubscription: Subscription;
+  enableEditBusiness = false;
+
 
   constructor(
     private businessService: BusinessService
@@ -31,6 +34,10 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
     this.businessService.emitBusinesses();
  //   this.mainBusiness = this.businesses[0];
     console.log(this.businesses);
+
+    this.enableEdit();
+
+
   }
 
   onDeleteBusiness(index){
@@ -40,8 +47,13 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
   }
 
 
+
   ngOnDestroy(){
     this.businessSubscription.unsubscribe();
+  }
+
+  enableEdit() {
+    this.enableEditBusiness = this.businesses.length > 0;
   }
 
 }

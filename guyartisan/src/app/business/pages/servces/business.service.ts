@@ -53,6 +53,17 @@ export class BusinessService {
     this.businesses.push(business);
   }
 
+  updateBusiness(business){
+
+    this.businesses.forEach((element, index) =>{
+
+      if(element.id === index){
+        this.businesses[index] = business;
+      }
+    });
+
+  }
+
   deleteBusiness(index){
     this.businesses.splice(index, 1);
   }
