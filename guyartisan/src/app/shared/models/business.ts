@@ -14,6 +14,7 @@ export class Business {
   adress: Adress;
   comments: Comment [];
   nbStar: number;
+  logo: any;
 
   constructor(obj?: Partial<Business>) {
     if (obj) {

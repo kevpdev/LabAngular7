@@ -67,4 +67,5 @@ export class BusinessService {
   deleteBusiness(index){
     this.businesses.splice(index, 1);
   }
+
 }

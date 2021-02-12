@@ -20,6 +20,7 @@ export class PageFormBusinessComponent implements OnInit {
   businessSubscription: Subscription;
   businesses: Business[];
   editBusiness = false;
+  logoUpload: any;
 
 
   constructor(
@@ -69,7 +70,8 @@ export class PageFormBusinessComponent implements OnInit {
       city: [''],
       pays: [''],
       email: [''],
-      website: ['']
+      website: [''],
+      businessLogo: ['']
       // dayA: [''],
       // dayB: [''],
       // hourA: [''],
@@ -85,6 +87,8 @@ export class PageFormBusinessComponent implements OnInit {
      newBusiness.sector = this.businessForm.get('sector').value;
      newBusiness.siret = this.businessForm.get('siret').value;
      newBusiness.phone1 = this.businessForm.get('phone').value;
+     console.log(this.logoUpload);
+     newBusiness.logo = this.logoUpload;
      const newAdress = new Adress();
      newAdress.nameStreet = this.businessForm.get('adress').value;
      newAdress.additionalAdress = this.businessForm.get('additionalAdress').value;
@@ -116,7 +120,14 @@ export class PageFormBusinessComponent implements OnInit {
     this.businessForm.get('pays').setValue(business.adress.pays);
     this.businessForm.get('email').setValue(business.email);
     this.businessForm.get('website').setValue(business.website);
+    this.logoUpload = business.logo;
     this.editBusiness = true;
+  }
+
+  handleFileInput(event){
+    console.log(event);
+    this.logoUpload = URL.createObjectURL(event.target.files.item(0));
+    console.log( this.logoUpload);
   }
 
   getHours(maxRange: number, minRange){

@@ -44,6 +44,7 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
     console.log(this.businesses.length);
     this.businessService.deleteBusiness(index);
     console.log(this.businesses.length);
+    this.enableEditBusiness = false;
   }
 
 
