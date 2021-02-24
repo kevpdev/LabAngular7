@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Adress } from 'src/app/shared/models/adress';
 import { Business } from 'src/app/shared/models/business';
-import { BusinessService } from '../servces/business.service';
+import { BusinessService } from '../../services/business.service';
 
 @Component({
   selector: 'app-page-form-business',

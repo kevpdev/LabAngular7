@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
-import { BusinessModule } from '../../business.module';
+import { BusinessModule } from '../business.module';
 
 @Injectable({
   providedIn: 'root'

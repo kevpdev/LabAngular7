@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { BusinessModule } from '../../business.module';
-import { BusinessService } from '../servces/business.service';
+import { BusinessService } from '../../services/business.service';
 
 @Component({
   selector: 'app-page-business',

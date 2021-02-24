@@ -19,7 +19,7 @@ export class AppComponent {
       messagingSenderId: '10581518359',
       appId: '1:105816518359:web:d1b898db06ee7df5ebca92'
     };
-    firebase.initializeApp(firebaseConfig);
+   // firebase.initializeApp(firebaseConfig);
   }
 }
 

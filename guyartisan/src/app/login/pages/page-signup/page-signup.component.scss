@@ -1,0 +1,30 @@
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  // max-width: 450px;
+  //  position: relative;
+    margin: 30px;
+   width: 90%;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+ // text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  #formContent {
+
+      margin: 30px;
+     width: 80%;
+
+  }
+}
+
+form {
+  padding: 50px;
+
+}
+
+form .form-label {
+  text-align: left;
+}
