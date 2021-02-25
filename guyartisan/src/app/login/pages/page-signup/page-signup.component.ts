@@ -39,7 +39,7 @@ export class PageSignupComponent implements OnInit {
 
     this.loginService.SignUpUser(email, password).then(
       success => {
-        this.router.navigate(['/business']);
+        this.router.navigate(['business']);
       }
     ).catch(
       (error) => {

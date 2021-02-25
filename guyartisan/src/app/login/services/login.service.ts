@@ -30,19 +30,17 @@ export class LoginService {
   }
 
   SignInUser(email: string, password: string): Promise<any> {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.auth().signInWithEmailAndPassword(email, password).then(
+
+       return firebase.auth().signInWithEmailAndPassword(email, password).then(
           () => {
             console.log('connecté');
           }
         ).catch(
           (error) => {
-            reject(error);
+            console.log(error);
           }
-        )
-      }
-    );
+        );
+
   }
 
 

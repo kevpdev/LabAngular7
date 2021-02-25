@@ -37,15 +37,15 @@ export class PageLoginComponent implements OnInit {
     console.log('email : ', email);
     console.log('password : ', password);
 
-    this.loginService.SignUpUser(email, password).then(
+    this.loginService.SignInUser(email, password).then(
       () => {
-        this.router.navigate(['/business']);
+        this.router.navigate(['business']);
       }
     ).catch(
       (error) => {
         console.log(error);
       }
-    )
+    );
 
   }
 
