@@ -4,6 +4,7 @@ import { PageBusinessComponent } from '../business/pages/page-business/page-busi
 import { PageFormBusinessComponent } from '../business/pages/page-form-business/page-form-business.component';
 import { PageLoginComponent } from './pages/page-login/page-login.component';
 import { PageSignupComponent } from './pages/page-signup/page-signup.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '',
@@ -15,7 +16,8 @@ const routes: Routes = [
    },
    {
     path: 'business',
-    component: PageFormBusinessComponent
+    component: PageFormBusinessComponent,
+    canActivate: [AuthGuardService]
    }
 ];
 

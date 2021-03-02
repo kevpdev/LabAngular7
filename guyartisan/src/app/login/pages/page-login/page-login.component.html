@@ -11,6 +11,11 @@
               </div>
               <div class="col-xl-12 col-12">
                 <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
+                <div *ngIf="loginForm.controls['email'].invalid  && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="alert alert-danger" role="alert">
+                  <div *ngIf="loginForm.controls['email'].errors.required">
+                    Veuillez saisir au moins 13 caractères
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -21,6 +26,11 @@
               </div>
               <div class="col-xl-12 col-12">
                 <input type="password" class="form-control" id="password" formControlName="password" placeholder="Mot de passe">
+                <div *ngIf="loginForm.controls['password'].invalid  && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="alert alert-danger" role="alert">
+                  <div *ngIf="loginForm.controls['password'].errors.required">
+                    Veuillez saisir au moins 6 caractères
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -28,11 +38,21 @@
             <div id="formFooter">
               <div class="form-group row">
                 <div class="col-xl-12 col-12">
-                  <button type="submit" class="btn btn-primary">Connexion</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Connexion</button>
                 </div>
-                <div class="col-xl-12 col-12"></div>
-                <a class="underlineHover" routerLinkActive="active" [routerLink]="['signup']">Mot de passe oublié ?</a>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-xl-12 col-12"></div>
+              <a class="underlineHover">Mot de passe oublié ?</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-xl-12 col-12"></div>
+              <a class="underlineHover" (click)="signUp()"> Pas encore de compte ?</a>
             </div>
           </div>
         </form>

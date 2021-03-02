@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
   }
 
   signIn(){
-    console.log('sigin');
     this.router.navigate(['\login']);
   }
 

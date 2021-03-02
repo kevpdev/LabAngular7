@@ -25,7 +25,7 @@ export class PageLoginComponent implements OnInit {
 
   initLoginForm(){
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.minLength(13)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -47,6 +47,10 @@ export class PageLoginComponent implements OnInit {
       }
     );
 
+  }
+
+  signUp(){
+    this.router.navigate(['signup']);
   }
 
 }
