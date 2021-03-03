@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Mon Entreprise</h1>
   <hr />
- <div *ngIf="!enableEditBusiness" id="add-business-bloc">
+ <div *ngIf="!enableEditBusiness || addBusiness" id="add-business-bloc">
   <div class="row">
     <div class="col-xl-6 col-6">
       <button type="button" class="btn btn-success" routerLinkActive="active" routerLink="add"> Ajouter</button>

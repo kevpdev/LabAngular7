@@ -2,7 +2,7 @@ import { Adress } from './adress';
 import { Comment } from './comment';
 
 export class Business {
-  id: number;
+  id: string;
   name: string;
   sector: string;
   siret: string;
@@ -18,7 +18,10 @@ export class Business {
 
   constructor(obj?: Partial<Business>) {
     if (obj) {
-      Object.assign(this, obj);
+      Object.assign(this, obj, {
+        // adress: Object.assign({}, obj.adress)
+      });
+
     }
   }
 

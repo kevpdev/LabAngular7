@@ -1,71 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ObservedValuesFromArray, Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { BusinessModule } from '../business.module';
+import firebase from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusinessService {
 
-  // businesses = [
-  //   {
-  //     id: 1,
-  //     name: 'SARL GERAULD ERIC',
-  //     siret: '500-855-762',
-  //     phone1: '0240568457',
-  //     email: 'contact@geraud-eric.com',
-  //     website: 'Geraud-eric.fr',
-  //     adress: {
-  //       nameStreet: '5 rue Fleur de Lys',
-  //       zipCode: '44400',
-  //       city: 'Reze',
-  //       pays: 'France'
-  //     }
-  //   }
-  // ];
+  usersCollection =  this.db.collection('users');
 
-  businesses: Business[] = [];
+  currentUid =  firebase.auth().currentUser.uid;
 
-  businessesSubject = new Subject<any[]>();
+  constructor(private db: AngularFirestore) { }
 
-  constructor() { }
-
-  emitBusinesses(){
-    this.businessesSubject.next(this.businesses);
+  getBusinesses(){
+    return this.usersCollection.doc(this.currentUid).collection('businesses').snapshotChanges();
   }
 
-  getBusiness(){
-   // return this.businesses[0];
-  //  return new Observable((observer) => {
-  //   if(this.businesses && this.businesses.length > 0){
-  //     observer.next(this.businesses);
-  //     observer.complete();
-  //   }else{
-  //     const error = new Error('Businesses does not exist or is empty');
-  //     observer.error(error);
-  //   }
-  //  });
-  }
 
   createBusiness(business: Business){
-    console.log(business);
-    this.businesses.push(business);
-  }
 
-  updateBusiness(business){
+    const newUserId = this.db.createId();
 
-    this.businesses.forEach((element, index) =>{
-
-      if(element.id === index){
-        this.businesses[index] = business;
-      }
-    });
+    return  this.usersCollection.doc(this.currentUid).collection('businesses').doc(newUserId).set(Object.assign({}, business));
 
   }
 
-  deleteBusiness(index){
-    this.businesses.splice(index, 1);
+  updateBusiness(business: Business){
+    console.log(business.id);
+    return  this.usersCollection.doc(this.currentUid).collection('businesses').doc(business.id).update(Object.assign({}, business));
+
+  }
+
+  deleteBusiness(business: Business){
+    return this.usersCollection.doc(this.currentUid).collection('businesses').doc(business.id).delete();
   }
 
 }

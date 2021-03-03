@@ -12,10 +12,11 @@ import { BusinessService } from '../../services/business.service';
 })
 export class PageBusinessComponent implements OnInit, OnDestroy {
 
-  businesses: Business[];
+  businesses: Business[] =[];
  // mainBusiness: Business;
   businessSubscription: Subscription;
   enableEditBusiness = false;
+  addBusiness = true;
 
 
   constructor(
@@ -23,27 +24,26 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.businessSubscription = this.businessService.businessesSubject.subscribe(
-      (data: any) => {
-        this.businesses = data;
-      },
-      (error) => {
-        console.error(error);
+
+    this.businessSubscription = this.businessService.getBusinesses().subscribe( data => {
+      this.businesses = data.map(e => {
+        return {
+         id: e.payload.doc.id,
+         ...e.payload.doc.data()
+       } as Business;
+     });
+      console.log(this.businesses);
+      if (this.businesses.length > 0){
+      this.addBusiness = false;
+      this.enableEdit();
+
       }
-    );
-    this.businessService.emitBusinesses();
- //   this.mainBusiness = this.businesses[0];
-    console.log(this.businesses);
-
-    this.enableEdit();
-
+   });
 
   }
 
   onDeleteBusiness(index){
-    console.log(this.businesses.length);
-    this.businessService.deleteBusiness(index);
-    console.log(this.businesses.length);
+    this.businessService.deleteBusiness(this.businesses[index]);
     this.enableEditBusiness = false;
   }
 

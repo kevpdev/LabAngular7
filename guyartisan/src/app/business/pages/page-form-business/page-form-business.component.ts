@@ -21,6 +21,7 @@ export class PageFormBusinessComponent implements OnInit {
   businesses: Business[];
   editBusiness = false;
   logoUpload: any;
+  currentIdEdit: string;
 
 
   constructor(
@@ -39,20 +40,18 @@ export class PageFormBusinessComponent implements OnInit {
     if(this.route){
       this.route.params.subscribe(param =>
         {
-        let id = param['id'];
+        const id = param.id;
 
         if(id){
-          this.businessSubscription = this.businessService.businessesSubject.subscribe(
-            (data: any) => {
-              this.businesses = data;
-            },
-            (error) => {
-              console.error(error);
-            }
-          );
-          this.businessService.emitBusinesses();
-
-          this.initEditForm( this.businesses[id]);
+           this.businessService.getBusinesses().subscribe( data => {
+            this.businesses = data.map(e => {
+              return {
+               id: e.payload.doc.id,
+               ...e.payload.doc.data()
+             } as Business;
+           });
+            this.initEditForm( this.businesses[id]);
+         });
         }
       });
     }
@@ -82,22 +81,22 @@ export class PageFormBusinessComponent implements OnInit {
 
   onSaveBusiness(){
      const newBusiness = new Business();
-     newBusiness.id = 0;
-     newBusiness.name = this.businessForm.get('businessName').value;
-     newBusiness.sector = this.businessForm.get('sector').value;
-     newBusiness.siret = this.businessForm.get('siret').value;
-     newBusiness.phone1 = this.businessForm.get('phone').value;
-     console.log(this.logoUpload);
-     newBusiness.logo = this.logoUpload;
+
+     newBusiness.name = this.businessForm.get('businessName').value || null;
+     newBusiness.sector = this.businessForm.get('sector').value || null;
+     newBusiness.siret = this.businessForm.get('siret').value || null;
+     newBusiness.phone1 = this.businessForm.get('phone').value || null;
+     newBusiness.logo = this.logoUpload || null;
      const newAdress = new Adress();
-     newAdress.nameStreet = this.businessForm.get('adress').value;
-     newAdress.additionalAdress = this.businessForm.get('additionalAdress').value;
-     newAdress.zipCode = this.businessForm.get('zipCode').value;
-     newAdress.city = this.businessForm.get('city').value;
-     newAdress.pays = this.businessForm.get('pays').value;
-     newBusiness.adress = newAdress;
-     newBusiness.email = this.businessForm.get('email').value;
-     newBusiness.website = this.businessForm.get('website').value;
+     newAdress.nameStreet = this.businessForm.get('adress').value || null;
+     newAdress.additionalAdress = this.businessForm.get('additionalAdress').value || null;
+     newAdress.zipCode = this.businessForm.get('zipCode').value || null;
+     newAdress.city = this.businessForm.get('city').value || null;
+     newAdress.pays = this.businessForm.get('pays').value || null;
+     newBusiness.adress = Object.assign({}, newAdress) || null;
+     newBusiness.email = this.businessForm.get('email').value || null;
+     newBusiness.website = this.businessForm.get('website').value || null;
+     newBusiness.id = this.currentIdEdit;
 
      console.log('newBusiness : ', newBusiness);
      if(this.editBusiness){
@@ -109,6 +108,7 @@ export class PageFormBusinessComponent implements OnInit {
   }
 
   initEditForm(business: Business){
+    console.log(business);
     this.businessForm.get('businessName').setValue(business.name);
     this.businessForm.get('sector').setValue(business.sector);
     this.businessForm.get('siret').setValue(business.siret);
@@ -122,6 +122,7 @@ export class PageFormBusinessComponent implements OnInit {
     this.businessForm.get('website').setValue(business.website);
     this.logoUpload = business.logo;
     this.editBusiness = true;
+    this.currentIdEdit = business.id;
   }
 
   handleFileInput(event){
