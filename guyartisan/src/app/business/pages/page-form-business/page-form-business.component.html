@@ -9,8 +9,8 @@
         <form [formGroup]="businessForm" (ngSubmit)="onSaveBusiness()">
           <h5>Société :</h5>
           <hr />
-          <div class="form-group">
-            <label for="businessName">Nom de la société : </label>
+          <div class="form-group required">
+            <label class="control-label" for="businessName">Nom de la société : </label>
             <input
               type="text"
               id="businessName"
@@ -18,8 +18,8 @@
               class="form-control"
             />
           </div>
-          <div class="form-group">
-            <label for="sector">Secteur : </label>
+          <div class="form-group required">
+            <label class="control-label" for="sector">Secteur : </label>
             <select formControlName="sector" id="sector" class="custom-select">
               <option value="">Veuillez selectionner</option>
               <option *ngFor="let sector of sectors" [ngValue]="sector">
@@ -28,16 +28,28 @@
             </select>
           </div>
           <div class="form-group">
-            <input
-              type="file"
-              id="BusinessLogo"
-              name="BusinessLogo"
-              accept="image/png, image/jpeg"
-              (change)="handleFileInput($event)"
-            />
+            <div *ngIf="logoUrl">
+              <img [src]="logoUrl" class="img-fluid" />
+              <div *ngIf="limiteSizeError" class="alert alert-danger" role="alert">
+                Le taille du fichier ne doit pas depasser 2 Mo
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="siret">N° SIRET : </label>
+            <input
+              type="file"
+              class=""
+              id="businessLogo"
+              name="businessLogo"
+              accept="image/png, image/jpeg"
+              (change)="onUploadFile($event)"
+            />
+            <div class="spinner-border text-dark" role="status" *ngIf="logoUploading">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label" for="siret">N° SIRET : </label>
             <input
               type="text"
               id="siret"
@@ -48,7 +60,7 @@
           <h5>Coordonnées :</h5>
           <hr />
           <div class="form-group">
-            <label for="phone">Téléphone : </label>
+            <label class="control-label" for="phone">Téléphone : </label>
             <input
               type="number"
               id="phone"
@@ -57,7 +69,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="adress">Adresse : </label>
+            <label class="control-label" for="adress">Adresse : </label>
             <input
               type="text"
               id="adress"
@@ -66,7 +78,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="additionalAdress">Complément d'adresse : </label>
+            <label class="control-label" for="additionalAdress">Complément d'adresse : </label>
             <input
               type="text"
               id="additionalAdress"
@@ -75,7 +87,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="zipCode">Code Postal : </label>
+            <label class="control-label" for="zipCode">Code Postal : </label>
             <input
               type="text"
               id="zipCode"
@@ -84,7 +96,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="city">Ville : </label>
+            <label class="control-label" for="city">Ville : </label>
             <input
               type="text"
               id="city"
@@ -93,7 +105,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="pays">Pays : </label>
+            <label class="control-label" for="pays">Pays : </label>
             <input
               type="text"
               id="pays"
@@ -101,8 +113,8 @@
               class="form-control"
             />
           </div>
-          <div class="form-group">
-            <label for="email">Email : </label>
+          <div class="form-group required">
+            <label class="control-label" for="email">Email : </label>
             <input
               type="text"
               id="email"
@@ -111,7 +123,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="website">Site web : </label>
+            <label class="control-label" for="website">Site web : </label>
             <input
               type="text"
               id="website"
@@ -119,15 +131,25 @@
               class="form-control"
             />
           </div>
+          <div class="form-group">
+            <label class="control-label" for="openingHours">Horaires : </label>
+            <input
+              type="textarea"
+              id="openingHours"
+              formControlName="openingHours"
+              class="form-control"
+              placeholder="Veuillez saisir vos horaires"
+            />
+          </div>
           <!-- <h5>Horaire : </h5>
               <hr>
               <div class="form-group">
-                <label for="dayA">Du : </label>
+                <label class="control-label" for="dayA">Du : </label>
                 <select  formControlName="dayA" id="dayA" class="custom-select">
                   <option value="">Veuillez selectionner</option>
                   <option *ngFor="let day of days" [ngValue]="day">{{day}}</option>
                 </select>
-                <label for="dayB">au : </label>
+                <label class="control-label" for="dayB">au : </label>
                 <select  formControlName="dayB" id="dayB" class="custom-select">
                   <option value="">Veuillez selectionner</option>
                   <option *ngFor="let day of days" [ngValue]="day">{{day}}</option>
@@ -136,14 +158,14 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-xl-6 col-6">
-                    <label for="hourA">De : </label>
+                    <label class="control-label" for="hourA">De : </label>
                     <select  formControlName="hourA" id="hourA" class="custom-select">
                       <option value="">Veuillez selectionner</option>
                       <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
                     </select><p> Heure</p>
                   </div>
                   <div class="col-xl-6 col-6">
-                    <label for="hourB">à : </label>
+                    <label class="control-label" for="hourB">à : </label>
                     <select  formControlName="hourB" id="hourB" class="custom-select">
                       <option value="">Veuillez selectionner</option>
                       <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
@@ -152,7 +174,7 @@
                 </div>
               </div> -->
 
-          <button class="form-control" type="submit" class="btn btn-primary">
+          <button class="form-control" type="submit" class="btn btn-primary" [disabled]="businessForm.invalid">
             Enregistrer
           </button>
         </form>

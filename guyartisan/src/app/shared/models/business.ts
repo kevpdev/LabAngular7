@@ -7,14 +7,15 @@ export class Business {
   sector: string;
   siret: string;
   phone1: string;
-  phone2: string;
+  phone2?: string;
   email: string;
   website: string;
-  website2: string;
+  website2?: string;
   adress: Adress;
-  comments: Comment [];
-  nbStar: number;
-  logo: any;
+  comments?: Comment [];
+  nbStar?: number;
+  logo?: any;
+  openingHours?: string;
 
   constructor(obj?: Partial<Business>) {
     if (obj) {

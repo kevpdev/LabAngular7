@@ -10,12 +10,16 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/home">Accueil</a>
         </li>
+        <li *ngIf="loggin" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/business">Mon Entreprise</a>
+        </li>
         <li *ngIf="loggin" class="nav-item">
           <a class="nav-link" (click)="signOutUser()">Déconnexion</a>
         </li>
         <li *ngIf="!loggin" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/login">Accès pro</a>
         </li>
+
       </ul>
     </div>
   </div>
