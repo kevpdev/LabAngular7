@@ -17,6 +17,23 @@
               formControlName="businessName"
               class="form-control"
             />
+            <div *ngIf="businessForm.controls['businessName'].invalid  && (businessForm.controls['businessName'].dirty || businessForm.controls['businessName'].touched)" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['businessName'].errors.required">
+                Ce champ est obligatoire
+              </div>
+              <div *ngIf="businessForm.controls['businessName'].errors.pattern">
+                <p>La dénomination sociale peut être constituée :</p>
+                <p>- de chiffres,</p>
+                <p> - de lettres ou de mots de l'alphabet latin,</p>
+                <p>- de chiffres arabes ou romains.</p>
+                <p>- le "@" toléré car assimilé à la lettre "a"</p>
+                <p>En revanche, le nom de l'entreprise ne doit pas comporter des signes tels que :</p>
+                <p>- le diese "#".</p>
+                <p>- les symboles monétaires ("$", "£", "€").</p>
+                <p>- les barres ("\", "/")</p>
+               <p>- les astérisques ("*").</p>
+              </div>
+            </div>
           </div>
           <div class="form-group required">
             <label class="control-label" for="sector">Secteur : </label>
@@ -26,6 +43,11 @@
                 {{ sector }}
               </option>
             </select>
+            <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['sector'].errors.required">
+                Ce champ est obligatoire
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <div *ngIf="logoUrl">
@@ -56,17 +78,30 @@
               formControlName="siret"
               class="form-control"
             />
+            <div *ngIf="businessForm.controls['siret'].invalid  && (businessForm.controls['siret'].dirty || businessForm.controls['siret'].touched)" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['siret'].errors.required">
+                Ce champ est obligatoire
+              </div>
+              <div *ngIf="businessForm.controls['siret'].errors.pattern">
+                Les 14 numéros du SIRET sont requis
+              </div>
+            </div>
           </div>
           <h5>Coordonnées :</h5>
           <hr />
           <div class="form-group">
             <label class="control-label" for="phone">Téléphone : </label>
             <input
-              type="number"
+              type="text"
               id="phone"
               formControlName="phone"
               class="form-control"
             />
+            <div *ngIf="businessForm.controls['phone'].invalid  && (businessForm.controls['phone'].dirty || businessForm.controls['phone'].touched)" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['phone'].errors.pattern">
+                Les 10 chiffres du numéros de téléphone sont requis
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="control-label" for="adress">Adresse : </label>
@@ -93,7 +128,11 @@
               id="zipCode"
               formControlName="zipCode"
               class="form-control"
+              (change)="getCityByZipCode($event)"
             />
+            <div *ngIf="cityUnknowError" class="alert alert-danger" role="alert">
+              Aucune ville trouvée pour ce code postal
+            </div>
           </div>
           <div class="form-group">
             <label class="control-label" for="city">Ville : </label>
@@ -121,6 +160,14 @@
               formControlName="email"
               class="form-control"
             />
+            <div *ngIf="businessForm.controls['email'].invalid  && (businessForm.controls['email'].dirty || businessForm.controls['email'].touched)" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['email'].errors.required">
+                Ce champ est obligatoire
+              </div>
+              <div *ngIf="businessForm.controls['email'].errors.email">
+                Email non valide
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="control-label" for="website">Site web : </label>

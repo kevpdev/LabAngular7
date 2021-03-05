@@ -26,6 +26,7 @@ export class PageFormBusinessComponent implements OnInit {
   logoUploded = false;
   logoUrl: string;
   limiteSizeError = false;
+  cityUnknowError = false;
 
   constructor(
     private router: Router,
@@ -64,16 +65,16 @@ export class PageFormBusinessComponent implements OnInit {
 
   initForm(){
    this.businessForm =  this.formBuilder.group({
-      businessName: ['', Validators.required],
+      businessName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9@_'& -]{1,20}$/)]],
       sector: ['', Validators.required],
-      siret: ['', Validators.required],
-      phone: ['',],
+      siret: ['',  [Validators.required, Validators.pattern(/^[0-9]{14}$/)]],
+      phone: ['',  Validators.pattern(/^[0-9]{10}$/)],
       adress: [''],
       additionalAdress: [''],
-      zipCode: [''],
-      city: [''],
-      pays: [''],
-      email: ['', Validators.required],
+      zipCode: ['',  Validators.pattern(/^[0-9]{5}$/)],
+      city: [{value: '', disabled: true}],
+      pays: ['France'],
+      email: ['',  [Validators.required, Validators.email]],
       website: [''],
       businessLogo: [''],
       openingHours: ['']
@@ -86,10 +87,12 @@ export class PageFormBusinessComponent implements OnInit {
   }
 
   onSaveBusiness(){
+
+     console.log(this.businessForm.invalid);
      const newBusiness = new Business();
 
      newBusiness.id = this.currentIdEdit;
-     newBusiness.name = this.businessForm.get('businessName').value || null;
+     newBusiness.name = this.businessForm.get('businessName').value.toUpperCase() || null;
      newBusiness.sector = this.businessForm.get('sector').value || null;
      newBusiness.siret = this.businessForm.get('siret').value || null;
      newBusiness.phone1 = this.businessForm.get('phone').value || null;
@@ -160,6 +163,22 @@ export class PageFormBusinessComponent implements OnInit {
       );
     }else{
       this.limiteSizeError = true;
+    }
+  }
+
+  getCityByZipCode(event){
+
+    const codesPostaux = require('codes-postaux');
+    const zipCode = event.target.value;
+    const response = codesPostaux.find(zipCode);
+
+    if(response.length > 0){
+      const city = response[0].libelleAcheminement;
+      console.log(city);
+      this.businessForm.get('city').setValue(city);
+      this.cityUnknowError = false;
+    }else{
+      this.cityUnknowError = true;
     }
   }
 

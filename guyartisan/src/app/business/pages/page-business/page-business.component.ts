@@ -12,7 +12,7 @@ import { BusinessService } from '../../services/business.service';
 })
 export class PageBusinessComponent implements OnInit, OnDestroy {
 
-  businesses: Business[] =[];
+  businesses: Business[] = [];
  // mainBusiness: Business;
   businessSubscription: Subscription;
   enableEditBusiness = false;
