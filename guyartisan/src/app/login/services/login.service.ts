@@ -35,10 +35,7 @@ export class LoginService {
           () => {
             console.log('connecté');
           }
-        ).catch(
-          (error) => {
-            console.log(error);
-          }
+        
         );
 
   }

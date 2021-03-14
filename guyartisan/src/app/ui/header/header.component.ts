@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
     firebase.auth().onAuthStateChanged(
       (user) =>{
         if(user){
+          console.log(user)
           this.loggin = true;
           console.log(this.loggin);
           console.log(user);

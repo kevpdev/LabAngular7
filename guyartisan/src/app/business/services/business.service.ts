@@ -20,6 +20,7 @@ export class BusinessService {
   constructor(private db: AngularFirestore) { }
 
   getBusinesses(){
+    console.log(this.currentUid)
     return this.usersCollection.doc(this.currentUid).collection('businesses').snapshotChanges();
   }
 

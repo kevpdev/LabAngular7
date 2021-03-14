@@ -11,6 +11,7 @@ import { LoginService } from '../../services/login.service';
 export class PageLoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  invalidSignIn = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +27,7 @@ export class PageLoginComponent implements OnInit {
   initLoginForm(){
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.minLength(13)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]], 
     });
   }
 
@@ -44,6 +45,7 @@ export class PageLoginComponent implements OnInit {
     ).catch(
       (error) => {
         console.log(error);
+        this.invalidSignIn = true;
       }
     );
 

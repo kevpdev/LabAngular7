@@ -40,6 +40,9 @@
                 <div class="col-xl-12 col-12">
                   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Connexion</button>
                 </div>
+                <div *ngIf="invalidSignIn" class="alert alert-danger" role="alert">
+                 Email ou mot de passe invalide !
+                </div>
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@
           <div class="row">
             <div class="form-group row">
               <div class="col-xl-12 col-12">
-                <label for="inputEmail3" class="form-label">Email</label>
+                <label for="email" class="form-label">Email</label>
               </div>
               <div class="col-xl-12 col-12">
                 <input type="email" class="form-control" id="email" formControlName="email" placeholder="Veuillez entre un email">
@@ -17,7 +17,7 @@
           <div class="row">
             <div class="form-group row">
               <div class="col-xl-12 col-12">
-                <label for="inputPassword3" class="col-form-label">Mot de passe</label>
+                <label for="password" class="col-form-label">Mot de passe</label>
               </div>
               <div class="col-xl-12 col-12">
                 <input type="password" class="form-control" id="password" formControlName="password" placeholder="Veuillez entrer un mot de passe">
@@ -25,10 +25,28 @@
             </div>
           </div>
           <div class="row">
+            <div class="form-group row">
+              <div class="col-xl-12 col-12">
+                <label for="passwordConfirmation" class="col-form-label">Retapez votre mot de passe</label>
+              </div>
+              <div class="col-xl-12 col-12">
+                <input type="password" class="form-control" id="passwordConfirmation" formControlName="passwordConfirmation" placeholder="Veuillez confirmer le mot de passe">
+              </div>
+            </div>
+            <div *ngIf="signUpForm.controls['passwordConfirmation'].invalid  && (signUpForm.controls['passwordConfirmation'].dirty || signUpForm.controls['passwordConfirmation'].touched)" class="alert alert-danger" role="alert">               
+                <div *ngIf="f.passwordConfirmation.errors.required" class="alert alert-danger" role="alert">
+                  Ce champ est obligatoire
+               </div>
+               <div *ngIf="f.passwordConfirmation.errors.confirmedValidator" class="alert alert-danger" role="alert">
+                Le mot de passe n'est pas le même
+               </div>
+            </div>
+          </div>
+          <div class="row">
             <div id="formFooter">
               <div class="form-group row">
                 <div class="col-xl-12 col-12">
-                  <button type="submit" class="btn btn-primary">Créer le compte</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Créer le compte</button>
                 </div>
                 <div class="col-xl-12 col-12"></div>
               </div>

@@ -167,7 +167,7 @@ export class PageFormBusinessComponent implements OnInit {
   }
 
   getCityByZipCode(event){
-
+    console.log('event zipcode ici');
     const codesPostaux = require('codes-postaux');
     const zipCode = event.target.value;
     const response = codesPostaux.find(zipCode);
