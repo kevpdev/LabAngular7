@@ -10,11 +10,11 @@ import { BusinessService } from '../../services/business.service';
   templateUrl: './page-business.component.html',
   styleUrls: ['./page-business.component.scss']
 })
-export class PageBusinessComponent implements OnInit, OnDestroy {
+export class PageBusinessComponent implements OnInit {
 
   businesses: Business[] = [];
- // mainBusiness: Business;
-  businessSubscription: Subscription;
+
+
   enableEditBusiness = false;
   addBusiness = true;
 
@@ -25,7 +25,7 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.businessSubscription = this.businessService.getBusinesses().subscribe( data => {
+    this.businessService.getBusinesses().subscribe( data => {
       this.businesses = data.map(e => {
         return {
          id: e.payload.doc.id,
@@ -47,14 +47,12 @@ export class PageBusinessComponent implements OnInit, OnDestroy {
     this.enableEditBusiness = false;
   }
 
-
-
-  ngOnDestroy(){
-    this.businessSubscription.unsubscribe();
-  }
-
   enableEdit() {
     this.enableEditBusiness = this.businesses.length > 0;
+  }
+
+  onNavigate(website: string){
+    window.location.href=website;
   }
 
 }
