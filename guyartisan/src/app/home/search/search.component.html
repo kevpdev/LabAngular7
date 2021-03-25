@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <input id="searchCity" class="form-control"  formControlName="searchCity" formname (keyup)="getCityKeyPress($event)" placeholder="Ville ou code postal">
                                 <ul class="list-group">
-                                    <li *ngFor="let city of cities" class="list-group-item">{{city.code}} {{city.city}}</li>
+                                    <li *ngFor="let city of cities; let i = index" [attr.data-index]="i" class="list-group-item" (click)="onCitySelected($event)">{{city.code}} {{city.city}}</li>
                                 </ul>
                             </div>
                         </div>

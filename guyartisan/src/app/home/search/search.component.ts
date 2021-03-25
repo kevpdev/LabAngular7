@@ -43,7 +43,11 @@ export class SearchComponent implements OnInit {
       })      
     }
 
+  }
 
+  onCitySelected(event){
+    const cityValue = event.target.innerHTML
+    this.homeSearchForm.get('searchCity').setValue(cityValue);
   }
 
 }
