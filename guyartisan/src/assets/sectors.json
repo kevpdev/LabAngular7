@@ -1,6 +1,8 @@
 
-    {
-        "Bâtiment": [
+    [
+      {
+        "sectorName": "Bâtiment",
+        "jobs": [
             "Canalisateur",
             "Carreleur-mosaïste",
             "Charpentier",
@@ -25,8 +27,11 @@
             "Solier Moquettiste",
             "Staffeur - stucateur",
             "Tailleur de pierre"
-        ],
-        "Service à la personne": [
+        ]
+      },
+      {
+        "sectorName": "Service à la personne",
+        "jobs": [
             "Coiffeur",
             "Cordonnier",
             "Crémateur animalier",
@@ -36,32 +41,41 @@
             "Teinturier-pressing",
             "Toiletteur d’animaux de compagnie"
 
-        ],
-        "Transport": [
+        ]
+      },
+      {
+        "sectorName": "Transport",
+        "jobs": [
             "Ambulancier",
             "Carrossier",
             "Controleur technique",
             "Mécanicien automobile",
             "Mécanicien cycles et motocycles",
             "Taxi/VTC"
-        ],
-        "Alimentation": [
-           "Boucher",
-           "Boulanger",
-           "Charcutier",
-           "Chocolatier",
-           "Confiseur",
-           "Crêpier",
-           "Ecailler",
-           "Glacier",
-           "Pâtissier",
-           "Poissonnier",
-           "Traiteur",
-           "Tripier",
-           "Vendeur en alimentation",
-           "Volailler"
-        ],
-        "Mode et beauté": [
+        ]
+      },
+      {
+        "sectorName": "Alimentation",
+        "jobs":[
+            "Boucher",
+            "Boulanger",
+            "Charcutier",
+            "Chocolatier",
+            "Confiseur",
+            "Crêpier",
+            "Ecailler",
+            "Glacier",
+            "Pâtissier",
+            "Poissonnier",
+            "Traiteur",
+            "Tripier",
+            "Vendeur en alimentation",
+            "Volailler"
+         ]
+      },
+      {
+        "sectorName": "Mode et beauté",
+        "jobs": [
             "Bijoutier, Joailler",
             "Bonnetier",
             "Bottier",
@@ -81,15 +95,21 @@
             "Sertisseur",
             "Tailleur"
 
-        ],
-        "Santé": [
+        ]
+      },
+      {
+        "sectorName": "Santé",
+        "jobs": [
             "Ambulancier",
             "Embaumeur",
             "Orthoprothésiste",
             "Podo-orthésiste",
             "Prothésiste dentaire"
-        ],
-        "Fabrication/Maintenance": [
+        ]
+      },
+      {
+        "sectorName": "Fabrication/Maintenance",
+        "jobs": [
             "Accordeur de piano",
             "Chaudronnier",
             "Coutelier",
@@ -121,6 +141,7 @@
             "Tourneur sur bois",
             "Tuyautier en orgues"
         ]
-            
+      }
+               
         
-    }
+    ]

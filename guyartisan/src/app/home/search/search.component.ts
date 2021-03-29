@@ -12,34 +12,39 @@ export class SearchComponent implements OnInit {
 
   homeSearchForm: FormGroup;
   cities: any[];
+  sectors: any[];
+  jobs: any[];
   constructor(private formBuilder: FormBuilder, private utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.initForm();
+
+    this.utilsService.getSectors().subscribe((data: any[]) =>{
+     this.sectors = data;
+    })
   }
 
   initForm(){
     this.homeSearchForm = this.formBuilder.group({
       searchSector: [''],
-      searchCity: ['']
+      searchCity: [''],
+      searchJob: ['']
     })
   }
 
   onSubmitHomeSearchForm(){
     const sector = this.homeSearchForm.get('searchSector').value;
+    const job = this.homeSearchForm.get('searchJob').value;
     const city = this.homeSearchForm.get('searchCity').value;
-      console.log(sector, city);
+    console.log(sector, job, city);
   }
 
   getCityKeyPress(event){
-    console.log('event zipcode ici');
     let input = event.target.value;
     let inputDomFilter = input.substring(0,2) === '97';
     if(input.length > 1){
-      console.log('ici');
       this.utilsService.getCities(input).subscribe((data: any) => {    
         this.cities = data.cities;
-        console.log(this.cities);
       })      
     }
 
@@ -48,6 +53,12 @@ export class SearchComponent implements OnInit {
   onCitySelected(event){
     const cityValue = event.target.innerHTML
     this.homeSearchForm.get('searchCity').setValue(cityValue);
+  }
+
+  onChangeSector(event){
+    const sectorSelectValue = event.target.value;
+    this.jobs = this.sectors[sectorSelectValue].jobs;
+
   }
 
 }

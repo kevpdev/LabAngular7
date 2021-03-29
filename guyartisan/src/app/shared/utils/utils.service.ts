@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+//import JsonSectors from '../../../assets/sectors.json';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class UtilsService {
    */
   public getCities(input: any): Observable<any>{
     return this.httpClient.get(this.VICOPO_SEARCH_URI+input);
+  }
+
+  getSectors(){
+    return this.httpClient.get('../../../assets/sectors.json');
   }
 }
