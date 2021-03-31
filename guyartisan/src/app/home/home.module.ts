@@ -2,21 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { SearchComponent } from './search/search.component';
-import { BusinessesComponent } from './businesses/businesses.component';
+import { PageResultSearchComponent } from './page/page-result-search/page-result-search.component';
+import { PageSearchComponent } from './page/page-search/page-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
-
 
 
 @NgModule({
-  declarations: [SearchComponent, BusinessesComponent],
+  declarations: [PageResultSearchComponent, PageSearchComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    FormsModule,
+    HomeRoutingModule, 
     ReactiveFormsModule,
-    SharedModule
+    FormsModule
   ]
 })
 export class HomeModule { }

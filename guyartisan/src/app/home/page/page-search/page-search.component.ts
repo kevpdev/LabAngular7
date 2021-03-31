@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { cpuUsage } from 'process';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Critere } from 'src/app/shared/models/critere';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-page-search',
+  templateUrl: './page-search.component.html',
+  styleUrls: ['./page-search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class PageSearchComponent implements OnInit {
 
   homeSearchForm: FormGroup;
   cities: any[];
   sectors: any[];
   jobs: any[];
-  constructor(private formBuilder: FormBuilder, private utilsService: UtilsService) { }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private utilsService: UtilsService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -26,10 +32,10 @@ export class SearchComponent implements OnInit {
 
   initForm(){
     this.homeSearchForm = this.formBuilder.group({
-      searchSector: [''],
-      searchCity: [''],
+      searchSector: ['', Validators.required],
+      searchCity: ['', Validators.required],
       searchJob: ['']
-    })
+    });
   }
 
   onSubmitHomeSearchForm(){
@@ -37,6 +43,8 @@ export class SearchComponent implements OnInit {
     const job = this.homeSearchForm.get('searchJob').value;
     const city = this.homeSearchForm.get('searchCity').value;
     console.log(sector, job, city);
+    this.router.navigate(['home/search', sector, job, city])
+    
   }
 
   getCityKeyPress(event){
@@ -60,5 +68,6 @@ export class SearchComponent implements OnInit {
     this.jobs = this.sectors[sectorSelectValue].jobs;
 
   }
+
 
 }
