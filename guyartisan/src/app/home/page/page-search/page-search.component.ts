@@ -39,7 +39,8 @@ export class PageSearchComponent implements OnInit {
   }
 
   onSubmitHomeSearchForm(){
-    const sector = this.homeSearchForm.get('searchSector').value;
+    const indexSector = this.homeSearchForm.get('searchSector').value;
+    const sector = this.sectors[indexSector].sectorName;
     const job = this.homeSearchForm.get('searchJob').value;
     const city = this.homeSearchForm.get('searchCity').value;
     console.log(sector, job, city);

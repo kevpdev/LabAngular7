@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Adress } from 'src/app/shared/models/adress';
 import { Business } from 'src/app/shared/models/business';
+import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { BusinessService } from '../../services/business.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { BusinessService } from '../../services/business.service';
 export class PageFormBusinessComponent implements OnInit {
 
   businessForm: FormGroup;
-  sectors: string[];
+  sectors: any[];
   days: string [];
   hours: number [];
   businessSubscription: Subscription;
@@ -27,19 +28,24 @@ export class PageFormBusinessComponent implements OnInit {
   logoUrl: string;
   limiteSizeError = false;
   cityUnknowError = false;
+  jobs: any[];
+  sectorSelected = false;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private businessService: BusinessService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilsService: UtilsService
 
     ) { }
 
   ngOnInit(): void {
       this.initForm();
-      this.sectors = ['Plombier', 'Carreleur', 'Charpentier', 'Electricien'];
-      this.days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+      this.utilsService.getSectors().subscribe((data: any[]) =>{
+        this.sectors = data;
+       })
+     // this.days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
       if(this.route){
         this.route.params.subscribe(param =>
@@ -77,7 +83,8 @@ export class PageFormBusinessComponent implements OnInit {
       email: ['',  [Validators.required, Validators.email]],
       website: [''],
       businessLogo: [''],
-      openingHours: ['']
+      openingHours: [''],
+      job: ['']
       // dayA: [''],
       // dayB: [''],
       // hourA: [''],
@@ -93,7 +100,10 @@ export class PageFormBusinessComponent implements OnInit {
 
      newBusiness.id = this.currentIdEdit;
      newBusiness.name = this.businessForm.get('businessName').value.toUpperCase() || null;
-     newBusiness.sector = this.businessForm.get('sector').value || null;
+     const indexSector = this.businessForm.get('sector').value || null;
+     const sector = indexSector != null ? this.sectors[indexSector].sectorName : null;
+     newBusiness.sector = sector || null;
+     newBusiness.job = this.businessForm.get('job').value || null;
      newBusiness.siret = this.businessForm.get('siret').value || null;
      newBusiness.phone1 = this.businessForm.get('phone').value || null;
      newBusiness.logo = this.logoUrl ? this.logoUrl : null;
@@ -121,6 +131,7 @@ export class PageFormBusinessComponent implements OnInit {
     console.log(business);
     this.businessForm.get('businessName').setValue(business.name);
     this.businessForm.get('sector').setValue(business.sector);
+    this.businessForm.get('sector').setValue(business.job);
     this.businessForm.get('siret').setValue(business.siret);
     this.businessForm.get('phone').setValue(business.phone1);
     this.businessForm.get('adress').setValue(business.adress.nameStreet);
@@ -180,6 +191,12 @@ export class PageFormBusinessComponent implements OnInit {
     }else{
       this.cityUnknowError = true;
     }
+  }
+
+  onChangeSector(event){
+    const sectorSelectValue = event.target.value;
+    this.jobs = this.sectors[sectorSelectValue].jobs;
+    this.sectorSelected = true;
   }
 
 }

@@ -37,15 +37,29 @@
           </div>
           <div class="form-group required">
             <label class="control-label" for="sector">Secteur : </label>
-            <select formControlName="sector" id="sector" class="custom-select">
-              <option value="">Veuillez selectionner</option>
-              <option *ngFor="let sector of sectors" [ngValue]="sector">
-                {{ sector }}
+            <select formControlName="sector" id="sector" class="custom-select" (change)="onChangeSector($event)">
+              <option *ngFor="let sector of sectors; let i = index" [value]="i">
+                {{ sector.sectorName }}
               </option>
             </select>
             <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger" role="alert">
               <div *ngIf="businessForm.controls['sector'].errors.required">
                 Ce champ est obligatoire
+              </div>
+            </div>
+          </div>
+          <div *ngIf="sectorSelected">
+            <div class="form-group">
+              <label class="control-label" for="job">Métier (Facultatif):  </label>
+              <select formControlName="job" id="job" class="custom-select">
+                <option *ngFor="let job of jobs; let i = index" [value]="job">
+                  {{ job }}
+                </option>
+              </select>
+              <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger" role="alert">
+                <div *ngIf="businessForm.controls['sector'].errors.required">
+                  Ce champ est obligatoire
+                </div>
               </div>
             </div>
           </div>

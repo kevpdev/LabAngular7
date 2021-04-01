@@ -42,10 +42,16 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-xl-6 col-6">
+          <div class="col-xl-6 col-12">
             <h4>{{business.name}}</h4>
+              <div class="col-xl-6 col-12">
+                <p class="font-weight-bold">Secteur/Métier: </p>
+              </div>
+              <div class="col-xl-6 col-12">
+                <p>{{business.sector}} {{business.job}}</p>
+              </div>
           </div>
-          <div class="col-xl-6 col-6">
+          <div class="col-xl-6 col-12">
             <div *ngIf="business.logo !== null ">
               <img [src]="business.logo" class="img-fluid" />
             </div>

@@ -5,6 +5,7 @@ export class Business {
   id: string;
   name: string;
   sector: string;
+  job?: string;
   siret: string;
   phone1: string;
   phone2?: string;

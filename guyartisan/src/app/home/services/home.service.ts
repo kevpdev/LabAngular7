@@ -7,6 +7,7 @@ import { Critere } from 'src/app/shared/models/critere';
 })
 export class HomeService {
 
+  businessesResultSearch: any[];
   constructor(private db: AngularFirestore) { }
 
   getBusinessByCritere(){
@@ -23,9 +24,10 @@ export class HomeService {
      console.log(querySnapshot.docs);
     querySnapshot.forEach(function(doc) {
       console.log(doc.id, " => ", doc.data());
-      doc.ref.collection('collectiontest').onSnapshot(querySnapshot2=>{
+      doc.ref.collection('businesses').where("sector", "==", "Bâtiment").onSnapshot(querySnapshot2=>{
     querySnapshot2.forEach((doc)=> {
       console.log(doc.id, " => ", doc.data());
+      
     })
       });
     });
