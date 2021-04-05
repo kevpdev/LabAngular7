@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
+import { Business } from 'src/app/shared/models/business';
 import { Critere } from 'src/app/shared/models/critere';
 
 @Injectable({
@@ -7,34 +9,40 @@ import { Critere } from 'src/app/shared/models/critere';
 })
 export class HomeService {
 
-  businessesResultSearch: any[];
+  businessesResultSearch: Business[] = [];
+  businessesSubject = new Subject<Business[]>();
   constructor(private db: AngularFirestore) { }
 
-  getBusinessByCritere(){
-    // const shopSnapshot = this.db.collection('users').snapshotChanges();
-    // shopSnapshot.subscribe(data => {
-    //   console.log(data);
-    // })
-   // return this.db.collection('businesses').snapshotChanges();
-   //return snapshot;
-
+  getBusinessByCritere(critere: Critere){
+   let cityArray = critere.city.split(" ");
+   console.log(cityArray);
    const users = this.db.collection('users').ref;
-   users.get()
+    users.get()
    .then(function(querySnapshot) {
-     console.log(querySnapshot.docs);
+     console.log(this);
     querySnapshot.forEach(function(doc) {
-      console.log(doc.id, " => ", doc.data());
-      doc.ref.collection('businesses').where("sector", "==", "Bâtiment").onSnapshot(querySnapshot2=>{
-    querySnapshot2.forEach((doc)=> {
-      console.log(doc.id, " => ", doc.data());
-      
-    })
+      let sectorQuery = doc.ref.collection('businesses').where("sector", "==", critere.sector);
+      let jobQuery = sectorQuery;     
+      if(critere.job){
+        jobQuery = sectorQuery.where("job", "==", critere.job);
+      }
+      let cityQuery = jobQuery.where("adress.zipCode", "==", cityArray[0]).where("adress.city", "==", cityArray[1]);
+      cityQuery.onSnapshot(querySnapshot2=>{
+        querySnapshot2.forEach((doc)=> {
+        console.log(doc.id, " => ", doc.data());
+        console.log(this);
+        this.businessesResultSearch.push(doc.data());
+        });
       });
-    });
-   })
+    }.bind(this));
+   }.bind(this))
    .catch(function(error) {
      console.log("Error getting documents: ", error);
     });
+    
+  }
 
+  emitBusinessByCritere(){
+    this.businessesSubject.next(this.businessesResultSearch);
   }
 }

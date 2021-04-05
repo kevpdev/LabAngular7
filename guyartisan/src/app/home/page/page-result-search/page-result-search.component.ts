@@ -23,7 +23,11 @@ export class PageResultSearchComponent implements OnInit {
       critere.job = params.job;
       console.log(critere);
 
-       this.homeService.getBusinessByCritere();
+       this.homeService.getBusinessByCritere(critere);
+       this.homeService.emitBusinessByCritere();
+       this.homeService.businessesSubject.subscribe(data => {
+        console.log(data);
+       })
 
     })
    
