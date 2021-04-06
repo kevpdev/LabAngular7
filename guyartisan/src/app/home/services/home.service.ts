@@ -17,7 +17,7 @@ export class HomeService {
    let cityArray = critere.city.split(" ");
    console.log(cityArray);
    const users = this.db.collection('users').ref;
-    users.get()
+   return users.get()
    .then(function(querySnapshot) {
      console.log(this);
     querySnapshot.forEach(function(doc) {
@@ -27,14 +27,15 @@ export class HomeService {
         jobQuery = sectorQuery.where("job", "==", critere.job);
       }
       let cityQuery = jobQuery.where("adress.zipCode", "==", cityArray[0]).where("adress.city", "==", cityArray[1]);
-      cityQuery.onSnapshot(querySnapshot2=>{
+     return cityQuery.onSnapshot(querySnapshot2=>{
         querySnapshot2.forEach((doc)=> {
         console.log(doc.id, " => ", doc.data());
-        console.log(this);
         this.businessesResultSearch.push(doc.data());
+        console.log(this.businessesResultSearch);
         });
       });
     }.bind(this));
+    this.emitBusinessByCritere();
    }.bind(this))
    .catch(function(error) {
      console.log("Error getting documents: ", error);
@@ -43,6 +44,7 @@ export class HomeService {
   }
 
   emitBusinessByCritere(){
+    console.log(this.businessesResultSearch);
     this.businessesSubject.next(this.businessesResultSearch);
   }
 }

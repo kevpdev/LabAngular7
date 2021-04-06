@@ -1,12 +1,14 @@
 <div class="content">
-    <div class="row">
+    <div class="row" *ngFor="let business of businesses">
         <div class="col-xl-8">
-            <p>NOM ENTREPRISE</p>
-            <P>Adresse entreprise</P>
-            <p>Code postal ville</p>
+            <P>{{ business.name }}</P>
+            <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
+            <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
         </div>
         <div class="col-xl-4">
-            <img src="" alt="">
+            <div *ngIf="business.logo !== null ">
+                <img [src]="business.logo" class="img-fluid" />
+            </div>
         </div>
     </div>
 </div>

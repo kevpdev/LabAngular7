@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { Critere } from 'src/app/shared/models/critere';
 import { HomeService } from '../../services/home.service';
@@ -11,7 +12,8 @@ import { HomeService } from '../../services/home.service';
 })
 export class PageResultSearchComponent implements OnInit {
 
-  businessess: Business[];
+  businesses: Business[];
+  businessesSubscription: Subscription;
   constructor(private homeService: HomeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -24,9 +26,9 @@ export class PageResultSearchComponent implements OnInit {
       console.log(critere);
 
        this.homeService.getBusinessByCritere(critere);
-       this.homeService.emitBusinessByCritere();
-       this.homeService.businessesSubject.subscribe(data => {
-        console.log(data);
+       this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
+       this.businesses = data;
+       console.log(this.businesses);
        })
 
     })
