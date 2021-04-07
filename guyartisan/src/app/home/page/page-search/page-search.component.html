@@ -1,48 +1,42 @@
 <div class="container">
-    <h1>Bienvenue sur Guyartisan.com</h1>
+    <!-- <h1>Bienvenue sur Guyartisan.com</h1> -->
     <div class="row">
-        <div class="col-xl-2 col-sm-2 col-1"></div>
-        <div class="col-xl-8 col-sm-8 col-10">
             <div id="formContent">
                 <form [formGroup]="homeSearchForm" (submit)="onSubmitHomeSearchForm()" class="form-inline">
-                    <div class="row">
-                        <div class="col-xl-5 col-sm-8 col-12">
-                            <div class="form-group">
-                                <label for="searchSector" class="form-label">Rechercher un secteur : </label>
-                                <select id="searchSector" class="form-control" formControlName="searchSector" (change)="onChangeSector($event)">
-                                    <option *ngFor="let sector of sectors; let i = index" [value]="i">
-                                        {{ sector.sectorName }}
-                                    </option>
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="searchJob" class="form-label">Rechercher un artisan : </label>
-                                <select id="searchJob" class="form-control" formControlName="searchJob" style="width: auto;">
-                                    <option *ngFor="let job of jobs" [ngValue]="job">
-                                        {{ job }}
-                                      </option>
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="searchCity" class="form-label">Rechercher une ville ou un code postal : </label>
-                                <input id="searchCity" class="form-control"  formControlName="searchCity" formname (keyup)="getCityKeyPress($event)" placeholder="Ville ou code postal">
-                                <ul class="list-group">
-                                    <li *ngFor="let city of cities; let i = index" [attr.data-index]="i" class="list-group-item" (click)="onCitySelected($event)">{{city.code}} {{city.city}}</li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <button class="form-control" type="submit" class="btn btn-primary" [disabled]="homeSearchForm.invalid">
-                                    Rerchercher
-                                </button>
-                            </div>
+                    <div class="form-row">
+                        <div class="col-xl-2 col-md-4">
+                            <label for="searchSector" class="form-label custom-label"> Je recherche dans...  </label>
                         </div>
-                    </div>
+                        <div class="col-xl-3 col-md-4">
+                            <select id="searchSector" class="form-control custom" formControlName="searchSector" (change)="onChangeSector($event)">
+                                <option value="">secteur...</option>
+                                <option *ngFor="let sector of sectors; let i = index" [value]="i">
+                                    {{ sector.sectorName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xl-3 col-md-4">
+                            <select id="searchJob" class="form-control custom" formControlName="searchJob">
+                                <option value="">métier...</option>
+                                <option *ngFor="let job of jobs" [ngValue]="job">
+                                    {{ job }}
+                                  </option>
+                            </select>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <input id="searchCity" type="text" class="form-control"  formControlName="searchCity" formname (keyup)="getCityKeyPress($event)" placeholder="Ville ou code postal">
+                            <ul class="list-group" id="city-list">
+                                <li *ngFor="let city of cities; let i = index" [attr.data-index]="i" class="list-group-item" (click)="onCitySelected($event)">{{city.code}} {{city.city}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-1 col-md-6">
+                            <button class="form-control" type="submit" class="btn btn-primary" [disabled]="homeSearchForm.invalid">
+                                Rerchercher
+                            </button>
+                        </div>
+                      </div>
                 </form>
+                
             </div>
-        </div>
-        <div class="col-xl-2 col-sm-2 col-1"></div>
     </div>
 </div>
