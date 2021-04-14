@@ -1,14 +1,15 @@
-<div class="content">
-    <div class="row" *ngFor="let business of businesses">
-        <div class="col-xl-8">
-            <P>{{ business.name }}</P>
-            <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
-            <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
-        </div>
-        <div class="col-xl-4">
-            <div *ngIf="business.logo !== null ">
-                <img [src]="business.logo" class="img-fluid" />
+<!-- <app-page-search></app-page-search> -->
+    <div class="row">
+        <div class="element border" *ngFor="let business of businesses" (click)="getBusiness(business.id)">
+            <div class="col-xl-8">
+                <h2>{{ business.name }}</h2>
+                <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
+                <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
+            </div>
+            <div class="col-xl-4">
+                <div *ngIf="business.logo !== null ">
+                    <img [src]="business.logo" class="img-fluid w-25" />
+                </div>
             </div>
         </div>
     </div>
-</div>

@@ -1,0 +1,19 @@
+.element {
+    // padding: 15px 25px;
+    // font-size: 24px;
+    // text-align: center;
+    //cursor: pointer;
+    outline: none;
+    // border: none;
+    // border-radius: 15px;
+    width: 100%;
+  }
+.element:active {
+    background-color: rgb(76, 203, 253);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.element:hover {
+    background-color:  rgb(76, 203, 253);
+}

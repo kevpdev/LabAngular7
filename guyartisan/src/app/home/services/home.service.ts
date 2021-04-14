@@ -14,6 +14,8 @@ export class HomeService {
   constructor(private db: AngularFirestore) { }
 
   getBusinessByCritere(critere: Critere){
+    this.reset();
+    console.log(this.businessesResultSearch);
    let cityArray = critere.city.split(" ");
    console.log(cityArray);
    const users = this.db.collection('users').ref;
@@ -46,5 +48,10 @@ export class HomeService {
   emitBusinessByCritere(){
     console.log(this.businessesResultSearch);
     this.businessesSubject.next(this.businessesResultSearch);
+  }
+
+
+  reset(){
+    this.businessesResultSearch = [];
   }
 }

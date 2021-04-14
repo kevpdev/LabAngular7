@@ -2,12 +2,19 @@
     width: 100%;
 }
 
-.container{
+#formContent{
     background-color: rgb(76, 203, 253);
     height: 30%;
     padding: 5%;
+    width: 100%;
 }
 
 .custom-label{
     margin-left: 10%;
+}
+
+#city-list {
+    position: absolute;
+    max-height: 30vh;
+    overflow: auto;
 }

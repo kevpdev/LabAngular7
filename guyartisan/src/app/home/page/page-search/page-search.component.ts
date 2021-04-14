@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Critere } from 'src/app/shared/models/critere';
@@ -15,6 +15,7 @@ export class PageSearchComponent implements OnInit {
   cities: any[];
   sectors: any[];
   jobs: any[];
+  @Output () nItem: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
