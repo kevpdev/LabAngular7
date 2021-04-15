@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { Critere } from 'src/app/shared/models/critere';
@@ -15,7 +15,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
  @Input() businesses: Business[];
  @Output () nItem: EventEmitter<any> = new EventEmitter();
   businessesSubscription: Subscription;
-  constructor(private homeService: HomeService, private route: ActivatedRoute) { }
+  constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log('init');
@@ -40,7 +40,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
    
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     this.businesses = [];
     console.log('change : ');
     //this.getResultSearch();
@@ -68,6 +68,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
 
   getBusiness(index: string){
     console.log(index);
+    this.router.navigate(['home/business', index]);
   }
 
 }

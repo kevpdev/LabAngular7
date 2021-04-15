@@ -6,10 +6,11 @@ import { PageResultSearchComponent } from './page/page-result-search/page-result
 import { PageSearchComponent } from './page/page-search/page-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHomeComponent } from './page/page-home/page-home.component';
+import { PageDetailBusinessComponent } from './page/page-detail-business/page-detail-business.component';
 
 
 @NgModule({
-  declarations: [PageResultSearchComponent, PageSearchComponent, PageHomeComponent],
+  declarations: [PageResultSearchComponent, PageSearchComponent, PageHomeComponent, PageDetailBusinessComponent],
   imports: [
     CommonModule,
     HomeRoutingModule, 

@@ -9,36 +9,37 @@ import { Critere } from 'src/app/shared/models/critere';
 })
 export class HomeService {
 
-  businessesResultSearch: Business[] = [];
+  businessesResultSearch: any[] = [];
   businessesSubject = new Subject<Business[]>();
   constructor(private db: AngularFirestore) { }
+  users = this.db.collection('users').ref;
+  business: any;
+  businessSubject = new Subject<Business>();
 
   getBusinessByCritere(critere: Critere){
     this.reset();
     console.log(this.businessesResultSearch);
    let cityArray = critere.city.split(" ");
    console.log(cityArray);
-   const users = this.db.collection('users').ref;
-   return users.get()
-   .then(function(querySnapshot) {
-     console.log(this);
-    querySnapshot.forEach(function(doc) {
+   return this.users.get()
+   .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
       let sectorQuery = doc.ref.collection('businesses').where("sector", "==", critere.sector);
       let jobQuery = sectorQuery;     
       if(critere.job){
         jobQuery = sectorQuery.where("job", "==", critere.job);
       }
       let cityQuery = jobQuery.where("adress.zipCode", "==", cityArray[0]).where("adress.city", "==", cityArray[1]);
-     return cityQuery.onSnapshot(querySnapshot2=>{
-        querySnapshot2.forEach((doc)=> {
-        console.log(doc.id, " => ", doc.data());
-        this.businessesResultSearch.push(doc.data());
+      cityQuery.onSnapshot(querySnapshot2=>{
+        querySnapshot2.forEach(doc => {
+       
+        this.businessesResultSearch.push( doc.data());
         console.log(this.businessesResultSearch);
         });
       });
-    }.bind(this));
+    });
     this.emitBusinessByCritere();
-   }.bind(this))
+   })
    .catch(function(error) {
      console.log("Error getting documents: ", error);
     });
@@ -53,5 +54,28 @@ export class HomeService {
 
   reset(){
     this.businessesResultSearch = [];
+  }
+
+  getBusinessById(index: string){
+    console.log(index);
+    return this.users.get().then(querySnapshot => {
+      querySnapshot.forEach(doc =>{
+        doc.ref.collection('businesses').doc(index).get()
+        .then(doc => {
+          console.log(doc.data());
+          if(doc.exists){
+            console.log('ici');
+            this.business = doc.data();
+            console.log(this.business);
+            this.emitBusinessById();
+          }
+        });
+      });
+    });
+  }
+
+  emitBusinessById(){
+    console.log(this.business);
+    this.businessSubject.next(this.business);
   }
 }

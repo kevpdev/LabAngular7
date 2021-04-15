@@ -15,6 +15,11 @@
 
 #city-list {
     position: absolute;
+    z-index: 4;
     max-height: 30vh;
     overflow: auto;
+}
+
+#city-list li:hover {
+    background-color:  rgb(76, 203, 253);
 }

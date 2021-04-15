@@ -63,11 +63,13 @@ export class PageSearchComponent implements OnInit {
   onCitySelected(event){
     const cityValue = event.target.innerHTML
     this.homeSearchForm.get('searchCity').setValue(cityValue);
+    this.cities = [];
   }
 
   onChangeSector(event){
     const sectorSelectValue = event.target.value;
     this.jobs = this.sectors[sectorSelectValue].jobs;
+    
 
   }
 
