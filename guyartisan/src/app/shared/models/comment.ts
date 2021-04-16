@@ -1,8 +1,10 @@
 export class Comment {
 
   id: number;
-  content: string;
-  date: Date;
+  name: string
+  content?: string;
+  date: string;
+  rate: number;
 
   constructor(obj?: Partial<Comment>) {
     if (obj) {

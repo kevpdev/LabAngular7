@@ -13,10 +13,11 @@ export class PageDetailBusinessComponent implements OnInit {
 
   businessSubscription: Subscription;
   business: Business;
+  test: string;
   constructor(private route: ActivatedRoute, private homeService: HomeService) { }
 
   ngOnInit(): void {
-
+    this.test = 'test';
     this.route.params.subscribe(params =>{
       console.log(params);
       this.homeService.getBusinessById(params.id);
