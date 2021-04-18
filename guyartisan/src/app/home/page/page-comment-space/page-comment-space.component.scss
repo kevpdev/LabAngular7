@@ -3,8 +3,43 @@
      color: rgb(241, 118, 3);
 }
 
-#commentcontent {
+.star2 {
+    font-size: 1rem;
+     color: rgb(241, 118, 3);
+}
+
+#comment-spac {
     padding-top: 2%;
     background-color: rgb(181, 234, 250);
     width: 100%;
+}
+#comments-list {
+    padding-top: 2%;
+    background-color: rgb(181, 234, 250);
+    width: 100%;
+}
+
+#comment-row {
+    width: 100%;
+    background-color: rgb(228, 240, 245);
+    padding: 1%;
+    margin: 1%;
+}
+
+#comment-content {
+    width: 100%;
+    background-color: white;
+    padding: 1%;
+}
+
+.comment-name{
+    font-weight: bold;
+}
+
+.button-form {
+    margin-right: 1%;
+}
+
+.button-avis {
+    margin-bottom: 2%;
 }

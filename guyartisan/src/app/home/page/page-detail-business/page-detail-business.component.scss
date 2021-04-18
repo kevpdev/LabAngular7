@@ -2,3 +2,8 @@
 background-color: rgb(161, 241, 255);
 width: 100%;
 }
+
+div:focus {
+    outline: none;
+}
+

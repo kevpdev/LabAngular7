@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
 import { Console } from 'console';
 import { Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
@@ -94,23 +94,10 @@ export class HomeService {
             this.business = docBusiness.data() as Business;
 
             // get collections
-            docBusiness.ref.collection('comments').get()
-            .then(querySnapshot =>{
-
-                let commentArray = this.business.comments;
-                if(!this.business.comments){
-                  this.business.comments = [];
-                }
-
-                querySnapshot.forEach(docComment =>{
-                  let commentData = docComment.data() as Comment;
-                  this.cumulRating +=  commentData.rate;
-                  this.business.comments.push(commentData);
-                });
-
-                this.business.nbStar = this.cumulRating / this.business.comments.length;
-                console.log(this.business.comments.length);
-            });
+            const docBusinessRefComment = docBusiness.ref.collection('comments');
+            this.getCommentBusiness(docBusinessRefComment);
+          
+   
 
             console.log(this.business);
             this.emitBusinessById();
@@ -128,14 +115,74 @@ export class HomeService {
     this.businessSubject.next(this.business);
   }
 
-  addCommenttoBusiness(comment: Comment, businessId: string ){
-    this.users.get().then(querySnapShot => {
-      querySnapShot.forEach(doc => {
-        doc.ref.collection('businesses').doc(businessId).get()
-        .then(doc => {
-          doc.ref.collection('comments').doc(this.db.createId()).set(Object.assign({}, comment));
+  addCommentBusiness(comment: Comment, businessId: string ){
+    return this.users.get().then(querySnapShot => {
+      querySnapShot.forEach(docUsers => {
+        docUsers.ref.collection('businesses').doc(businessId).get()
+        .then(docBusiness => {
+          if(docBusiness.exists){
+            const docBusinessRefComment = docBusiness.ref.collection('comments');
+            docBusinessRefComment.doc(this.db.createId()).set(Object.assign({}, comment));
+            
+            //get  comment collection
+            this.getCommentBusiness(docBusinessRefComment);
+            
+            
+            //get comment Fields 
+            this.business = docBusiness.data() as Business;
+            
+
+            //emit business after upate
+            console.log(this.business);
+            this.businessSubject.next(this.business);
+          }
         })
       })
     })
+  }
+
+
+  getCommentBusiness(docRefComment: DocumentData){
+    
+    this.cumulRating = 0;
+
+    docRefComment.get()
+    .then(querySnapShot =>{
+      querySnapShot.forEach(docComment =>{
+
+        if(!this.business.comments){
+          this.business.comments = [];
+        }
+
+        let commentData = docComment.data() as Comment;
+        this.cumulRating +=  commentData.rate;
+        this.business.comments.push(commentData);
+      });
+      this.business.comments.sort((a, b) =>{
+        console.log(a.date);
+        console.log(new Date(a.date));
+        console.log(new Date(b.date));
+        if(new Date(a.date).getTime() < new Date(b.date).getTime()){
+          console.log(new Date(a.date) < new Date(b.date));
+          return 1;
+        }else{
+          return -1;
+        }
+     });
+
+     
+   let commentsLength = this.business.comments.length;
+   console.log(commentsLength);
+            //Calcul star
+  
+   let nbStar = this.cumulRating / commentsLength;
+   this.business.nbStar = Number(nbStar.toPrecision(2));
+   console.log(commentsLength);   
+
+    });
+
+
+
+
   }
 }

@@ -14,6 +14,9 @@
                           <div class="col-xl-6 col-12">
                             <p>{{business.sector}} {{business.job}}</p>
                           </div>
+                          <div class="col-xl-6 col-12" *ngIf="business.comments">
+                            <i class="fa fa-star star2"></i><span>{{business.nbStar}} </span><a [routerLink]="" (click)="onFocus()">Voir les {{business.comments.length}} avis</a>
+                          </div>
                       </div>
                       <div class="col-xl-6 col-12">
                         <div *ngIf="business.logo !== null ">
@@ -72,7 +75,7 @@
                       </div>
                       <div class="row">
                         <div class="col-xl-6 col-12">
-                          <p class="font-weight-bold">Site web  : </p>
+                          <p class="font-weight-bold" >Site web  : </p>
                         </div>
                         <div class="col-xl-6 col-12">
                           <a [href]="business.website">{{business.website}}</a>
@@ -96,4 +99,6 @@
 
         </div>      
 </div>
-<app-page-comment-space *ngIf="business" [business]="business"></app-page-comment-space>
+<div #commentSpace tabindex="0" id="app-page-comment-space">
+  <app-page-comment-space *ngIf="business" [business]="business"></app-page-comment-space>
+</div>

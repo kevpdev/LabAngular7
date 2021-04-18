@@ -1,37 +1,69 @@
 <div class="row">
-    <div id="commentcontent">
+    <div id="comment-space">
         <div class="row">
             <div class="col-xl-3 col-sm-2 col-1"></div>
             <div class="col-xl-6 col-sm-8 col-10">
                 <hr>
-                <h2>Espace commentaire</h2>
-                
-                <form [formGroup]="commentForm" class="form-row" (submit)="onSubmitCommentForm()">
-                    <div class="col-xl-12 col-md-12 col-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control" formControlName="name" placeholder="Veuillez entrer un nom">                       
+
+                <div id="comment-form" *ngIf="enableCommentForm">
+                    <h2>Votre Avis</h2>
+                    <form [formGroup]="commentForm" class="form-row" (submit)="onSubmitCommentForm()">
+                        <div class="col-xl-12 col-md-12 col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Veuillez entrer un nom">                       
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-12 col-md-12 col-12">
-                        <div class="form-group">
-                            <label for="rate">Mettez une note : </label>
-                            <ngb-rating [(rate)]="currentRate" max="5" class="star"></ngb-rating>
+                        <div class="col-xl-12 col-md-12 col-12">
+                            <div class="form-group">
+                                <label for="rate">Mettez une note : </label>
+                                <ngb-rating [(rate)]="currentRate" max="5" class="star"></ngb-rating>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-12 col-md-12 col-12">
-                        <div class="form-group">
-                            <textarea  rows="5" class="form-control" formControlName="content" placeholder="Veuillez ecrire un commentaire..."></textarea>
+                        <div class="col-xl-12 col-md-12 col-12">
+                            <div class="form-group">
+                                <textarea  rows="5" class="form-control" formControlName="content" placeholder="Veuillez ecrire un commentaire..."></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-12 col-md-12 col-12">
-                        <div class="form-group">
-                            <button class="form-control" type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">Valider</button>
+                        <div class="col-xl-6 col-md-12 col-12">
+                            <div class="form-group">
+                                <button class="form-control btn btn-primary button-form" (click)="closeCommentForm()">Annuler</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="col-xl-6 col-md-12 col-12">
+                            <div class="form-group">
+                                <button class="form-control btn btn-primary button-form" type="submit" [disabled]="commentForm.invalid">Valider</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
             <div class="col-xl-3 col-sm-2 col-1"></div>
         </div>
     </div>
+    <div id="comments-list">
+        <div class="row">
+            <div class="col-xl-3 col-sm-2 col-1"></div>
+            <div class="col-xl-6 col-sm-8 col-10">
+                <button class="form-control btn btn-success button-avis" (click)="showCommentForm()">Ajouter un avis</button>
+                <div *ngFor="let comment of business.comments" id="comment-row">
+                    <div class="row">
+                        <div class="col-xl-6 col-sm-6">
+                            <span class="comment-name">Par {{comment.name}} </span>
+                            <span>Publié le {{comment.date}}</span>
+                        </div>
+                        <div class="col-xl-6 col-sm-6">
+                            <i class="fa fa-star star2"></i><span>{{comment.rate}}/5</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p id="comment-content">{{comment.content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-2 col-1"></div>        
+        </div>
+    </div>
 </div>
-

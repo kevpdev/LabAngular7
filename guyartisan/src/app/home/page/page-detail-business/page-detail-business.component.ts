@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
@@ -14,6 +14,8 @@ export class PageDetailBusinessComponent implements OnInit {
   businessSubscription: Subscription;
   business: Business;
   test: string;
+  @ViewChild('commentSpace') commentSpace: ElementRef;
+  
   constructor(private route: ActivatedRoute, private homeService: HomeService) { }
 
   ngOnInit(): void {
@@ -25,6 +27,12 @@ export class PageDetailBusinessComponent implements OnInit {
        this.business = data;
       });
     });
+  }
+
+  onFocus(){
+    console.log(this.commentSpace.nativeElement);
+    console.log(this.commentSpace.nativeElement.focus());
+   this.commentSpace.nativeElement.focus();
   }
 
 }
