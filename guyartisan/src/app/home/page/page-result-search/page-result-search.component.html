@@ -1,14 +1,22 @@
 <!-- <app-page-search></app-page-search> -->
     <div class="row">
         <div class="element border" *ngFor="let business of businesses" (click)="getBusiness(business.id)">
-            <div class="col-xl-8">
-                <h2>{{ business.name }}</h2>
-                <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
-                <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
-            </div>
-            <div class="col-xl-4">
-                <div *ngIf="business.logo !== null ">
-                    <img [src]="business.logo" class="img-fluid w-25" />
+            <div class="row">
+                <div class="col-xl-8">
+                    <h2>{{ business.name }}</h2>
+                    <div *ngIf="business.nbStar != null">
+                        <i class="fa fa-star star2"></i><span>{{ business.nbStar }}</span>
+                    </div>
+                    <div *ngIf="business.nbStar == null">
+                        <i class="fa fa-star star2"></i><span>Aucun avis</span>
+                    </div>
+                    <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
+                    <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
+                </div>
+                <div class="col-xl-4">
+                    <div *ngIf="business.logo !== null " class="business-logo">
+                        <img [src]="business.logo" class="img-fluid w-25" />
+                    </div>
                 </div>
             </div>
         </div>

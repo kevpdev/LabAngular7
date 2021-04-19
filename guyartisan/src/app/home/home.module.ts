@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHomeComponent } from './page/page-home/page-home.component';
 import { PageDetailBusinessComponent } from './page/page-detail-business/page-detail-business.component';
 import { PageCommentSpaceComponent } from './page/page-comment-space/page-comment-space.component';
-import { NgbRating, NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

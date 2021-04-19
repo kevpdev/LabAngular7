@@ -46,7 +46,7 @@ export class PageCommentSpaceComponent implements OnInit {
   onSubmitCommentForm(){
     console.log('ici');
     const name = this.commentForm.get('name').value;
-    const currentDate = this.datePipe.transform(this.currentDate, 'dd/MM/yyyy');
+    const currentDate = this.datePipe.transform(this.currentDate, 'yyyy-MM-dd');
     const rate = this.currentRate;
     const content = this.commentForm.get('content').value;
 

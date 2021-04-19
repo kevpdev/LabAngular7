@@ -10,7 +10,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
 
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -27,7 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

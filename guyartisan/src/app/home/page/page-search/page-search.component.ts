@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Critere } from 'src/app/shared/models/critere';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
 
@@ -20,7 +20,8 @@ export class PageSearchComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private utilsService: UtilsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
@@ -44,8 +45,11 @@ export class PageSearchComponent implements OnInit {
     const sector = this.sectors[indexSector].sectorName;
     const job = this.homeSearchForm.get('searchJob').value;
     const city = this.homeSearchForm.get('searchCity').value;
-    console.log(sector, job, city);
+    console.log(this.route);
     this.router.navigate(['home/search', sector, job, city])
+    .catch( error => {
+      console.log(error);
+    });
     
   }
 

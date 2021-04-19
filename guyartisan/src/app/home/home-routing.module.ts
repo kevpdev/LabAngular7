@@ -18,7 +18,11 @@ const routes: Routes = [
       component: PageDetailBusinessComponent
     },
   ]
-  }, 
+  },
+  {
+    path: '**',
+    component: PageHomeComponent
+  }
 
 ];
 

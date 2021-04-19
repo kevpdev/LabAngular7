@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
 import { Console } from 'console';
 import { Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { Comment } from 'src/app/shared/models/comment';
 import { Critere } from 'src/app/shared/models/critere';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,9 @@ export class HomeService {
 
   businessesResultSearch: Business[] = [];
   businessesSubject = new Subject<Business[]>();
-  constructor(private db: AngularFirestore) { }
+
+  constructor(@Inject(LOCALE_ID) private locale: string, private db: AngularFirestore) { }
+  
   users = this.db.collection('users').ref;
   business: Business;
   businessSubject = new Subject<Business>();
@@ -41,23 +45,8 @@ export class HomeService {
       cityQuery.onSnapshot(querySnapshot2=>{
         querySnapshot2.forEach(docBusiness => {
 
-        //get fields Business
-        let businessData =  docBusiness.data() as Business;
+          this.getCommentBusinessByCritère(docBusiness);
 
-        // get collections
-        docBusiness.ref.collection('comments').get()
-        .then(querySnapshot =>{
-            if(!businessData.comments){
-              businessData.comments = [];
-            }
-
-            querySnapshot.forEach(docComment =>{
-              businessData.comments.push(docComment.data() as Comment);
-            });
-        });
-        
-        this.businessesResultSearch.push(businessData);
-        console.log(this.businessesResultSearch);
         });
       });
     });
@@ -148,41 +137,88 @@ export class HomeService {
 
     docRefComment.get()
     .then(querySnapShot =>{
+
+      if(!this.business.comments){
+        this.business.comments = [];
+      }
+
       querySnapShot.forEach(docComment =>{
 
-        if(!this.business.comments){
-          this.business.comments = [];
-        }
 
         let commentData = docComment.data() as Comment;
         this.cumulRating +=  commentData.rate;
         this.business.comments.push(commentData);
       });
-      this.business.comments.sort((a, b) =>{
-        console.log(a.date);
-        console.log(new Date(a.date));
-        console.log(new Date(b.date));
-        if(new Date(a.date).getTime() < new Date(b.date).getTime()){
-          console.log(new Date(a.date) < new Date(b.date));
-          return 1;
-        }else{
-          return -1;
-        }
-     });
 
-     
-   let commentsLength = this.business.comments.length;
-   console.log(commentsLength);
-            //Calcul star
-  
-   let nbStar = this.cumulRating / commentsLength;
-   this.business.nbStar = Number(nbStar.toPrecision(2));
-   console.log(commentsLength);   
+      if(this.business.comments.length > 0){
+        this.business.comments.sort((a, b) =>{
+          if(new Date(a.date) > new Date(b.date)){
+            return 1;
+          }else{
+            return -1;
+          }
+        });
+      }
+
+      let commentsLength = this.business.comments.length;
+      console.log(commentsLength);
+                //Calcul star
+      
+      let nbStar = this.cumulRating / commentsLength;
+      this.business.nbStar = Number(nbStar.toPrecision(2));
+      console.log(commentsLength);   
 
     });
 
+  }
 
 
+  getCommentBusinessByCritère(docBusiness: DocumentData){
+    
+    this.cumulRating = 0;
+
+            //get fields Business
+            let businessData =  docBusiness.data() as Business;
+
+            // get collections
+            docBusiness.ref.collection('comments').get()
+            .then(querySnapshot =>{
+                if(!businessData.comments){
+                  businessData.comments = [];
+                }
+    
+                querySnapshot.forEach(docComment =>{
+                  let commentData = docComment.data() as Comment;
+                  this.cumulRating +=  commentData.rate;
+                  businessData.comments.push(docComment.data() as Comment);
+                });
+
+                if(businessData.comments.length > 0){
+                 businessData.comments.sort((a, b) =>{
+                    if(new Date(a.date) > new Date(b.date)){
+                      return 1;
+                    }else{
+                      return -1;
+                    }
+                  });
+                }
+                     
+                let commentsLength = businessData.comments.length;
+                console.log(commentsLength);
+                          //Calcul star
+                if(commentsLength > 0){
+                let nbStar = this.cumulRating / commentsLength;
+                businessData.nbStar = Number(nbStar.toPrecision(2));
+                console.log(commentsLength); 
+                }
+
+                
+                this.businessesResultSearch.push(businessData);
+                console.log(this.businessesResultSearch);
+            });
+            
+
+      
 
   }
 }
