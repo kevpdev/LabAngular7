@@ -46,7 +46,7 @@
             <div class="col-xl-3 col-sm-2 col-1"></div>
             <div class="col-xl-6 col-sm-8 col-10">
                 <button class="form-control btn btn-success button-avis" (click)="showCommentForm()">Ajouter un avis</button>
-                <div *ngFor="let comment of business.comments" id="comment-row">
+                <div *ngFor="let comment of paginationData" id="comment-row">
                     <div class="row">
                         <div class="col-xl-6 col-sm-6">
                             <span class="comment-name">Par {{ comment.name }} </span>
@@ -62,6 +62,8 @@
                         </div>
                     </div>
                 </div>
+                <ngb-pagination  [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
+                aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
             </div>
             <div class="col-xl-3 col-sm-2 col-1"></div>        
         </div>

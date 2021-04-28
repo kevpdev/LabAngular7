@@ -1,8 +1,8 @@
 export class Critere {
 
     sector: string;
-    job: string;
-    city: string;
+    job?: string;
+    city?: string;
 
 
     constructor(obj?: Partial<Critere>) {

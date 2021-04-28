@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Local } from 'protractor/built/driverProviders';
@@ -22,6 +23,10 @@ export class PageCommentSpaceComponent implements OnInit {
   @Input() test: string
   enableCommentForm = false;
   businessSubscription: Subscription;
+  pageSize = 2;
+  collectionPageSize = 0;
+  page = 1;
+  paginationData: Comment[];
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private homeService: HomeService) {
     this.currentDate = new Date();
@@ -30,7 +35,11 @@ export class PageCommentSpaceComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     console.log(this.business);
-
+    console.log(this.business.comments);
+    if(this.business.comments){
+      this.collectionPageSize = this.business.comments.length;
+      this.getPaginationData();
+    }
   }
 
   initForm(){
@@ -81,6 +90,14 @@ export class PageCommentSpaceComponent implements OnInit {
   resetForm(){
     this.commentForm.reset();
     this.currentRate = 0;
+  }
+
+  getPaginationData() {
+    this.paginationData = this.business.comments
+    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+
+    console.log(this.paginationData);
+
   }
 
 

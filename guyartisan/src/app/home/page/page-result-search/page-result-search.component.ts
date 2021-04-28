@@ -12,15 +12,22 @@ import { HomeService } from '../../services/home.service';
 })
 export class PageResultSearchComponent implements OnInit, OnChanges {
 
- @Input() businesses: Business[];
- @Output () nItem: EventEmitter<any> = new EventEmitter();
+  @Input() businesses: Business[];
+  @Output() nItem: EventEmitter<any> = new EventEmitter();
   businessesSubscription: Subscription;
+  pageSize = 5;
+  collectionPageSize = 0;
+  page = 1;
+  paginationData: Business[];
+
   constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log('init');
     console.log('result search');
-    this.route.params.subscribe((params) =>{
+
+
+    this.route.params.subscribe((params) => {
       console.log(params);
       let critere = new Critere();
       critere.sector = params.sector;
@@ -28,23 +35,30 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
       critere.job = params.job;
       console.log(critere);
 
-       this.homeService.getBusinessByCritere(critere);
-       this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
-       this.businesses = data;
-       console.log(this.businesses);
-       });
+      this.homeService.getBusinessByCriteria(critere);
+
+      this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
+        console.log(data.length);
+        if (data.length > 0) {
+          console.log('ici');
+          this.businesses = data;
+          this.collectionPageSize = this.businesses.length;
+          this.getPaginationData();
+        }
+
+      });
 
     });
-   // this.getResultSearch();
+    // this.getResultSearch();
     
-   
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.businesses = [];
     console.log('change : ');
     //this.getResultSearch();
-   // this.businesses
+    // this.businesses
   }
 
   // getResultSearch(){
@@ -66,9 +80,18 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   //   });
   // }
 
-  getBusiness(index: string){
+  getBusiness(index: string) {
     console.log(index);
     this.router.navigate(['home/business', index]);
+  }
+
+  getPaginationData() {
+
+    this.paginationData = this.businesses
+    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+
+    console.log(this.paginationData);
+
   }
 
 }

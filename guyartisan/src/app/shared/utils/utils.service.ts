@@ -18,6 +18,7 @@ export class UtilsService {
    * @returns 
    */
   public getCities(input: any): Observable<any>{
+    console.log(this.VICOPO_SEARCH_URI+input);
     return this.httpClient.get(this.VICOPO_SEARCH_URI+input);
   }
 

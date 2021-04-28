@@ -9,6 +9,7 @@ import { PageHomeComponent } from './page/page-home/page-home.component';
 import { PageDetailBusinessComponent } from './page/page-detail-business/page-detail-business.component';
 import { PageCommentSpaceComponent } from './page/page-comment-space/page-comment-space.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
     HomeRoutingModule, 
     ReactiveFormsModule,
     FormsModule,
-    NgbRatingModule
+    NgbRatingModule,
+    NgbPaginationModule
   ],
   providers: [DatePipe],
 })

@@ -44,7 +44,8 @@ export class PageSearchComponent implements OnInit {
     const indexSector = this.homeSearchForm.get('searchSector').value;
     const sector = this.sectors[indexSector].sectorName;
     const job = this.homeSearchForm.get('searchJob').value;
-    const city = this.homeSearchForm.get('searchCity').value;
+    //const city = this.homeSearchForm.get('searchCity').value;
+    const city = '97300 CAYENNE';
     console.log(this.route);
     this.router.navigate(['home/search', sector, job, city])
     .catch( error => {
@@ -56,8 +57,9 @@ export class PageSearchComponent implements OnInit {
   getCityKeyPress(event){
     let input = event.target.value;
     let inputDomFilter = input.substring(0,2) === '97';
-    if(input.length > 1){
-      this.utilsService.getCities(input).subscribe((data: any) => {    
+    if(input.length > 0){
+      this.utilsService.getCities(input).subscribe((data: any) => { 
+        console.log(data);  
         this.cities = data.cities;
       })      
     }

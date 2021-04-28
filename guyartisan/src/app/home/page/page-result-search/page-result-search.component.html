@@ -1,6 +1,6 @@
 <!-- <app-page-search></app-page-search> -->
-    <div class="row">
-        <div class="element border" *ngFor="let business of businesses" (click)="getBusiness(business.id)">
+    <div class="row" *ngIf="businesses && paginationData">
+        <div class="element border" *ngFor="let business of paginationData" (click)="getBusiness(business.id)">
             <div class="row">
                 <div class="col-xl-8">
                     <h2>{{ business.name }}</h2>
@@ -20,4 +20,6 @@
                 </div>
             </div>
         </div>
+        <ngb-pagination  [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
+        aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
     </div>
