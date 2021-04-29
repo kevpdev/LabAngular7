@@ -1,7 +1,5 @@
-import { formatDate } from '@angular/common';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
-import { Console } from 'console';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { Comment } from 'src/app/shared/models/comment';
@@ -40,7 +38,7 @@ export class HomeService {
           if (critere.job) {
             jobQuery = sectorQuery.where("job", "==", critere.job);
           }
-          let cityQuery = jobQuery.where("adress.zipCode", "==", cityArray[0]).where("adress.city", "==", cityArray[1]);
+          let cityQuery = jobQuery.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
 
           cityQuery.onSnapshot(querySnapshot2 => {
             querySnapshot2.forEach(docBusiness => {
@@ -108,12 +106,14 @@ export class HomeService {
               docBusinessRefComment.doc(this.db.createId()).set(Object.assign({}, comment));
 
               //get  comment collection
-              this.getFieldsAndCommentBusinessByCriteria(docBusinessRefComment);
+              this.getCommentBusiness(docBusiness);
 
               //get comment Fields 
               this.business = docBusiness.data() as Business;
             }
           })
+
+          this.emitBusinessById();
       })
     })
   }
@@ -129,13 +129,14 @@ export class HomeService {
       .then(querySnapShot => {
 
         this.business = docBusiness.data() as Business;
+        
+        if (!this.business.comments) {
+          console.log('ici');
+          this.business.comments = [];
+        }
 
         querySnapShot.forEach(docComment => {
 
-          if (!this.business.comments) {
-            console.log('ici');
-            this.business.comments = [];
-          }
           console.log(this.business.comments);
 
           let commentData = docComment.data() as Comment;
@@ -143,9 +144,10 @@ export class HomeService {
           this.cumulRating += commentData.rate;
           this.business.comments.push(commentData);
         });
+
         if (this.business.comments.length > 0) {
           this.business.comments.sort((a, b) => {
-            if (new Date(a.date) > new Date(b.date)) {
+            if (new Date(a.date) < new Date(b.date)) {
               return 1;
             } else {
               return -1;
@@ -154,11 +156,14 @@ export class HomeService {
         }
 
         let commentsLength = this.business.comments.length;
-        
+
         //Calcul star
-        let nbStar = this.cumulRating / commentsLength;
-        this.business.nbStar = Number(nbStar.toPrecision(2));
-        console.log(commentsLength);
+        if(commentsLength > 0){
+          let nbStar = this.cumulRating / commentsLength;
+          this.business.nbStar = Number(nbStar.toPrecision(2));
+        }
+
+
 
         this.emitBusinessById();
 
@@ -169,22 +174,24 @@ export class HomeService {
 
   getFieldsAndCommentBusinessByCriteria(docBusiness: DocumentData) {
 
-    this.cumulRating = 0;
 
+    console.log(docBusiness);
     //get fields Business
-     this.business = docBusiness.data() as Business;
-     console.log(this.business);
+    
     // get collections
-     docBusiness.ref.collection('comments').get()
-      .then(querySnapshot => {
+    docBusiness.ref.collection('comments').get()
+    .then(querySnapshot => {
 
+      this.cumulRating = 0;
+      this.business = docBusiness.data() as Business;
+      console.log(this.business);
+
+        if (!this.business.comments) {
+          this.business.comments = [];
+        }
 
         querySnapshot.forEach(docComment => {
-
-          if (!this.business.comments) {
-            this.business.comments = [];
-          }
-          
+                    
           let commentData = docComment.data() as Comment;
           this.cumulRating += commentData.rate;
           this.business.comments.push(docComment.data() as Comment);
@@ -199,23 +206,24 @@ export class HomeService {
             }
           });
         }
-
         let commentsLength = this.business.comments.length;
         console.log(commentsLength);
         //Calcul star
         if (commentsLength > 0) {
           let nbStar = this.cumulRating / commentsLength;
           this.business.nbStar = Number(nbStar.toPrecision(2));
-          console.log(commentsLength);
+          console.log(commentsLength, this.business.nbStar);
         }
+        
 
+        console.log(this.business);
+        this.businessesResultSearch.push(this.business);
+        
+        console.log(this.businessesResultSearch);
+        this.emitBusinessByCriteria();
+  
       });
 
-      console.log(this.business);
-      this.businessesResultSearch.push(this.business);
-      console.log(this.businessesResultSearch);
-
-      this.emitBusinessByCriteria();
 
   }
 }

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Address } from 'src/app/shared/models/address';
 import { Business } from 'src/app/shared/models/business';
 import { HomeService } from '../../services/home.service';
 
@@ -13,6 +14,7 @@ export class PageDetailBusinessComponent implements OnInit {
 
   businessSubscription: Subscription;
   business: Business;
+  address: Address;
   test: string;
   @ViewChild('commentSpace') commentSpace: ElementRef;
   
@@ -24,7 +26,11 @@ export class PageDetailBusinessComponent implements OnInit {
       console.log(params);
       this.homeService.getBusinessById(params.id);
       this.businessSubscription = this.homeService.businessSubject.subscribe(data =>{
-       this.business = data;
+        if(data){
+          this.business = data;
+         this.address = this.business.address;
+         console.log(this.business);
+        }
       });
     });
   }

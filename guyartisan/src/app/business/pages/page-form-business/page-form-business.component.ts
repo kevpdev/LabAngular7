@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Adress } from 'src/app/shared/models/adress';
+import { Address } from 'src/app/shared/models/address';
 import { Business } from 'src/app/shared/models/business';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { BusinessService } from '../../services/business.service';
@@ -75,8 +75,8 @@ export class PageFormBusinessComponent implements OnInit {
       sector: ['', Validators.required],
       siret: ['',  [Validators.required, Validators.pattern(/^[0-9]{14}$/)]],
       phone: ['',  Validators.pattern(/^[0-9]{10}$/)],
-      adress: [''],
-      additionalAdress: [''],
+      address: [''],
+      additionalAddress: [''],
       zipCode: ['',  Validators.pattern(/^[0-9]{5}$/)],
       city: [{value: '', disabled: true}],
       pays: ['France'],
@@ -107,13 +107,13 @@ export class PageFormBusinessComponent implements OnInit {
      newBusiness.siret = this.businessForm.get('siret').value || null;
      newBusiness.phone1 = this.businessForm.get('phone').value || null;
      newBusiness.logo = this.logoUrl ? this.logoUrl : null;
-     const newAdress = new Adress();
-     newAdress.nameStreet = this.businessForm.get('adress').value || null;
-     newAdress.additionalAdress = this.businessForm.get('additionalAdress').value || null;
-     newAdress.zipCode = this.businessForm.get('zipCode').value || null;
-     newAdress.city = this.businessForm.get('city').value || null;
-     newAdress.pays = this.businessForm.get('pays').value || null;
-     newBusiness.adress = Object.assign({}, newAdress) || null;
+     const newAddress = new Address();
+     newAddress.nameStreet = this.businessForm.get('address').value || null;
+     newAddress.additionalAddress = this.businessForm.get('additionalAddress').value || null;
+     newAddress.zipCode = this.businessForm.get('zipCode').value || null;
+     newAddress.city = this.businessForm.get('city').value || null;
+     newAddress.pays = this.businessForm.get('pays').value || null;
+     newBusiness.address = Object.assign({}, newAddress) || null;
      newBusiness.email = this.businessForm.get('email').value || null;
      newBusiness.website = this.businessForm.get('website').value || null;
      newBusiness.openingHours = this.businessForm.get('openingHours').value || null;
@@ -134,11 +134,11 @@ export class PageFormBusinessComponent implements OnInit {
     this.businessForm.get('sector').setValue(business.job);
     this.businessForm.get('siret').setValue(business.siret);
     this.businessForm.get('phone').setValue(business.phone1);
-    this.businessForm.get('adress').setValue(business.adress.nameStreet);
-    this.businessForm.get('additionalAdress').setValue(business.adress.additionalAdress);
-    this.businessForm.get('zipCode').setValue(business.adress.zipCode);
-    this.businessForm.get('city').setValue(business.adress.city);
-    this.businessForm.get('pays').setValue(business.adress.pays);
+    this.businessForm.get('address').setValue(business.address.nameStreet || "");
+    this.businessForm.get('additionalAddress').setValue(business.address.additionalAddress);
+    this.businessForm.get('zipCode').setValue(business.address.zipCode);
+    this.businessForm.get('city').setValue(business.address.city);
+    this.businessForm.get('pays').setValue(business.address.pays);
     this.businessForm.get('email').setValue(business.email);
     this.businessForm.get('website').setValue(business.website);
     this.businessForm.get('openingHours').setValue(business.openingHours);

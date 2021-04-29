@@ -86,7 +86,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   }
 
   getPaginationData() {
-
+    console.log(this.businesses);
     this.paginationData = this.businesses
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
 

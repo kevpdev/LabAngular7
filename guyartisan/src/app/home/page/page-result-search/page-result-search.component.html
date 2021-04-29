@@ -10,8 +10,8 @@
                     <div *ngIf="business.nbStar == null">
                         <i class="fa fa-star star2"></i><span>Aucun avis</span>
                     </div>
-                    <p>{{ business.adress.nameStreet }} {{ business.adress.additionalAdress }}</p>
-                    <p>{{ business.adress.zipCode }} {{ business.adress.city }}</p>
+                    <p>{{ business.address.nameStreet }} {{ business.address.additionalAddress }}</p>
+                    <p>{{ business.address.zipCode }} {{ business.address.city }}</p>
                 </div>
                 <div class="col-xl-4">
                     <div *ngIf="business.logo !== null " class="business-logo">

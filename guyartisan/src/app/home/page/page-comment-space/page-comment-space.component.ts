@@ -29,7 +29,7 @@ export class PageCommentSpaceComponent implements OnInit {
   paginationData: Comment[];
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private homeService: HomeService) {
-    this.currentDate = new Date();
+    
    }
 
   ngOnInit(): void {
@@ -53,9 +53,10 @@ export class PageCommentSpaceComponent implements OnInit {
   }
 
   onSubmitCommentForm(){
-    console.log('ici');
+
+    this.currentDate = new Date();
     const name = this.commentForm.get('name').value;
-    const currentDate = this.datePipe.transform(this.currentDate, 'yyyy-MM-dd');
+    const currentDate = this.datePipe.transform(this.currentDate, 'yyyy-MM-dd h:mm:ss');
     const rate = this.currentRate;
     const content = this.commentForm.get('content').value;
 
@@ -70,7 +71,9 @@ export class PageCommentSpaceComponent implements OnInit {
       console.log(data);
       if(data){
         console.log(data);
-        this.business = data; 
+        this.business = data;
+        this.collectionPageSize = this.business.comments.length;
+        this.getPaginationData();
       }
     });
     this.resetForm();

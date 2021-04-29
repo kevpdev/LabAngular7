@@ -10,18 +10,21 @@ import { PageDetailBusinessComponent } from './page/page-detail-business/page-de
 import { PageCommentSpaceComponent } from './page/page-comment-space/page-comment-space.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { PageMapComponent } from './page/page-map/page-map.component';
 
 
 @NgModule({
-  declarations: [PageResultSearchComponent, PageSearchComponent, PageHomeComponent, PageDetailBusinessComponent, PageCommentSpaceComponent],
+  declarations: [PageResultSearchComponent, PageSearchComponent, PageHomeComponent, PageDetailBusinessComponent, PageCommentSpaceComponent, PageMapComponent],
   imports: [
     CommonModule,
     HomeRoutingModule, 
     ReactiveFormsModule,
     FormsModule,
     NgbRatingModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyButSfdS4GtoB3hW6REpzDEyd2oOlauPPQ'})
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, GoogleMapsAPIWrapper],
 })
 export class HomeModule { }

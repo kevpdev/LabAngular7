@@ -1,4 +1,4 @@
-import { Adress } from './adress';
+import { Address } from './address';
 import { Comment } from './comment';
 
 export class Business {
@@ -12,7 +12,7 @@ export class Business {
   email: string;
   website: string;
   website2?: string;
-  adress: Adress;
+  address: Address;
   comments?: Comment [];
   nbStar?: number;
   logo?: any;
@@ -21,7 +21,7 @@ export class Business {
   constructor(obj?: Partial<Business>) {
     if (obj) {
       Object.assign(this, obj, {
-        // adress: Object.assign({}, obj.adress)
+        // address: Object.assign({}, obj.address)
       });
 
     }
