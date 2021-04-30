@@ -1,6 +1,8 @@
 import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Address } from 'src/app/shared/models/address';
+import { UtilsService } from 'src/app/shared/utils/utils.service';
+import { preProcessFile } from 'typescript';
 
 
 declare var google: any;
@@ -37,6 +39,8 @@ export class PageMapComponent implements OnInit {
 
   geocoder: any;
   @Input() address: Address;
+  resultAdress: any;
+  //public location: Location;
   public location: Location = {
     lat: 51.678418,
     lng: 7.809007,
@@ -45,12 +49,12 @@ export class PageMapComponent implements OnInit {
       lng: 7.809007,
       draggable: true
     },
-    zoom: 15
+    zoom: 12
   };
 
   @ViewChild(AgmMap) map: AgmMap;
 
-  constructor(public mapsApiLoader: MapsAPILoader,
+  constructor(private utilsService: UtilsService, private mapsApiLoader: MapsAPILoader,
     private zone: NgZone,
     private wrapper: GoogleMapsAPIWrapper) {
     this.mapsApiLoader = mapsApiLoader;
@@ -78,6 +82,31 @@ export class PageMapComponent implements OnInit {
   findaddress(address: Address){
     const fulladdress = this.formataddress(address);
     console.log(fulladdress);
+    this.utilsService.getInfoAddress(fulladdress).subscribe(data => {
+      console.log(data);
+      console.log(data.features[0].properties);
+      this.resultAdress = data;
+       
+      if(this.resultAdress){   
+        let coordinates = this.resultAdress.features[0].geometry.coordinates;
+        console.log(coordinates);
+        if(coordinates){          
+          this.location = {
+            lat: coordinates[1],
+            lng: coordinates[0],
+            marker: {
+              lat: coordinates[1],
+              lng: coordinates[0],
+              draggable: true
+            },
+            zoom: 15
+          };
+        }     
+
+      }
+
+    })
+
 
     // console.log(this.geocoder);
     // if(this.geocoder){
@@ -100,6 +129,7 @@ export class PageMapComponent implements OnInit {
     if(address.additionalAddress) fullAdrs = fullAdrs + " " + address.additionalAddress;
     if(address.city) fullAdrs += " " + address.city;
     if(address.zipCode) fullAdrs += " " + address.zipCode;
+    if(address.pays) fullAdrs += " " + address.pays;
 
     return fullAdrs;
   }

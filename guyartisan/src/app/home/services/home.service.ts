@@ -81,7 +81,7 @@ export class HomeService {
               this.getCommentBusiness(docBusiness);
 
               console.log(this.business);
-              this.emitBusinessById();
+
             }
           })
           .catch(error => {
@@ -112,8 +112,6 @@ export class HomeService {
               this.business = docBusiness.data() as Business;
             }
           })
-
-          this.emitBusinessById();
       })
     })
   }
@@ -147,7 +145,7 @@ export class HomeService {
 
         if (this.business.comments.length > 0) {
           this.business.comments.sort((a, b) => {
-            if (new Date(a.date) < new Date(b.date)) {
+            if (new Date(a.date) > new Date(b.date)) {
               return 1;
             } else {
               return -1;

@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class UtilsService {
 
-  private VICOPO_SEARCH_URI = 'https://vicopo.selfbuild.fr/cherche/';
+  private VICOPO_SEARCH_URI = "https://vicopo.selfbuild.fr/cherche/";
+  private SEARCH_ADDRESS_API_URI = "https://api-adresse.data.gouv.fr/search/?q=";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,5 +25,9 @@ export class UtilsService {
 
   getSectors(){
     return this.httpClient.get('../../../assets/sectors.json');
+  }
+
+  public getInfoAddress(address: string): Observable<any>{
+    return this.httpClient.get(this.SEARCH_ADDRESS_API_URI+address);
   }
 }

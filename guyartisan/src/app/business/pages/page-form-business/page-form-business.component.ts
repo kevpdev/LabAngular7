@@ -134,7 +134,8 @@ export class PageFormBusinessComponent implements OnInit {
     this.businessForm.get('sector').setValue(business.job);
     this.businessForm.get('siret').setValue(business.siret);
     this.businessForm.get('phone').setValue(business.phone1);
-    this.businessForm.get('address').setValue(business.address.nameStreet || "");
+    if(business.address)
+    this.businessForm.get('address').setValue(business.address.nameStreet);
     this.businessForm.get('additionalAddress').setValue(business.address.additionalAddress);
     this.businessForm.get('zipCode').setValue(business.address.zipCode);
     this.businessForm.get('city').setValue(business.address.city);
