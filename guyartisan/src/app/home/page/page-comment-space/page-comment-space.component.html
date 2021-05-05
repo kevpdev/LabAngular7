@@ -10,7 +10,7 @@
                     <form [formGroup]="commentForm" class="form-row" (submit)="onSubmitCommentForm()">
                         <div class="col-xl-12 col-md-12 col-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="Veuillez entrer un nom">                       
+                                <input type="text" class="form-control input-form-custom" formControlName="name" placeholder="Veuillez entrer un nom">                       
                             </div>
                         </div>
                         <div class="col-xl-12 col-md-12 col-12">
@@ -21,17 +21,17 @@
                         </div>
                         <div class="col-xl-12 col-md-12 col-12">
                             <div class="form-group">
-                                <textarea  rows="5" class="form-control" formControlName="content" placeholder="Veuillez ecrire un commentaire..."></textarea>
+                                <textarea  rows="5" class="form-control input-form-custom" formControlName="content" placeholder="Veuillez ecrire un commentaire..."></textarea>
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-12 col-12">
                             <div class="form-group">
-                                <button class="form-control btn btn-primary button-form" (click)="closeCommentForm()">Annuler</button>
+                                <button class="btn btn-danger button-form" (click)="closeCommentForm()">Annuler</button>
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-12 col-12">
                             <div class="form-group">
-                                <button class="form-control btn btn-primary button-form" type="submit" [disabled]="commentForm.invalid">Valider</button>
+                                <button class="btn btn-success button-form" type="submit" [disabled]="commentForm.invalid">Valider</button>
                             </div>
                         </div>
                     </form>
@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-xl-3 col-sm-2 col-1"></div>
             <div class="col-xl-6 col-sm-8 col-10">
-                <button class="form-control btn btn-success button-avis" (click)="showCommentForm()">Ajouter un avis</button>
+                <button class="btn btn-success button-avis" (click)="showCommentForm()">Ajouter un avis</button>
                 <div *ngFor="let comment of paginationData" id="comment-row">
                     <div class="row">
                         <div class="col-xl-6 col-sm-6">

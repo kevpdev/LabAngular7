@@ -1,23 +1,24 @@
-<!-- <app-page-search></app-page-search> -->
-    <div class="row" *ngIf="businesses && paginationData">
+    <div class="element-array" id="element-array" *ngIf="businesses && paginationData">
         <div class="element border" *ngFor="let business of paginationData" (click)="getBusiness(business.id)">
             <div class="row">
-                <div class="col-xl-8">
-                    <h2>{{ business.name }}</h2>
-                    <div *ngIf="business.nbStar != null">
-                        <i class="fa fa-star star2"></i><span>{{ business.nbStar }}</span>
+                <div class="container">
+                    <div class="col-xl-8">
+                        <h2>{{ business.name }}</h2>
+                        <div *ngIf="business.nbStar != null">
+                            <i class="fa fa-star star2"></i><span>{{ business.nbStar }}</span>
+                        </div>
+                        <div *ngIf="business.nbStar == null">
+                            <i class="fa fa-star star2"></i><span>Aucun avis</span>
+                        </div>
+                        <p>{{ business.address.nameStreet }} {{ business.address.additionalAddress }}</p>
+                        <p>{{ business.address.zipCode }} {{ business.address.city }}</p>
                     </div>
-                    <div *ngIf="business.nbStar == null">
-                        <i class="fa fa-star star2"></i><span>Aucun avis</span>
+                    <div class="col-xl-4">
+                        <div *ngIf="business.logo !== null " class="business-logo">
+                            <img [src]="business.logo" class="img-fluid w-25" />
+                        </div>
                     </div>
-                    <p>{{ business.address.nameStreet }} {{ business.address.additionalAddress }}</p>
-                    <p>{{ business.address.zipCode }} {{ business.address.city }}</p>
-                </div>
-                <div class="col-xl-4">
-                    <div *ngIf="business.logo !== null " class="business-logo">
-                        <img [src]="business.logo" class="img-fluid w-25" />
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
         <ngb-pagination  [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 

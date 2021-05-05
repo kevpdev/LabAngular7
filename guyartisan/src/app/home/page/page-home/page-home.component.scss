@@ -1,0 +1,17 @@
+@import 'variables';
+
+.header {
+    background-color: $background-color-header;
+    height: 25%;
+    max-height: 100vh;
+   // padding-top: 5%;
+    padding-top: 300px;
+    width: 100%;
+}
+
+
+.home-content {
+    max-height: 50vh;
+    width: 100%;
+    height: 300px;
+}

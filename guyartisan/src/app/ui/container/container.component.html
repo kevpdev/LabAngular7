@@ -1,13 +1,11 @@
-<header>
-  <ng-content select="[header]"></ng-content>
- </header>
- <main>
-  <div class="body">
-    <div class="container">
-      <ng-content select="[body]"></ng-content>
-    </div>
-  </div>
- </main>
- <footer>
-  <ng-content select="[footer]"></ng-content>
-</footer>
+<div class="wrapper">
+  <header>
+    <app-header></app-header>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+</div>

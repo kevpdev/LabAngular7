@@ -1,3 +1,7 @@
+<div class="header" *ngIf="enableHeader">
+</div>
 <app-page-search></app-page-search>
-<!-- <app-page-result-search></app-page-result-search> -->
-<router-outlet></router-outlet>
+<div class="home-content" *ngIf="enableHeader">
+    <p>content</p>
+</div>
+<router-outlet (activate)="hideHeader($event)"></router-outlet>

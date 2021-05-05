@@ -6,8 +6,9 @@
 
 #formContent{
     background-color: $background-color-search-form;
-    height: 30%;
+    //max-height: 100vh;
     padding: 5%;
+    //padding-top: 300px;
     width: 100%;
 }
 
@@ -24,4 +25,7 @@
 
 #city-list li:hover {
     background-color:  $background-color-search-form;
+}
+.btn-form-custom{
+    margin: 0;
 }

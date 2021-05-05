@@ -145,7 +145,7 @@ export class HomeService {
 
         if (this.business.comments.length > 0) {
           this.business.comments.sort((a, b) => {
-            if (new Date(a.date) > new Date(b.date)) {
+            if (new Date(a.date) < new Date(b.date)) {
               return 1;
             } else {
               return -1;
@@ -197,7 +197,7 @@ export class HomeService {
 
         if (this.business.comments.length > 0) {
           this.business.comments.sort((a, b) => {
-            if (new Date(a.date) > new Date(b.date)) {
+            if (new Date(a.date) < new Date(b.date)) {
               return 1;
             } else {
               return -1;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-page-home',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-home.component.scss']
 })
 export class PageHomeComponent implements OnInit {
+  enableHeader = true;
 
   constructor() { }
+  
 
   ngOnInit(): void {
+  }
+
+
+  hideHeader(event: any){
+    console.log('HIDEHEADER', event);
+    this.enableHeader = false;
+    console.log(this.enableHeader);
   }
 
 }
