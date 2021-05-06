@@ -11,13 +11,13 @@
     width: 100%;
   }
 .element:active {
-    background-color: rgb(76, 203, 253);
-    box-shadow: 0 5px #666;
+    background-color: $background-color-element;
+    //box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
 
 .element:hover {
-    background-color:  rgb(76, 203, 253);
+    background-color: $background-color-element;
 }
 
 .business-logo{
