@@ -7,13 +7,23 @@
 #formContent{
     background-color: $background-color-search-form;
     //max-height: 100vh;
-    padding: 5%;
+    padding: 70px 70px;
+    //padding-top: 300px;
+    width: 100%;
+}
+
+#formContentHeader{
+    //max-height: 100vh;
+    padding: 70px 70px;
     //padding-top: 300px;
     width: 100%;
 }
 
 .custom-label{
     margin-left: 10%;
+    font-weight: bold;
+    font-size: medium;
+    color: white;
 }
 
 #city-list {
@@ -24,13 +34,19 @@
 }
 
 #city-list li:hover {
-    background-color:  $background-color-search-form;
-}
-.btn-form-custom{
-    margin: 0;
+    background-color:  $background-color-main;
 }
 
 .form-position {
     margin-left: auto;
     margin-right: auto;
 }
+
+// .custom-select {
+//   background-color: white;
+//   padding: 0.6rem 0.75rem !important;
+//   margin: 0.2rem !important;
+//   width: 100% !important;
+// }
+
+

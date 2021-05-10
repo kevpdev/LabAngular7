@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Critere } from 'src/app/shared/models/critere';
@@ -16,6 +16,7 @@ export class PageSearchComponent implements OnInit {
   sectors: any[];
   jobs: any[];
   @Output () nItem: EventEmitter<any> = new EventEmitter();
+  @Input() enableHeader: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +27,7 @@ export class PageSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-
+    console.log(this.enableHeader);
     this.utilsService.getSectors().subscribe((data: any[]) =>{
      this.sectors = data;
     })
@@ -47,7 +48,7 @@ export class PageSearchComponent implements OnInit {
     //const city = this.homeSearchForm.get('searchCity').value;
     const city = '97300 CAYENNE';
     console.log(this.route);
-    this.router.navigate(['home/search', sector, job, city])
+    this.router.navigate(['search', sector, job, city], {relativeTo: this.route.parent})
     .catch( error => {
       console.log(error);
     });

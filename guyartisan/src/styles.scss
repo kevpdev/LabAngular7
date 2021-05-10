@@ -6,13 +6,42 @@
 @import 'variables';
 
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
 
 
+html {
+  height: 100%;
+}
+
+body {
+
+  position: relative;
+  min-height: 100%;
+  //font-family:cursive !important;
+}
+
+.input-form-custom{
+  background-color: white !important;
+  padding: 0.6rem 0.75rem !important;
+  margin: 0.2rem !important;
+  font-size: 1rem !important;
+  width: 100% !important;
+}
+
+.btn-form-custom{
+  padding: 0.6rem 0.75rem !important;
+  margin: 0.2rem !important;
+  font-size: 1rem !important;
+}
+
+.star {
+  font-size: 2rem;
+   color: $color-star;
+}
+
+.star2 {
+  font-size: 1rem;
+   color: $color-star;
+}
 
 
 

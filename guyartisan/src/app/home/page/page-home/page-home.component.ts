@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Console } from 'console';
 
 @Component({
@@ -9,10 +10,12 @@ import { Console } from 'console';
 export class PageHomeComponent implements OnInit {
   enableHeader = true;
 
-  constructor() { }
+  constructor() {
+  }
   
 
   ngOnInit(): void {
+
   }
 
 

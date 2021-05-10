@@ -32,12 +32,13 @@ export class HeaderComponent implements OnInit {
 
   signOutUser(){
     firebase.auth().signOut();
-    this.router.navigate(['\home']);
-    console.log('déconnecté');
+    this.router.navigate(['home']);
   }
 
   signIn(){
-    this.router.navigate(['\login']);
+    this.router.navigate(['login']);
   }
+
+
 
 }

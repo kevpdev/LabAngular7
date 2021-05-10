@@ -61,6 +61,8 @@ import 'jquery';
 import 'popper.js';
 import 'bootstrap';
 import 'firebase';
+import 'bootstrap-select';
+
 
 
 /***************************************************************************************************

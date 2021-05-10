@@ -1,26 +1,29 @@
-    <div class="element-array" id="element-array" *ngIf="businesses && paginationData">
+    <div class="element-array" id="element-array" *ngIf="paginationData && paginationData.length > 0">
         <div class="element border" *ngFor="let business of paginationData" (click)="getBusiness(business.id)">
             <div class="row">
                 <div class="container">
                     <div class="col-xl-8">
-                        <h2>{{ business.name }}</h2>
+                        <h3>{{ business.name }}</h3>
                         <div *ngIf="business.nbStar != null">
                             <i class="fa fa-star star2"></i><span>{{ business.nbStar }}</span>
                         </div>
                         <div *ngIf="business.nbStar == null">
                             <i class="fa fa-star star2"></i><span>Aucun avis</span>
                         </div>
-                        <p>{{ business.address.nameStreet }} {{ business.address.additionalAddress }}</p>
-                        <p>{{ business.address.zipCode }} {{ business.address.city }}</p>
+                    <span>{{ business.address.nameStreet }} {{ business.address.additionalAddress }}</span>
+                    <span>{{ business.address.zipCode }} {{ business.address.city }}</span>
                     </div>
                     <div class="col-xl-4">
                         <div *ngIf="business.logo !== null " class="business-logo">
-                            <img [src]="business.logo" class="img-fluid w-25" />
+                            <img [src]="business.logo" class="rounded w-25" />
                         </div>
                     </div>
                 </div>                
             </div>
         </div>
-        <ngb-pagination  [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
+        <ngb-pagination [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
         aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
+    </div>
+    <div id="search-result-not-found" *ngIf="!paginationData || paginationData.length < 1">
+        <h2>Aucun résultats pour ces critères de recherche</h2>
     </div>

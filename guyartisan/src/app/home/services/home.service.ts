@@ -12,7 +12,7 @@ import { Critere } from 'src/app/shared/models/critere';
 export class HomeService {
 
   businessesResultSearch: Business[] = [];
-  businessesSubject = new BehaviorSubject<Business[]>(new Array<Business>());
+  businessesSubject = new Subject<Business[]>();
 
   constructor(@Inject(LOCALE_ID) private locale: string, private db: AngularFirestore) { }
 
@@ -36,11 +36,13 @@ export class HomeService {
           let jobQuery = sectorQuery;
 
           if (critere.job) {
+            console.log('job non null');
             jobQuery = sectorQuery.where("job", "==", critere.job);
           }
           let cityQuery = jobQuery.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
 
           cityQuery.onSnapshot(querySnapshot2 => {
+            console.log('result size', querySnapshot2.docs.length);
             querySnapshot2.forEach(docBusiness => {
 
               this.getFieldsAndCommentBusinessByCriteria(docBusiness);
@@ -66,6 +68,7 @@ export class HomeService {
 
   reset() {
     this.businessesResultSearch = [];
+    this.businessesSubject.next(this.businessesResultSearch);
   }
 
   getBusinessById(index: string) {

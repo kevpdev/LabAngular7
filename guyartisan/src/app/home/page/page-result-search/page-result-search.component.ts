@@ -20,7 +20,9 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   page = 1;
   paginationData: Business[];
 
-  constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) {
+    console.log('coucou');
+   }
 
   ngOnInit(): void {
     console.log('init');
@@ -38,7 +40,10 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
       this.homeService.getBusinessByCriteria(critere);
 
       this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
-        console.log(data.length);
+        console.log(data.length, data);
+        this.businesses = [];
+        this.paginationData = [];
+        
         if (data.length > 0) {
           console.log('ici');
           this.businesses = data;

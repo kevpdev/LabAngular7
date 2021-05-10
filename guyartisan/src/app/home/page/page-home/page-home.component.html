@@ -1,6 +1,13 @@
 <div class="header" *ngIf="enableHeader">
+    <h1>Vous recherchez un artisan ?</h1>
+   
+    <div *ngIf="enableHeader">
+        <app-page-search [enableHeader]="enableHeader"></app-page-search>
+    </div>
 </div>
-<app-page-search></app-page-search>
+<div *ngIf="!enableHeader">
+    <app-page-search [enableHeader]="enableHeader"></app-page-search>
+</div>
 <div class="home-content" *ngIf="enableHeader">
     <p>content</p>
     Image par <a href="https://pixabay.com/fr/users/pavlofox-514753/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1314070">Pavlofox</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1314070">Pixabay</a>

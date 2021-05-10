@@ -1,14 +1,5 @@
 
 @import 'variables';
-.star {
-    font-size: 2rem;
-     color: rgb(241, 118, 3);
-}
-
-.star2 {
-    font-size: 1rem;
-     color: rgb(241, 118, 3);
-}
 
 #comment-spac {
     padding-top: 2%;
@@ -45,35 +36,25 @@
     margin-bottom: 2%;
 }
 
-:host ::ng-deep .pagination {
-    display: flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: .25rem;
-}
+
+
 
 :host ::ng-deep .page-link:hover {
-    z-index: 2;
-    color: #0056b3;
-    text-decoration: none;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-}
-
-:host ::ng-deep .page-link {
-    position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #007bff;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
+    z-index: 0;
+    background-color: $background-color-search-form;
+    border-color: $background-color-search-form;
 }
 
 :host ::ng-deep .page-item.active .page-link {
     z-index: 0;
-    color: #fff;
-    background-color: #f39b53;
-    border-color: #007bff;
+    color: black;
+    background-color: $background-color-search-form;
+    border-color: $background-color-search-form;
+}
+
+
+ngb-pagination {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 30px;
 }

@@ -24,6 +24,7 @@
     "@angular/router": "~11.2.5",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "bootstrap": "^4.5.3",
+    "bootstrap-select": "^1.13.18",
     "codes-postaux": "^3.3.0",
     "firebase": "^8.2.9",
     "font-awesome": "^4.7.0",
