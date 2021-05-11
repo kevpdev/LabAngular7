@@ -24,6 +24,6 @@
         <ngb-pagination [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
         aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
     </div>
-    <div id="search-result-not-found" *ngIf="!paginationData || paginationData.length < 1">
-        <h2>Aucun résultats pour ces critères de recherche</h2>
+    <div id="search-result-not-found" *ngIf="!initializeComponent && paginationData.length < 1">
+        <h2>Aucun résultat pour ces critères de recherche</h2>
     </div>

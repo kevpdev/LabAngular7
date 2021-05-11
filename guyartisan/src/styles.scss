@@ -17,6 +17,7 @@ body {
   position: relative;
   min-height: 100%;
   //font-family:cursive !important;
+  font-size: 1rem !important;
 }
 
 .input-form-custom{
@@ -33,6 +34,13 @@ body {
   font-size: 1rem !important;
 }
 
+.btn-form-custom2{
+  padding: 0.6rem 0.75rem !important;
+  margin: 0.2rem !important;
+  font-size: 1rem !important;
+  font-weight: bold;
+}
+
 .star {
   font-size: 2rem;
    color: $color-star;
@@ -40,7 +48,7 @@ body {
 
 .star2 {
   font-size: 1rem;
-   color: $color-star;
+  color: $color-star;
 }
 
 

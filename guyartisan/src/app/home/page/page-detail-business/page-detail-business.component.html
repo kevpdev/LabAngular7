@@ -3,15 +3,13 @@
     <div class="row">
       <div class="col-xl-8 col-sm-12 col-12">
         <div class="detail" *ngIf="business">
-          <hr>
           <div class="row">
-            <div class="col-xl-6 col-12">
-              <h4>{{ business.name }}</h4>
-              <div class="col-xl-6 col-12">
-                <p class="font-weight-bold">Secteur/Métier: </p>
-              </div>
-              <div class="col-xl-6 col-12">
-                <p>{{business.sector}} {{business.job}}</p>
+            <div class="col-xl-6 col-lg-6 col-12">
+              <div class="col-12">
+                <h4 class="font-weight-bold">{{ business.name }}</h4>
+                <p>
+                  <span class="font-weight-bold">Secteur/Métier: </span><span>{{business.sector}}/{{business.job}}</span>
+                </p>
               </div>
               <div class="col-xl-6 col-12" *ngIf="business.comments && business.nbStar > 0">
                 <i class="fa fa-star star2"></i><span>{{business.nbStar}} </span><a [routerLink]=""
@@ -32,7 +30,7 @@
             <div class="info col-xl-6 col-12">
               <div class="row">
                 <div class="col-xl-6 col-12">
-                  <h5>Coordonnées</h5>
+                  <h5 class="font-weight-bold">Coordonnées</h5>
                   <hr />
                 </div>
               </div>
@@ -88,7 +86,7 @@
             <div class="horaire col-xl-6 col-12">
               <div class="row">
                 <div class="col-xl-12 col-12">
-                  <h5>Horaires</h5>
+                  <h5 class="font-weight-bold">Horaires</h5>
                   <hr />
                   <p>{{ business.openingHours }}</p>
                 </div>

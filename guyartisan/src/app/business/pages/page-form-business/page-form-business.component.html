@@ -7,7 +7,7 @@
     <div class="col-xl-6 col-sm-8 col-10">
       <div class="bunisess-form">
         <form [formGroup]="businessForm" (ngSubmit)="onSaveBusiness()">
-          <h5>Société :</h5>
+          <h5 class="font-weight-bold">Ma Société :</h5>
           <hr />
           <div class="form-group required">
             <label class="control-label" for="businessName">Nom de la société : </label>
@@ -15,7 +15,7 @@
               type="text"
               id="businessName"
               formControlName="businessName"
-              class="form-control"
+              class="form-control input-form-custom"
             />
             <div *ngIf="businessForm.controls['businessName'].invalid  && (businessForm.controls['businessName'].dirty || businessForm.controls['businessName'].touched)" class="alert alert-danger" role="alert">
               <div *ngIf="businessForm.controls['businessName'].errors.required">
@@ -37,7 +37,7 @@
           </div>
           <div class="form-group required">
             <label class="control-label" for="sector">Secteur : </label>
-            <select formControlName="sector" id="sector" class="custom-select" (change)="onChangeSector($event)">
+            <select formControlName="sector" id="sector" class="form-control input-form-custom" (change)="onChangeSector($event)">
               <option *ngFor="let sector of sectors; let i = index" [value]="i">
                 {{ sector.sectorName }}
               </option>
@@ -51,7 +51,7 @@
           <div *ngIf="sectorSelected">
             <div class="form-group">
               <label class="control-label" for="job">Métier (Facultatif):  </label>
-              <select formControlName="job" id="job" class="custom-select">
+              <select formControlName="job" id="job" class="form-control input-form-custom">
                 <option *ngFor="let job of jobs; let i = index" [value]="job">
                   {{ job }}
                 </option>
@@ -65,7 +65,7 @@
           </div>
           <div class="form-group">
             <div *ngIf="logoUrl">
-              <img [src]="logoUrl" class="img-fluid" />
+              <img [src]="logoUrl" class="img-fluid rounded" />
               <div *ngIf="limiteSizeError" class="alert alert-danger" role="alert">
                 Le taille du fichier ne doit pas depasser 2 Mo
               </div>
@@ -90,7 +90,7 @@
               type="text"
               id="siret"
               formControlName="siret"
-              class="form-control"
+              class="form-control input-form-custom"
             />
             <div *ngIf="businessForm.controls['siret'].invalid  && (businessForm.controls['siret'].dirty || businessForm.controls['siret'].touched)" class="alert alert-danger" role="alert">
               <div *ngIf="businessForm.controls['siret'].errors.required">
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          <h5>Coordonnées :</h5>
+          <h5 class="font-weight-bold">Coordonnées :</h5>
           <hr />
           <div class="form-group">
             <label class="control-label" for="phone">Téléphone : </label>
@@ -109,7 +109,7 @@
               type="text"
               id="phone"
               formControlName="phone"
-              class="form-control"
+              class="form-control input-form-custom"
             />
             <div *ngIf="businessForm.controls['phone'].invalid  && (businessForm.controls['phone'].dirty || businessForm.controls['phone'].touched)" class="alert alert-danger" role="alert">
               <div *ngIf="businessForm.controls['phone'].errors.pattern">
@@ -123,7 +123,7 @@
               type="text"
               id="address"
               formControlName="address"
-              class="form-control"
+              class="form-control input-form-custom"
             />
           </div>
           <div class="form-group">
@@ -149,7 +149,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label" for="city">Ville : </label>
+            <label class="control-label input-form-custom" for="city">Ville : </label>
             <input
               type="text"
               id="city"
@@ -163,7 +163,7 @@
               type="text"
               id="pays"
               formControlName="pays"
-              class="form-control"
+              class="form-control input-form-custom"
             />
           </div>
           <div class="form-group required">
@@ -172,7 +172,7 @@
               type="text"
               id="email"
               formControlName="email"
-              class="form-control"
+              class="form-control input-form-custom"
             />
             <div *ngIf="businessForm.controls['email'].invalid  && (businessForm.controls['email'].dirty || businessForm.controls['email'].touched)" class="alert alert-danger" role="alert">
               <div *ngIf="businessForm.controls['email'].errors.required">
@@ -189,16 +189,16 @@
               type="text"
               id="website"
               formControlName="website"
-              class="form-control"
+              class="form-control input-form-custom"
             />
           </div>
           <div class="form-group">
-            <label class="control-label" for="openingHours">Horaires : </label>
+            <label class="control-label " for="openingHours">Horaires : </label>
             <input
               type="textarea"
               id="openingHours"
               formControlName="openingHours"
-              class="form-control"
+              class="form-control input-form-custom"
               placeholder="Veuillez saisir vos horaires"
             />
           </div>

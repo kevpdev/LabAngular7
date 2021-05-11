@@ -1,12 +1,12 @@
 
 @import 'variables';
 
-#comment-spac {
-    padding-top: 2%;
-    background-color: $background-color-element;
-    width: 100%;
-}
-#comments-list {
+// #comment-spac {
+//     padding-top: 2%;
+//     background-color: $background-color-element;
+//     width: 100%;
+// }
+#comments-list, #comment-space{
     padding-top: 2%;
     background-color: $background-color-element;
     width: 100%;
@@ -28,15 +28,9 @@
     font-weight: bold;
 }
 
-.button-form {
-    margin-right: 1%;
-}
-
-.button-avis {
-    margin-bottom: 2%;
-}
-
-
+// #comment-form {
+//     background-color: $background-color-element;
+// }
 
 
 :host ::ng-deep .page-link:hover {

@@ -18,7 +18,8 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   pageSize = 5;
   collectionPageSize = 0;
   page = 1;
-  paginationData: Business[];
+  paginationData: Business[] = [];
+  initializeComponent = true;
 
   constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) {
     console.log('coucou');
@@ -27,7 +28,6 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     console.log('init');
     console.log('result search');
-
 
     this.route.params.subscribe((params) => {
       console.log(params);
@@ -43,6 +43,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
         console.log(data.length, data);
         this.businesses = [];
         this.paginationData = [];
+        this.initializeComponent = false;
         
         if (data.length > 0) {
           console.log('ici');
@@ -65,25 +66,6 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
     //this.getResultSearch();
     // this.businesses
   }
-
-  // getResultSearch(){
-  //   console.log('result search');
-  //   this.route.params.subscribe((params) =>{
-  //     console.log(params);
-  //     let critere = new Critere();
-  //     critere.sector = params.sector;
-  //     critere.city = params.city;
-  //     critere.job = params.job;
-  //     console.log(critere);
-
-  //      this.homeService.getBusinessByCritere(critere);
-  //      this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
-  //      this.businesses = data;
-  //      console.log(this.businesses);
-  //      });
-
-  //   });
-  // }
 
   getBusiness(index: string) {
     console.log(index);

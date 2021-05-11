@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Mon Entreprise</h1>
-  <hr />
+ 
  <div *ngIf="!enableEditBusiness || addBusiness" id="add-business-bloc">
   <div class="row">
     <div class="col-xl-6 col-6">
@@ -15,16 +15,16 @@
       <div class="bunisess-form" *ngFor="let business of businesses; let id = index">
         <div class="row">
           <div class="col-xl-6 col-6">
-            <button type="button" class="btn btn-primary" routerLinkActive="active" [routerLink]="['edit', id]"> Modifier</button>
+            <button type="button" class="btn btn-default btn-round" routerLinkActive="active" [routerLink]="['edit', id]"> Modifier</button>
           </div>
           <div class="col-xl-6 col-6">
-            <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#deleteBusiness"> Supprimer</button>
+            <button type="button" class="btn btn-danger btn-round"  data-toggle="modal" data-target="#deleteBusiness"> Supprimer</button>
           </div>
           <div class="modal fade" id="deleteBusiness" tabindex="-1" role="dialog" aria-labelledby="deleteBusinessLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="deleteBusinessLabel">Confirmation</h5>
+                  <h5 class="modal-title font" id="deleteBusinessLabel">Confirmation</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -33,8 +33,8 @@
                   <p>Voulez-vous vraiment supprimer votre entreprise ?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                  <button type="button" class="btn btn-primary" (click)="onDeleteBusiness(id)" data-dismiss="modal">Oui</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                  <button type="button" class="btn btn-success" (click)="onDeleteBusiness(id)" data-dismiss="modal">Oui</button>
                 </div>
               </div>
             </div>
@@ -43,17 +43,17 @@
         <hr>
         <div class="row">
           <div class="col-xl-6 col-12">
-            <h4>{{business.name}}</h4>
-              <div class="col-xl-6 col-12">
-                <p class="font-weight-bold">Secteur/Métier: </p>
-              </div>
-              <div class="col-xl-6 col-12">
-                <p>{{business.sector}} {{business.job}}</p>
-              </div>
+            <div class="col-12">
+              <h4 class="font-weight-bold">{{business.name}}</h4>
+              <p>
+                <span class="font-weight-bold">Secteur/Métier: </span><span>{{business.sector}}/{{business.job}}</span>
+              </p>
+            </div>
           </div>
+
           <div class="col-xl-6 col-12">
             <div *ngIf="business.logo !== null ">
-              <img [src]="business.logo" class="img-fluid" />
+              <img [src]="business.logo" class="img-fluid rounded" />
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="info col-xl-6 col-12">
             <div class="row">
               <div class="col-xl-6 col-12">
-                <h5>Coordonnées</h5>
+                <h5 class="font-weight-bold">Coordonnées</h5>
                 <hr />
               </div>
             </div>
@@ -118,7 +118,7 @@
           <div class="horaire col-xl-6 col-12">
             <div class="row">
               <div class="col-xl-12 col-12">
-                <h5>Horaires</h5>
+                <h5 class="font-weight-bold">Horaires</h5>
                 <hr />
                 <p>{{ business.openingHours }}</p>
               </div>

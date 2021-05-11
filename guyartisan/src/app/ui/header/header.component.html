@@ -7,16 +7,21 @@
     <div class="collapse navbar-collapse flex-column" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#">Accueil</a>
+          <a class="nav-link btn-round" href="#">Accueil</a>
         </li>
         <li *ngIf="loggin" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="business">Mon Entreprise</a>
+          <a class="nav-link btn-round" routerLink="business">Mon Entreprise</a>
         </li>
         <li *ngIf="loggin" class="nav-item">
-          <a class="nav-link" (click)="signOutUser()">Déconnexion</a>
+          <a class="nav-link active btn btn-round logout" (click)="signOutUser()">
+            <i class="now-ui-icons media-1_button-power"></i>
+            <p class="font-weight-bold p-logout">Déconnexion</p>
+          </a>
         </li>
         <li *ngIf="!loggin" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="login">Accès pro</a>
+          <a class="nav-link active btn-round login" routerLink="login">
+            <i class="now-ui-icons users_single-02"></i>
+            <p>Accès pro</p></a>
         </li>
 
       </ul>

@@ -4,27 +4,31 @@
   background: #fff;
   // max-width: 450px;
   //  position: relative;
-    margin: 30px;
-   width: 90%;
+  //width: 100%;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
  // text-align: center;
 }
 
-@media (max-width: 575.98px) {
-  #formContent {
+// @media (max-width: 575.98px) {
+//   #formContent {
 
-      margin: 30px;
-     width: 80%;
+//       margin: 30px;
+//      width: 80%;
 
-  }
-}
+//   }
+// }
 
 form {
-  padding: 50px;
+  padding: 5rem;
+  margin-top: 9rem;
 
 }
 
 form .form-label {
   text-align: left;
+}
+
+.alert{
+  margin-top: 1rem;
 }
