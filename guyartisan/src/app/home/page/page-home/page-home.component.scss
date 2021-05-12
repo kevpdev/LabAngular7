@@ -1,23 +1,69 @@
 @import 'variables';
 
 .header {
-    //background-color: $background-color-header;
-    background-image: url('../../../../assets/img/banner_artisan_1500.png');
-    height: 75vh;
-    max-height: 75vh;
-    padding-top: 5%;
-    padding-top: 300px;
+    background-image: url('../../../../assets/img/banner/banner_artisan.jpg');
+    max-height: 60vh;
+    height: 60vh;
+    padding-top: 160px;
+    //padding-bottom: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
     width: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+    //max-width : 100%;
+    // height: auto;
+    // display: block;
 }
 
-.header h1{
+//   @media (min-resolution: 192dpi) {
+//     .header {
+//       // image 2x plus grande : 1536px de large
+//       background-image: url('/img/meeting-s@2x.jpg');
+//     }
+//   }
+
+@media (max-width: 1024px) {
+    .header {
+        background-image: url('../../../../assets/img/banner/banner_artisan.jpg');
+        max-height: 60vh;
+        height: 60vh;
+        padding-top: 80px;
+        //padding-bottom: 5%;
+        padding-right: 5%;
+        padding-left: 5%;
+        width: 100%;
+        background-position: center;
+        background-repeat:no-repeat;
+        background-size: cover;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .header {
+        background-image: url('../../../../assets/img/banner/banner_artisan.jpg');
+        max-height: 60vh;
+        height: 40vh;
+        padding-top: 240px;
+        //padding-bottom: 5%;
+        padding-right: 5%;
+        padding-left: 5%;
+        width: 100%;
+        background-position: center;
+        background-repeat:no-repeat;
+        background-size: cover;
+    }
+  }
+
+
+.header h2, h3{
     text-align: center;
     color: white;
 }
 
 
 .home-content {
-    max-height: 70vh;
+    max-height: 100vh;
     width: 100%;
-    height: 300px;
 }
