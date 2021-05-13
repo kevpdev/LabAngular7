@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && gzipper compress ./dist",
+    "build-prod": "ng build --prod && gzipper compress ./dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -28,6 +29,7 @@
     "codes-postaux": "^3.3.0",
     "firebase": "^8.2.9",
     "font-awesome": "^4.7.0",
+    "gzipper": "^4.5.0",
     "http": "0.0.1-security",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",

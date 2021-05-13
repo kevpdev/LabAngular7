@@ -10,6 +10,7 @@
 
 html {
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -18,6 +19,11 @@ body {
   min-height: 100%;
   //font-family:cursive !important;
   font-size: 1rem !important;
+  width: 100%;
+}
+
+html,body{
+  overflow-x: hidden;
 }
 
 .input-form-custom{

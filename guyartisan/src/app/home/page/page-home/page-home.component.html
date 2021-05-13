@@ -7,7 +7,7 @@
     </div>
 
 </div>
-<div *ngIf="!enableHeader">
+<div *ngIf="!enableHeader" class="searchForm">
     <app-page-search [enableHeader]="enableHeader"></app-page-search>
 </div>
 <div class="home-content" *ngIf="enableHeader">
@@ -18,7 +18,7 @@
                 <p>
                     Notre annuaire en ligne permet de trouver un professionnel près de chez vous.
                     Accédez à sa fiche afin de pouvoir le contacter via ses coordonnées.
-                    N'hesitez pas laisser un petit avis afin de le soutenir.
+                    N'hesitez pas à laisser un petit avis afin de le soutenir.
                 </p>
             </div>
             <div class="col-xl-6 col-12">
