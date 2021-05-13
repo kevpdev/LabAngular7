@@ -21,10 +21,10 @@ export class HomeService {
   businessSubject = new Subject<Business>();
   cumulRating = 0;
 
-   getBusinessByCriteria(critere: Critere) {
+  getBusinessByCriteria(critere: Critere) {
     this.reset();
 
-    let cityArray = critere.city.split(" ");
+    let cityArray = critere.city ? critere.city.split(" ") : [];
 
     console.log(cityArray, critere);
 
@@ -32,16 +32,15 @@ export class HomeService {
       .then(querySnapshot => {
         querySnapshot.forEach(docUser => {
 
-          let sectorQuery = docUser.ref.collection('businesses').where("sector", "==", critere.sector);
-          let jobQuery = sectorQuery;
-
+          let querySector = docUser.ref.collection('businesses').where("sector", "==", critere.sector);
+          let queryJob = querySector;
           if (critere.job) {
-            console.log('job non null');
-            jobQuery = sectorQuery.where("job", "==", critere.job);
+           queryJob = querySector.where("job", "==", critere.job);
           }
-          let cityQuery = jobQuery.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
 
-          cityQuery.onSnapshot(querySnapshot2 => {
+          let queryCity = queryJob.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
+          
+          queryCity.onSnapshot(querySnapshot2 => {
             console.log('result size', querySnapshot2.docs.length);
             querySnapshot2.forEach(docBusiness => {
 
@@ -50,12 +49,6 @@ export class HomeService {
             });
           });
         });
-
-       
-
-      })
-      .catch(error => {
-        console.log("Error getting documents: ", error);
       });
 
   }
@@ -86,10 +79,7 @@ export class HomeService {
               console.log(this.business);
 
             }
-          })
-          .catch(error => {
-            console.log("Error getting documents: ", error);
-          });;
+          });
       });
     });
   }
@@ -123,14 +113,14 @@ export class HomeService {
   getCommentBusiness(docBusiness: DocumentData) {
 
     const docRefComment = docBusiness.ref.collection('comments');
-    
+
     this.cumulRating = 0;
 
     docRefComment.get()
       .then(querySnapShot => {
 
         this.business = docBusiness.data() as Business;
-        
+
         if (!this.business.comments) {
           console.log('ici');
           this.business.comments = [];
@@ -159,7 +149,7 @@ export class HomeService {
         let commentsLength = this.business.comments.length;
 
         //Calcul star
-        if(commentsLength > 0){
+        if (commentsLength > 0) {
           let nbStar = this.cumulRating / commentsLength;
           this.business.nbStar = Number(nbStar.toPrecision(2));
         }
@@ -178,21 +168,21 @@ export class HomeService {
 
     console.log(docBusiness);
     //get fields Business
-    
+
     // get collections
     docBusiness.ref.collection('comments').get()
-    .then(querySnapshot => {
+      .then(querySnapshot => {
 
-      this.cumulRating = 0;
-      this.business = docBusiness.data() as Business;
-      console.log(this.business);
+        this.cumulRating = 0;
+        this.business = docBusiness.data() as Business;
+        console.log(this.business);
 
         if (!this.business.comments) {
           this.business.comments = [];
         }
 
         querySnapshot.forEach(docComment => {
-                    
+
           let commentData = docComment.data() as Comment;
           this.cumulRating += commentData.rate;
           this.business.comments.push(docComment.data() as Comment);
@@ -207,6 +197,7 @@ export class HomeService {
             }
           });
         }
+
         let commentsLength = this.business.comments.length;
         console.log(commentsLength);
         //Calcul star
@@ -215,14 +206,14 @@ export class HomeService {
           this.business.nbStar = Number(nbStar.toPrecision(2));
           console.log(commentsLength, this.business.nbStar);
         }
-        
+
 
         console.log(this.business);
         this.businessesResultSearch.push(this.business);
-        
+
         console.log(this.businessesResultSearch);
         this.emitBusinessByCriteria();
-  
+
       });
 
 

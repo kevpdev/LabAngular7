@@ -16,8 +16,8 @@ export class PageFormBusinessComponent implements OnInit {
 
   businessForm: FormGroup;
   sectors: any[];
-  days: string [];
-  hours: number [];
+  days: string[];
+  hours: number[];
   businessSubscription: Subscription;
   businesses: Business[];
   editBusiness = false;
@@ -38,49 +38,48 @@ export class PageFormBusinessComponent implements OnInit {
     private route: ActivatedRoute,
     private utilsService: UtilsService
 
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-      this.initForm();
-      this.utilsService.getSectors().subscribe((data: any[]) =>{
-        this.sectors = data;
-       })
-     // this.days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    this.initForm();
+    this.utilsService.getSectors().subscribe((data: any[]) => {
+      this.sectors = data;
+    })
+    // this.days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-      if(this.route){
-        this.route.params.subscribe(param =>
-          {
-          const id = param.id;
+    if (this.route) {
+      this.route.params.subscribe(param => {
+        const id = param.id;
 
-          this.businessService.getBusinesses().subscribe( data => {
-              this.businesses = data.map(e => {
-                return {
-                 id: e.payload.doc.id,
-                 ...e.payload.doc.data()
-               } as Business;
-             });
-              if(id){
-               this.initEditForm( this.businesses[id]);
-             }else if(this.businesses.length > 0){
-              this.router.navigate(['/business']);
-             }
-           });
+        this.businessService.getBusinesses().subscribe(data => {
+          this.businesses = data.map(e => {
+            return {
+              id: e.payload.doc.id,
+              ...e.payload.doc.data()
+            } as Business;
+          });
+          if (id) {
+            this.initEditForm(this.businesses[id]);
+          } else if (this.businesses.length > 0) {
+            this.router.navigate(['/business']);
+          }
         });
-      }
+      });
+    }
   }
 
-  initForm(){
-   this.businessForm =  this.formBuilder.group({
+  initForm() {
+    this.businessForm = this.formBuilder.group({
       businessName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9@_'& -]{1,20}$/)]],
       sector: ['', Validators.required],
-      siret: ['',  [Validators.required, Validators.pattern(/^[0-9]{14}$/)]],
-      phone: ['',  Validators.pattern(/^[0-9]{10}$/)],
+      siret: ['', [Validators.required, Validators.pattern(/^[0-9]{14}$/)]],
+      phone: ['', Validators.pattern(/^[0-9]{10}$/)],
       address: [''],
       additionalAddress: [''],
-      zipCode: ['',  Validators.pattern(/^[0-9]{5}$/)],
-      city: [{value: '', disabled: true}],
+      zipCode: ['', Validators.pattern(/^[0-9]{5}$/)],
+      city: [{ value: '', disabled: true }],
       pays: ['France'],
-      email: ['',  [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       website: [''],
       businessLogo: [''],
       openingHours: [''],
@@ -93,53 +92,54 @@ export class PageFormBusinessComponent implements OnInit {
     });
   }
 
-  onSaveBusiness(){
+  onSaveBusiness() {
 
-     console.log(this.businessForm.invalid);
-     const newBusiness = new Business();
+    console.log(this.businessForm.invalid);
+    const newBusiness = new Business();
 
-     newBusiness.id = this.currentIdEdit;
-     newBusiness.name = this.businessForm.get('businessName').value.toUpperCase() || null;
-     const indexSector = this.businessForm.get('sector').value || null;
-     const sector = indexSector != null ? this.sectors[indexSector].sectorName : null;
-     newBusiness.sector = sector || null;
-     newBusiness.job = this.businessForm.get('job').value || null;
-     newBusiness.siret = this.businessForm.get('siret').value || null;
-     newBusiness.phone1 = this.businessForm.get('phone').value || null;
-     newBusiness.logo = this.logoUrl ? this.logoUrl : null;
-     const newAddress = new Address();
-     newAddress.nameStreet = this.businessForm.get('address').value || null;
-     newAddress.additionalAddress = this.businessForm.get('additionalAddress').value || null;
-     newAddress.zipCode = this.businessForm.get('zipCode').value || null;
-     newAddress.city = this.businessForm.get('city').value || null;
-     newAddress.pays = this.businessForm.get('pays').value || null;
-     newBusiness.address = Object.assign({}, newAddress) || null;
-     newBusiness.email = this.businessForm.get('email').value || null;
-     newBusiness.website = this.businessForm.get('website').value || null;
-     newBusiness.openingHours = this.businessForm.get('openingHours').value || null;
+    newBusiness.id = this.currentIdEdit;
+    newBusiness.name = this.businessForm.get('businessName').value.toUpperCase() || null;
+    const indexSector = this.businessForm.get('sector').value || null;
+    const sector = indexSector != null ? this.sectors[indexSector].sectorName : null;
+    newBusiness.sector = sector || null;
+    newBusiness.job = this.businessForm.get('job').value || null;
+    newBusiness.siret = this.businessForm.get('siret').value || null;
+    newBusiness.phone1 = this.businessForm.get('phone').value || null;
+    newBusiness.logo = this.logoUrl ? this.logoUrl : null;
+    const newAddress = new Address();
+    newAddress.nameStreet = this.businessForm.get('address').value || null;
+    newAddress.additionalAddress = this.businessForm.get('additionalAddress').value || null;
+    newAddress.zipCode = this.businessForm.get('zipCode').value || null;
+    newAddress.city = this.businessForm.get('city').value || null;
+    newAddress.pays = this.businessForm.get('pays').value || null;
+    newBusiness.address = Object.assign({}, newAddress) || null;
+    newBusiness.email = this.businessForm.get('email').value || null;
+    newBusiness.website = this.businessForm.get('website').value || null;
+    newBusiness.openingHours = this.businessForm.get('openingHours').value || null;
 
-     console.log('newBusiness : ', newBusiness);
-     if(this.editBusiness){
-       this.businessService.updateBusiness(newBusiness);
-     }else{
-       this.businessService.createBusiness(newBusiness);
-     }
-     this.router.navigate(['/business']);
+    console.log('newBusiness : ', newBusiness);
+    if (this.editBusiness) {
+      this.businessService.updateBusiness(newBusiness);
+    } else {
+      this.businessService.createBusiness(newBusiness);
+    }
+    this.router.navigate(['/business']);
   }
 
-  initEditForm(business: Business){
+  initEditForm(business: Business) {
     console.log(business);
     this.businessForm.get('businessName').setValue(business.name);
     this.businessForm.get('sector').setValue(business.sector);
     this.businessForm.get('sector').setValue(business.job);
     this.businessForm.get('siret').setValue(business.siret);
     this.businessForm.get('phone').setValue(business.phone1);
-    if(business.address)
-    this.businessForm.get('address').setValue(business.address.nameStreet);
-    this.businessForm.get('additionalAddress').setValue(business.address.additionalAddress);
-    this.businessForm.get('zipCode').setValue(business.address.zipCode);
-    this.businessForm.get('city').setValue(business.address.city);
-    this.businessForm.get('pays').setValue(business.address.pays);
+    if (business.address) {
+      this.businessForm.get('address').setValue(business.address.nameStreet);
+      this.businessForm.get('additionalAddress').setValue(business.address.additionalAddress);
+      this.businessForm.get('zipCode').setValue(business.address.zipCode);
+      this.businessForm.get('city').setValue(business.address.city);
+      this.businessForm.get('pays').setValue(business.address.pays);
+    }
     this.businessForm.get('email').setValue(business.email);
     this.businessForm.get('website').setValue(business.website);
     this.businessForm.get('openingHours').setValue(business.openingHours);
@@ -148,21 +148,21 @@ export class PageFormBusinessComponent implements OnInit {
     this.currentIdEdit = business.id;
   }
 
-  getHours(maxRange: number, minRange){
+  getHours(maxRange: number, minRange) {
 
     this.hours = Array(maxRange - minRange + 1).fill(minRange).map((x, y) => x + y);
     //y is a increment number and x is a minRange
 
   }
 
-  onUploadFile(event){
+  onUploadFile(event) {
     console.log(event);
     const file = event.target.files.item(0);
-    if(file.size <= 2097152 ){
+    if (file.size <= 2097152) {
       this.logoUploading = true;
       this.businessService.uploadFile(file).then(
         (url: string) => {
-          if(this.logoUrl){
+          if (this.logoUrl) {
             this.businessService.removeFile(this.logoUrl);
           }
           this.logoUrl = url;
@@ -173,28 +173,28 @@ export class PageFormBusinessComponent implements OnInit {
           }, 5000);
         }
       );
-    }else{
+    } else {
       this.limiteSizeError = true;
     }
   }
 
-  getCityByZipCode(event){
+  getCityByZipCode(event) {
     console.log('event zipcode ici');
     const codesPostaux = require('codes-postaux');
     const zipCode = event.target.value;
     const response = codesPostaux.find(zipCode);
 
-    if(response.length > 0){
+    if (response.length > 0) {
       const city = response[0].libelleAcheminement;
       console.log(city);
       this.businessForm.get('city').setValue(city);
       this.cityUnknowError = false;
-    }else{
+    } else {
       this.cityUnknowError = true;
     }
   }
 
-  onChangeSector(event){
+  onChangeSector(event) {
     const sectorSelectValue = event.target.value;
     this.jobs = this.sectors[sectorSelectValue].jobs;
     this.sectorSelected = true;

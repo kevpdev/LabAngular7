@@ -10,7 +10,7 @@ import { HomeService } from '../../services/home.service';
   templateUrl: './page-result-search.component.html',
   styleUrls: ['./page-result-search.component.scss']
 })
-export class PageResultSearchComponent implements OnInit, OnChanges {
+export class PageResultSearchComponent implements OnInit {
 
   @Input() businesses: Business[];
   @Output() nItem: EventEmitter<any> = new EventEmitter();
@@ -23,7 +23,7 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
 
   constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) {
     console.log('coucou');
-   }
+  }
 
   ngOnInit(): void {
     console.log('init');
@@ -37,35 +37,43 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
       critere.job = params.job;
       console.log(critere);
 
-      this.homeService.getBusinessByCriteria(critere);
+      //required data test
+      if (critere.sector && critere.city) {
+        this.homeService.getBusinessByCriteria(critere);
+        this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
+          this.businesses = [];
+          this.paginationData = [];
+          this.initializeComponent = false;
 
-      this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
-        console.log(data.length, data);
+          if (data.length > 0) {
+            this.businesses = data;
+            this.collectionPageSize = this.businesses.length;
+
+            //tri
+            if (this.businesses.length > 0) {
+              this.businesses.sort((a, b) => {
+                if (a.name > b.name) {
+                  return 1;
+                } else {
+                  return -1;
+                }
+              });
+            }
+            this.getPaginationData();
+          }
+        },
+          error => {
+            console.log('Error service: ' + error);
+          });
+
+      } else {
+        this.initializeComponent = false;
         this.businesses = [];
         this.paginationData = [];
-        this.initializeComponent = false;
-        
-        if (data.length > 0) {
-          console.log('ici');
-          this.businesses = data;
-          this.collectionPageSize = this.businesses.length;
-          this.getPaginationData();
-        }
-
-      });
-
+      }
     });
-    // this.getResultSearch();
-    
-
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.businesses = [];
-    console.log('change : ');
-    //this.getResultSearch();
-    // this.businesses
-  }
 
   getBusiness(index: string) {
     console.log(index);
@@ -73,12 +81,9 @@ export class PageResultSearchComponent implements OnInit, OnChanges {
   }
 
   getPaginationData() {
-    console.log(this.businesses);
     this.paginationData = this.businesses
-    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
 
     console.log(this.paginationData);
-
   }
-
 }
