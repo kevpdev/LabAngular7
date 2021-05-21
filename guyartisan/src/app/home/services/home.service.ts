@@ -41,7 +41,6 @@ export class HomeService {
           let queryCity = queryJob.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
           
           queryCity.onSnapshot(querySnapshot2 => {
-            console.log('result size', querySnapshot2.docs.length);
             querySnapshot2.forEach(docBusiness => {
 
               this.getFieldsAndCommentBusinessByCriteria(docBusiness);
@@ -65,18 +64,14 @@ export class HomeService {
   }
 
   getBusinessById(index: string) {
-    console.log(index);
     return this.users.get().then(querySnapshot => {
       querySnapshot.forEach(docUsers => {
         docUsers.ref.collection('businesses').doc(index).get()
           .then(docBusiness => {
-            console.log(docBusiness.data());
             if (docBusiness.exists) {
 
               // get collections
               this.getCommentBusiness(docBusiness);
-
-              console.log(this.business);
 
             }
           });
@@ -122,13 +117,10 @@ export class HomeService {
         this.business = docBusiness.data() as Business;
 
         if (!this.business.comments) {
-          console.log('ici');
           this.business.comments = [];
         }
 
         querySnapShot.forEach(docComment => {
-
-          console.log(this.business.comments);
 
           let commentData = docComment.data() as Comment;
 
@@ -153,21 +145,12 @@ export class HomeService {
           let nbStar = this.cumulRating / commentsLength;
           this.business.nbStar = Number(nbStar.toPrecision(2));
         }
-
-
-
         this.emitBusinessById();
-
       });
-
   }
 
 
   getFieldsAndCommentBusinessByCriteria(docBusiness: DocumentData) {
-
-
-    console.log(docBusiness);
-    //get fields Business
 
     // get collections
     docBusiness.ref.collection('comments').get()
@@ -175,7 +158,6 @@ export class HomeService {
 
         this.cumulRating = 0;
         this.business = docBusiness.data() as Business;
-        console.log(this.business);
 
         if (!this.business.comments) {
           this.business.comments = [];
@@ -199,23 +181,16 @@ export class HomeService {
         }
 
         let commentsLength = this.business.comments.length;
-        console.log(commentsLength);
+
         //Calcul star
         if (commentsLength > 0) {
           let nbStar = this.cumulRating / commentsLength;
           this.business.nbStar = Number(nbStar.toPrecision(2));
-          console.log(commentsLength, this.business.nbStar);
         }
 
-
-        console.log(this.business);
         this.businessesResultSearch.push(this.business);
-
-        console.log(this.businessesResultSearch);
         this.emitBusinessByCriteria();
 
       });
-
-
   }
 }

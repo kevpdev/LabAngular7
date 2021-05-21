@@ -15,30 +15,24 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     firebase.auth().onAuthStateChanged(
-      (user) =>{
-        if(user){
-          console.log(user)
+      (user) => {
+        if (user) {
           this.loggin = true;
-          console.log(this.loggin);
-          console.log(user);
-        }else{
+        } else {
           this.loggin = false;
-          console.log(this.loggin);
         }
       }
     );
 
   }
 
-  signOutUser(){
+  signOutUser() {
     firebase.auth().signOut();
     this.router.navigate(['home']);
   }
 
-  signIn(){
+  signIn() {
     this.router.navigate(['login']);
   }
-
-
 
 }

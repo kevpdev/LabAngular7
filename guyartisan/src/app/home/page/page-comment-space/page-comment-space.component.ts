@@ -34,8 +34,6 @@ export class PageCommentSpaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    console.log(this.business);
-    console.log(this.business.comments);
     if(this.business.comments){
       this.collectionPageSize = this.business.comments.length;
       this.getPaginationData();
@@ -68,9 +66,7 @@ export class PageCommentSpaceComponent implements OnInit {
 
     this.homeService.addCommentBusiness(newComment, this.business.id);
     this.businessSubscription = this.homeService.businessSubject.subscribe(data => {
-      console.log(data);
       if(data){
-        console.log(data);
         this.business = data;
         this.collectionPageSize = this.business.comments.length;
         this.getPaginationData();
@@ -98,9 +94,6 @@ export class PageCommentSpaceComponent implements OnInit {
   getPaginationData() {
     this.paginationData = this.business.comments
     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-
-    console.log(this.paginationData);
-
   }
 
 

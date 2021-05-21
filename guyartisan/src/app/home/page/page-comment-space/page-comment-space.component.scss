@@ -1,14 +1,10 @@
 
 @import 'variables';
 
-// #comment-spac {
-//     padding-top: 2%;
-//     background-color: $background-color-element;
-//     width: 100%;
-// }
+
 #comments-list, #comment-space{
     padding-top: 2%;
-    background-color: $background-color-element;
+    // background-color: $background-color-element;
     width: 100%;
 }
 
@@ -20,7 +16,7 @@
 
 #comment-content {
     width: 100%;
-    background-color: $background-color-main;
+    background-color: $background-color-comment;
     padding: 1%;
 }
 
@@ -28,22 +24,18 @@
     font-weight: bold;
 }
 
-// #comment-form {
-//     background-color: $background-color-element;
-// }
-
 
 :host ::ng-deep .page-link:hover {
     z-index: 0;
-    background-color: $background-color-search-form;
-    border-color: $background-color-search-form;
+    background-color: $background-color-theme2;
+    border-color: $background-color-theme2;
 }
 
 :host ::ng-deep .page-item.active .page-link {
     z-index: 0;
     color: black;
-    background-color: $background-color-search-form;
-    border-color: $background-color-search-form;
+    background-color: $background-color-theme2;
+    border-color: $background-color-theme2;
 }
 
 

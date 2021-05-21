@@ -1,11 +1,8 @@
 <div class="header" *ngIf="enableHeader">
     <h3>Vous recherchez un artisan ?</h3>
-
-
     <div *ngIf="enableHeader">
         <app-page-search [enableHeader]="enableHeader"></app-page-search>
     </div>
-
 </div>
 <div *ngIf="!enableHeader" class="searchForm">
     <app-page-search [enableHeader]="enableHeader"></app-page-search>

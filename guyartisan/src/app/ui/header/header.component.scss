@@ -1,11 +1,13 @@
+@import 'variables';
+
 .p-logout {
 margin-left: 5px;
 }
 
 a.nav-link.btn-round.login {
-    background-color: #2ca8ff;
+    background-color: $background-color-bouton-header;
 }
 
-a.nav-link.btn-round.logout {
-    background-color: #FF3636;
-}
+// a.nav-link.btn-round.logout {
+//     background-color: #FF3636;
+// }

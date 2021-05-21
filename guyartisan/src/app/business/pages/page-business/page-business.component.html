@@ -1,26 +1,29 @@
 <div class="container">
   <h1>Mon Entreprise</h1>
- 
- <div *ngIf="!enableEditBusiness || addBusiness" id="add-business-bloc">
-  <div class="row">
-    <div class="col-xl-6 col-6">
-      <button type="button" class="btn btn-success" routerLinkActive="active" routerLink="add"> Ajouter</button>
+
+  <div *ngIf="!enableEditBusiness || addBusiness" id="add-business-bloc">
+    <div class="row">
+      <div class="col-xl-6 col-6">
+        <button type="button" class="btn btn-success" routerLinkActive="active" routerLink="add"> Ajouter</button>
+      </div>
     </div>
+    <hr>
   </div>
-  <hr>
- </div>
   <div class="row">
     <div class="col-xl-3 col-sm-2 col-1"></div>
     <div class="col-xl-6 col-sm-8 col-10">
       <div class="bunisess-form" *ngFor="let business of businesses; let id = index">
         <div class="row">
           <div class="col-xl-6 col-6">
-            <button type="button" class="btn btn-default btn-round" routerLinkActive="active" [routerLink]="['edit', id]"> Modifier</button>
+            <button type="button" class="btn btn-default btn-round" routerLinkActive="active"
+              [routerLink]="['edit', id]"> Modifier</button>
           </div>
           <div class="col-xl-6 col-6">
-            <button type="button" class="btn btn-danger btn-round"  data-toggle="modal" data-target="#deleteBusiness"> Supprimer</button>
+            <button type="button" class="btn btn-danger btn-round" data-toggle="modal" data-target="#deleteBusiness">
+              Supprimer</button>
           </div>
-          <div class="modal fade" id="deleteBusiness" tabindex="-1" role="dialog" aria-labelledby="deleteBusinessLabel" aria-hidden="true">
+          <div class="modal fade" id="deleteBusiness" tabindex="-1" role="dialog" aria-labelledby="deleteBusinessLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -34,7 +37,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger btn-round" data-dismiss="modal">Non</button>
-                  <button type="button" class="btn btn-success btn-round" (click)="onDeleteBusiness(id)" data-dismiss="modal">Oui</button>
+                  <button type="button" class="btn btn-success btn-round" (click)="onDeleteBusiness(id)"
+                    data-dismiss="modal">Oui</button>
                 </div>
               </div>
             </div>
@@ -44,7 +48,7 @@
         <div class="row">
           <div class="col-xl-6 col-12">
             <div class="col-12">
-              <h4 class="font-weight-bold">{{business.name}}</h4>
+              <h5 class="font-weight-bold">{{business.name}}</h5>
               <p>
                 <span class="font-weight-bold">Secteur/Métier: </span><span>{{business.sector}}/{{business.job}}</span>
               </p>
@@ -59,74 +63,56 @@
         </div>
         <hr />
         <div class="row">
-          <div class="info col-xl-6 col-12">
+          <div class="info col-xl-12 col-12">
             <div class="row">
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-12 col-12">
                 <h5 class="font-weight-bold">Coordonnées</h5>
                 <hr />
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-4 col-12">
                 <p class="font-weight-bold">Adresse : </p>
               </div>
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-8 col-12">
                 <p>{{ business.address.nameStreet }} {{ business.address.zipCode }} {{ business.address.city }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-4 col-12">
                 <p class="font-weight-bold">SIRET : </p>
               </div>
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-8 col-12">
                 <p>{{business.siret}}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-4 col-12">
                 <p class="font-weight-bold">Téléphone : </p>
               </div>
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-8 col-12">
                 <p>{{business.phone1}}</p>
               </div>
             </div>
-              <!-- <div class="row">
-                <div class="col-xl-6 col-12">
-                  <p class="font-weight-bold">Téléphone 2 : </p>
-                </div>
-                <div class="col-xl-6 col-12">
-                  <p>0786205678</p>
-                </div>
-            </div> -->
             <div class="row">
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-4 col-12">
                 <p class="font-weight-bold">Email : </p>
               </div>
-              <div class="col-xl-6 col-12">
+              <div class="col-xl-8 col-12">
                 <p>{{business.email}}</p>
               </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6 col-12">
-              <p class="font-weight-bold">Site web  : </p>
             </div>
-            <div class="col-xl-6 col-12">
-              <a [href]="business.website">{{business.website}}</a>
-            </div>
-        </div>
-          </div>
-          <div class="horaire col-xl-6 col-12">
             <div class="row">
-              <div class="col-xl-12 col-12">
-                <h5 class="font-weight-bold">Horaires</h5>
-                <hr />
-                <p>{{ business.openingHours }}</p>
+              <div class="col-xl-4 col-12">
+                <p class="font-weight-bold">Site web : </p>
+              </div>
+              <div class="col-xl-8 col-12">
+                <a [href]="business.website">{{business.website}}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-xl-3 col-sm-2 col-1"></div>
     </div>
-    <div class="col-xl-3 col-sm-2 col-1"></div>
   </div>
-</div>

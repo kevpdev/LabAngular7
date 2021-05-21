@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 import { ConfirmedValidator } from 'src/app/shared/utils/Validators';
 import { LoginService } from '../../services/login.service';
@@ -20,7 +20,7 @@ export class PageSignupComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
+    console.log('ici');
     this.initLoginForm();
   }
 

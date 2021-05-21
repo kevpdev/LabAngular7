@@ -1,73 +1,64 @@
-<div class="row">
-    <div id="comment-space">
-        <div class="row">
-            <div class="col-xl-3 col-sm-2 col-1"></div>
-            <div class="col-xl-6 col-sm-8 col-10">
-                <hr>
-                <div id="comment-form" *ngIf="enableCommentForm">
-                    <h2>Votre Avis</h2>
-                    <form [formGroup]="commentForm" class="form-row" (submit)="onSubmitCommentForm()">
-                        <div class="col-xl-12 col-md-12 col-12">
-                            <div class="form-group">
-                                <input type="text" class="form-control input-form-custom" formControlName="name" placeholder="Veuillez entrer un nom">                       
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-md-12 col-12">
-                            <div class="form-group">
-                                <label for="rate">Mettez une note : </label>
-                                <ngb-rating [(rate)]="currentRate" max="5" class="star"></ngb-rating>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-md-12 col-12">
-                            <div class="form-group">
-                                <textarea  rows="5" class="form-control input-form-custom" formControlName="content" placeholder="Veuillez ecrire un commentaire..."></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-12 col-12">
-                            <div class="form-group">
-                                <button class="btn btn-danger btn-round btn-form-custom" (click)="closeCommentForm()">Annuler</button>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-12 col-12">
-                            <div class="form-group">
-                                <button class="btn btn-success btn-round btn-form-custom" type="submit" [disabled]="commentForm.invalid">Valider</button>
-                            </div>
-                        </div>
-                    </form>
-                    <hr>
+<div id="comment-space">
+    <div class="row">
+        <hr>
+        <div id="comment-form" *ngIf="enableCommentForm">
+            <h2>Votre Avis</h2>
+            <form [formGroup]="commentForm" class="form-row" (submit)="onSubmitCommentForm()">
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-form-custom" formControlName="name"
+                            placeholder="Veuillez entrer un nom">
+                    </div>
                 </div>
-                
-            </div>
-            <div class="col-xl-3 col-sm-2 col-1"></div>
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div class="form-group">
+                        <label for="rate">Mettez une note : </label>
+                        <ngb-rating [(rate)]="currentRate" max="5" class="star"></ngb-rating>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div class="form-group">
+                        <textarea rows="5" class="form-control input-form-custom" formControlName="content"
+                            placeholder="Veuillez ecrire un commentaire..."></textarea>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 col-12">
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-round btn-form-custom"
+                            (click)="closeCommentForm()">Annuler</button>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 col-12">
+                    <div class="form-group">
+                        <button class="btn btn-success btn-round btn-form-custom" type="submit"
+                            [disabled]="commentForm.invalid">Valider</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
         </div>
     </div>
-    <div id="comments-list">
+</div>
+<div id="comments-list">
+    <h3>Espace commentaire</h3>
+    <button class="btn btn-primary btn-round  btn-form-custom" (click)="showCommentForm()">Ajouter un avis</button>
+    <div *ngFor="let comment of paginationData" id="comment-row">
+        <hr>
         <div class="row">
-            <div class="col-xl-3 col-sm-2 col-1"></div>
-            <div class="col-xl-6 col-sm-8 col-10">
-                <h2>Espace commentaire</h2>
-                <button class="btn btn-default btn-round  btn-form-custom" (click)="showCommentForm()">Ajouter un avis</button>
-                <div *ngFor="let comment of paginationData" id="comment-row">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-6">
-                            <span class="comment-name">Par {{ comment.name }} </span>
-                            <span>Publié le {{comment.date | date: 'dd/MM/yyyy' }}</span>
-                        </div>
-                        <div class="col-xl-6 col-sm-6">
-                            <i class="fa fa-star star2"></i><span>{{comment.rate}}/5</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p id="comment-content">{{comment.content}}</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <ngb-pagination  [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page" 
-                aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
+            <div class="col-xl-6 col-sm-6">
+                <span class="comment-name">Par {{ comment.name }} </span>
+                <span>Publié le {{comment.date | date: 'dd/MM/yyyy' }}</span>
             </div>
-            <div class="col-xl-3 col-sm-2 col-1"></div>        
+            <div class="col-xl-6 col-sm-6">
+                <i class="fa fa-star star2"></i><span>{{comment.rate}}/5</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p id="comment-content">{{comment.content}}</p>
+            </div>
         </div>
     </div>
+    <ngb-pagination [collectionSize]="collectionPageSize" [pageSize]="pageSize" [(page)]="page"
+        aria-label="Default pagination" (pageChange)="getPaginationData()"></ngb-pagination>
 </div>

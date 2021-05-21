@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { PageLoginComponent } from './pages/page-login/page-login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageSignupComponent } from './pages/page-signup/page-signup.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [PageLoginComponent, PageSignupComponent],
+  declarations: [PageSignupComponent, PageLoginComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,

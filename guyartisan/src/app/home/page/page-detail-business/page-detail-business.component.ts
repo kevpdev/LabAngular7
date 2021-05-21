@@ -23,21 +23,17 @@ export class PageDetailBusinessComponent implements OnInit {
   ngOnInit(): void {
     this.test = 'test';
     this.route.params.subscribe(params =>{
-      console.log(params);
       this.homeService.getBusinessById(params.id);
       this.businessSubscription = this.homeService.businessSubject.subscribe(data =>{
         if(data){
           this.business = data;
          this.address = this.business.address;
-         console.log(this.business);
         }
       });
     });
   }
 
   onFocus(){
-    console.log(this.commentSpace.nativeElement);
-    console.log(this.commentSpace.nativeElement.focus());
    this.commentSpace.nativeElement.focus();
   }
 

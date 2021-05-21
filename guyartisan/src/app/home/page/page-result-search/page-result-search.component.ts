@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
@@ -22,20 +22,14 @@ export class PageResultSearchComponent implements OnInit {
   initializeComponent = true;
 
   constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) {
-    console.log('coucou');
   }
 
   ngOnInit(): void {
-    console.log('init');
-    console.log('result search');
-
     this.route.params.subscribe((params) => {
-      console.log(params);
       let critere = new Critere();
       critere.sector = params.sector;
       critere.city = params.city;
       critere.job = params.job;
-      console.log(critere);
 
       //required data test
       if (critere.sector && critere.city) {
@@ -76,14 +70,11 @@ export class PageResultSearchComponent implements OnInit {
 
 
   getBusiness(index: string) {
-    console.log(index);
     this.router.navigate(['home/business', index]);
   }
 
   getPaginationData() {
     this.paginationData = this.businesses
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-
-    console.log(this.paginationData);
   }
 }

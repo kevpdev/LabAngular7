@@ -17,26 +17,23 @@ export class PageLoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
     this.initLoginForm();
   }
 
-  initLoginForm(){
+  initLoginForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.minLength(13)]],
-      password: ['', [Validators.required, Validators.minLength(6)]], 
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  onSubmitLoginForm(){
+  onSubmitLoginForm() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-
-    console.log('email : ', email);
-    console.log('password : ', password);
 
     this.loginService.SignInUser(email, password).then(
       () => {
@@ -51,7 +48,7 @@ export class PageLoginComponent implements OnInit {
 
   }
 
-  signUp(){
+  signUp() {
     this.router.navigate(['signup']);
   }
 

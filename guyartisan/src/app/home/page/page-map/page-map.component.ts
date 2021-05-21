@@ -66,7 +66,6 @@ export class PageMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.location.marker.draggable = true;
-    console.log(this.address);
 
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
@@ -83,13 +82,9 @@ export class PageMapComponent implements OnInit {
     const fulladdress = this.formataddress(address);
     console.log(fulladdress);
     this.utilsService.getInfoAddress(fulladdress).subscribe(data => {
-      console.log(data);
-      console.log(data.features[0].properties);
-      this.resultAdress = data;
-       
+      this.resultAdress = data;       
       if(this.resultAdress){   
         let coordinates = this.resultAdress.features[0].geometry.coordinates;
-        console.log(coordinates);
         if(coordinates){          
           this.location = {
             lat: coordinates[1],
@@ -102,26 +97,8 @@ export class PageMapComponent implements OnInit {
             zoom: 15
           };
         }     
-
       }
-
-    })
-
-
-    // console.log(this.geocoder);
-    // if(this.geocoder){
-    //   this.geocoder.geocode({
-    //     'address': fulladdress
-    //   }, (results, status) => {
-    //     console.log(results);
-    //     if(status == google.GeocoderStatus.OK){
-  
-    //     }else{
-    //       alert("Sorry, this search produced no results.");
-    //     }
-    //   })      
-    // } 
-
+    }) 
   }
 
   formataddress(address: Address){

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,7 +37,8 @@ export class PageFormBusinessComponent implements OnInit {
     private formBuilder: FormBuilder,
     private businessService: BusinessService,
     private route: ActivatedRoute,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private location: Location
 
   ) { }
 
@@ -45,7 +47,6 @@ export class PageFormBusinessComponent implements OnInit {
     this.utilsService.getSectors().subscribe((data: any[]) => {
       this.sectors = data;
     })
-    // this.days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     if (this.route) {
       this.route.params.subscribe(param => {
@@ -84,11 +85,6 @@ export class PageFormBusinessComponent implements OnInit {
       businessLogo: [''],
       openingHours: [''],
       job: ['']
-      // dayA: [''],
-      // dayB: [''],
-      // hourA: [''],
-      // hourB: ['']
-
     });
   }
 
@@ -151,8 +147,6 @@ export class PageFormBusinessComponent implements OnInit {
   getHours(maxRange: number, minRange) {
 
     this.hours = Array(maxRange - minRange + 1).fill(minRange).map((x, y) => x + y);
-    //y is a increment number and x is a minRange
-
   }
 
   onUploadFile(event) {
@@ -198,6 +192,10 @@ export class PageFormBusinessComponent implements OnInit {
     const sectorSelectValue = event.target.value;
     this.jobs = this.sectors[sectorSelectValue].jobs;
     this.sectorSelected = true;
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

@@ -9,8 +9,9 @@
 
 main {
   //position: absolute;
-  background-color: $background-color-main; 
+  background-color: $background-color-theme; 
   min-height: 100vh;
+  padding-bottom: 20px;
 }
 
 footer {
@@ -18,7 +19,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #343a40;
+  background-color: $background-color-theme3;
 }
 
 

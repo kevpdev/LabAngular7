@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -24,7 +25,9 @@ registerLocaleData(localeFr, 'fr');
     UiModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr'}],
   bootstrap: [AppComponent]

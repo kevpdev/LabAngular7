@@ -27,7 +27,6 @@ export class PageSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    console.log(this.enableHeader);
     this.utilsService.getSectors().subscribe((data: any[]) => {
       this.sectors = data;
     })
@@ -47,7 +46,6 @@ export class PageSearchComponent implements OnInit {
     let job = this.homeSearchForm.get('searchJob').value;
     let city = this.citySuccess ? this.homeSearchForm.get('searchCity').value : "";
 
-    console.log(this.cities, city);
     this.router.navigate(['search', sector, job, city], { relativeTo: this.route.parent })
       .catch(error => {
         console.log(error);
@@ -57,8 +55,8 @@ export class PageSearchComponent implements OnInit {
   getCityKeyPress(event) {
     this.citySuccess = false;
     let input = event.target.value;
-    let inputDomFilter = input.substring(0, 2) === '97';
-    if (input.length > 0) {
+    // let inputDomFilter = input.substring(0, 2) === '97';
+    if (input.length > 1) {
       this.utilsService.getCities(input).subscribe((data: any) => {
         console.log(data);
         if(data && data.cities.length > 0){

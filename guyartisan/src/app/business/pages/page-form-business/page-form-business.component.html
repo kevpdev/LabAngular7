@@ -192,7 +192,7 @@
               class="form-control input-form-custom"
             />
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="control-label " for="openingHours">Horaires : </label>
             <input
               type="textarea"
@@ -201,43 +201,15 @@
               class="form-control input-form-custom"
               placeholder="Veuillez saisir vos horaires"
             />
+          </div> -->
+          <div class="form-inline">
+            <button class="form-control" type="submit" class="btn btn-defaut btn-round" (click)="back()">
+              Annuler
+            </button>
+            <button class="form-control form-button-save" type="submit" class="btn btn-primary btn-round" [disabled]="businessForm.invalid">
+              Enregistrer
+            </button>            
           </div>
-          <!-- <h5>Horaire : </h5>
-              <hr>
-              <div class="form-group">
-                <label class="control-label" for="dayA">Du : </label>
-                <select  formControlName="dayA" id="dayA" class="custom-select">
-                  <option value="">Veuillez selectionner</option>
-                  <option *ngFor="let day of days" [ngValue]="day">{{day}}</option>
-                </select>
-                <label class="control-label" for="dayB">au : </label>
-                <select  formControlName="dayB" id="dayB" class="custom-select">
-                  <option value="">Veuillez selectionner</option>
-                  <option *ngFor="let day of days" [ngValue]="day">{{day}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-xl-6 col-6">
-                    <label class="control-label" for="hourA">De : </label>
-                    <select  formControlName="hourA" id="hourA" class="custom-select">
-                      <option value="">Veuillez selectionner</option>
-                      <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
-                    </select><p> Heure</p>
-                  </div>
-                  <div class="col-xl-6 col-6">
-                    <label class="control-label" for="hourB">à : </label>
-                    <select  formControlName="hourB" id="hourB" class="custom-select">
-                      <option value="">Veuillez selectionner</option>
-                      <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
-                    </select><p> Heure</p>
-                  </div>
-                </div>
-              </div> -->
-
-          <button class="form-control" type="submit" class="btn btn-primary btn-round" [disabled]="businessForm.invalid">
-            Enregistrer
-          </button>
         </form>
       </div>
     </div>

@@ -10,8 +10,11 @@
                 <label for="inputEmail3" class="form-label">Email/Nom d'utilisateur</label>
               </div>
               <div class="col-xl-12 col-12">
-                <input type="email" class="form-control input-form-custom" id="email" formControlName="email" placeholder="Email">
-                <div *ngIf="loginForm.controls['email'].invalid  && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)" class="alert alert-danger" role="alert">
+                <input type="email" class="form-control input-form-custom" id="email" formControlName="email"
+                  placeholder="Email">
+                <div
+                  *ngIf="loginForm.controls['email'].invalid  && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
+                  class="alert alert-danger" role="alert">
                   <div *ngIf="loginForm.controls['email'].errors.required">
                     Veuillez saisir au moins 13 caractères
                   </div>
@@ -25,8 +28,11 @@
                 <label for="inputPassword3" class="col-form-label">Mot de passe</label>
               </div>
               <div class="col-xl-12 col-12">
-                <input type="password" class="form-control input-form-custom" id="password" formControlName="password" placeholder="Mot de passe">
-                <div *ngIf="loginForm.controls['password'].invalid  && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="alert alert-danger" role="alert">
+                <input type="password" class="form-control input-form-custom" id="password" formControlName="password"
+                  placeholder="Mot de passe">
+                <div
+                  *ngIf="loginForm.controls['password'].invalid  && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                  class="alert alert-danger" role="alert">
                   <div *ngIf="loginForm.controls['password'].errors.required">
                     Veuillez saisir au moins 6 caractères
                   </div>
@@ -38,10 +44,11 @@
             <div id="formFooter">
               <div class="form-group row">
                 <div class="col-xl-12 col-12">
-                  <button type="submit" class="btn btn-primary btn-round" [disabled]="loginForm.invalid">Connexion</button>
+                  <button type="submit" class="btn btn-primary btn-round"
+                    [disabled]="loginForm.invalid">Connexion</button>
                 </div>
                 <div *ngIf="invalidSignIn" class="alert alert-danger" role="alert">
-                 Email ou mot de passe invalide !
+                  Email ou mot de passe invalide !
                 </div>
               </div>
             </div>
