@@ -2,7 +2,6 @@ import { AbstractControl } from '@angular/forms';
     
 export function ConfirmedValidator(controlName: string, matchingControlName: string){
     return (controls: AbstractControl) => {
-        console.log(controls);
         const control = controls.get(controlName);
         const matchingControl = controls.get(matchingControlName);
         if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {

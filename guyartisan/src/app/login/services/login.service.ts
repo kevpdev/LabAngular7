@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { exception } from 'console';
+import { rejects } from 'assert';
 
 
 
@@ -11,7 +13,7 @@ export class LoginService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  SignUpUser(email: string, password: string): Promise<any> {
+  signUpUser(email: string, password: string): Promise<any> {
 
     return firebase.auth().createUserWithEmailAndPassword(email, password).then(
       (credential) => {
@@ -28,7 +30,7 @@ export class LoginService {
     );
   }
 
-  SignInUser(email: string, password: string): Promise<any> {
+  signinUser(email: string, password: string): Promise<any> {
 
     return firebase.auth().signInWithEmailAndPassword(email, password).then(
       () => {
@@ -36,6 +38,13 @@ export class LoginService {
       }
 
     );
+  }
+
+  sendPasswordReset(email: string){
+    // return new Promise((resolve, reject) => {
+    //  reject("Le service de réiniialisation de mot de passe n'est pas disponible");
+    // })
+    return firebase.auth().sendPasswordResetEmail(email);
   }
 
 }

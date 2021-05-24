@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-xl-4 col-sm-2 col-1"></div>
-    <div class="col-xl-4 col-sm-8 col-10">
+    <div class="col-xl-3 col-sm-2 col-1"></div>
+    <div class="col-xl-6 col-sm-8 col-10">
       <div id="formContent">
         <form [formGroup]="loginForm" (submit)="onSubmitLoginForm()">
           <div class="row">
+            <h3>Connectez-vous</h3>
             <div class="form-group row">
               <div class="col-xl-12 col-12">
                 <label for="inputEmail3" class="form-label">Email/Nom d'utilisateur</label>
@@ -14,7 +15,7 @@
                   placeholder="Email">
                 <div
                   *ngIf="loginForm.controls['email'].invalid  && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
-                  class="alert alert-danger" role="alert">
+                  class="alert alert-danger rounded-pill" role="alert">
                   <div *ngIf="loginForm.controls['email'].errors.required">
                     Veuillez saisir au moins 13 caractères
                   </div>
@@ -32,7 +33,7 @@
                   placeholder="Mot de passe">
                 <div
                   *ngIf="loginForm.controls['password'].invalid  && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
-                  class="alert alert-danger" role="alert">
+                  class="alert alert-danger rounded-pill" role="alert">
                   <div *ngIf="loginForm.controls['password'].errors.required">
                     Veuillez saisir au moins 6 caractères
                   </div>
@@ -47,7 +48,7 @@
                   <button type="submit" class="btn btn-primary btn-round"
                     [disabled]="loginForm.invalid">Connexion</button>
                 </div>
-                <div *ngIf="invalidSignIn" class="alert alert-danger" role="alert">
+                <div *ngIf="invalidsignin" class="alert alert-danger rounded-pill" role="alert">
                   Email ou mot de passe invalide !
                 </div>
               </div>
@@ -56,7 +57,7 @@
           <div class="row">
             <div class="form-group">
               <div class="col-xl-12 col-12"></div>
-              <a class="underlineHover">Mot de passe oublié ?</a>
+              <a class="underlineHover" (click)="forgotYourPassword()">Mot de passe oublié ?</a>
             </div>
           </div>
           <div class="row">
@@ -68,6 +69,6 @@
         </form>
       </div>
     </div>
-    <div class="col-xl-4 col-sm-2 col-1"></div>
+    <div class="col-xl-6 col-sm-2 col-1"></div>
   </div>
 </div>

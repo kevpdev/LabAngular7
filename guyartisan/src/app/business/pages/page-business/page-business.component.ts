@@ -24,7 +24,6 @@ export class PageBusinessComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.businessService.getBusinesses().subscribe( data => {
       this.businesses = data.map(e => {
         return {

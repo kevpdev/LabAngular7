@@ -11,7 +11,7 @@ import { LoginService } from '../../services/login.service';
 export class PageLoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  invalidSignIn = false;
+  invalidsignin = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,14 +35,14 @@ export class PageLoginComponent implements OnInit {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
 
-    this.loginService.SignInUser(email, password).then(
+    this.loginService.signinUser(email, password).then(
       () => {
         this.router.navigate(['business']);
       }
     ).catch(
       (error) => {
         console.log(error);
-        this.invalidSignIn = true;
+        this.invalidsignin = true;
       }
     );
 
@@ -50,6 +50,10 @@ export class PageLoginComponent implements OnInit {
 
   signUp() {
     this.router.navigate(['signup']);
+  }
+
+  forgotYourPassword(){
+    this.router.navigate(['send-reset-pwd']);
   }
 
 }

@@ -44,6 +44,7 @@ export class PageFormBusinessComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    console.log(this.businesses);
     this.utilsService.getSectors().subscribe((data: any[]) => {
       this.sectors = data;
     })

@@ -11,13 +11,11 @@
           <hr />
           <div class="form-group required">
             <label class="control-label" for="businessName">Nom de la société : </label>
-            <input
-              type="text"
-              id="businessName"
-              formControlName="businessName"
-              class="form-control input-form-custom"
-            />
-            <div *ngIf="businessForm.controls['businessName'].invalid  && (businessForm.controls['businessName'].dirty || businessForm.controls['businessName'].touched)" class="alert alert-danger" role="alert">
+            <input type="text" id="businessName" formControlName="businessName"
+              class="form-control input-form-custom" />
+            <div
+              *ngIf="businessForm.controls['businessName'].invalid  && (businessForm.controls['businessName'].dirty || businessForm.controls['businessName'].touched)"
+              class="alert alert-danger rounded-pill" role="alert">
               <div *ngIf="businessForm.controls['businessName'].errors.required">
                 Ce champ est obligatoire
               </div>
@@ -31,18 +29,19 @@
                 <p>- le diese "#".</p>
                 <p>- les symboles monétaires ("$", "£", "€").</p>
                 <p>- les barres ("\", "/")</p>
-               <p>- les astérisques ("*").</p>
+                <p>- les astérisques ("*").</p>
               </div>
             </div>
           </div>
           <div class="form-group required">
             <label class="control-label" for="sector">Secteur : </label>
-            <select formControlName="sector" id="sector" class="form-control input-form-custom" (change)="onChangeSector($event)">
+            <select formControlName="sector" id="sector" class="form-control input-form-custom"
+              (change)="onChangeSector($event)">
               <option *ngFor="let sector of sectors; let i = index" [value]="i">
                 {{ sector.sectorName }}
               </option>
             </select>
-            <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger" role="alert">
+            <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger rounded-pill" role="alert">
               <div *ngIf="businessForm.controls['sector'].errors.required">
                 Ce champ est obligatoire
               </div>
@@ -50,13 +49,13 @@
           </div>
           <div *ngIf="sectorSelected">
             <div class="form-group">
-              <label class="control-label" for="job">Métier (Facultatif):  </label>
+              <label class="control-label" for="job">Métier (Facultatif): </label>
               <select formControlName="job" id="job" class="form-control input-form-custom">
                 <option *ngFor="let job of jobs; let i = index" [value]="job">
                   {{ job }}
                 </option>
               </select>
-              <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger" role="alert">
+              <div *ngIf="businessForm.controls['sector'].invalid" class="alert alert-danger rounded-pill" role="alert">
                 <div *ngIf="businessForm.controls['sector'].errors.required">
                   Ce champ est obligatoire
                 </div>
@@ -66,33 +65,24 @@
           <div class="form-group">
             <div *ngIf="logoUrl">
               <img [src]="logoUrl" class="img-fluid rounded" />
-              <div *ngIf="limiteSizeError" class="alert alert-danger" role="alert">
+              <div *ngIf="limiteSizeError" class="alert alert-danger rounded-pill" role="alert">
                 Le taille du fichier ne doit pas depasser 2 Mo
               </div>
             </div>
           </div>
           <div class="form-group">
-            <input
-              type="file"
-              class=""
-              id="businessLogo"
-              name="businessLogo"
-              accept="image/png, image/jpeg"
-              (change)="onUploadFile($event)"
-            />
+            <input type="file" class="" id="businessLogo" name="businessLogo" accept="image/png, image/jpeg"
+              (change)="onUploadFile($event)" />
             <div class="spinner-border text-dark" role="status" *ngIf="logoUploading">
               <span class="sr-only">Loading...</span>
             </div>
           </div>
           <div class="form-group required">
             <label class="control-label" for="siret">N° SIRET : </label>
-            <input
-              type="text"
-              id="siret"
-              formControlName="siret"
-              class="form-control input-form-custom"
-            />
-            <div *ngIf="businessForm.controls['siret'].invalid  && (businessForm.controls['siret'].dirty || businessForm.controls['siret'].touched)" class="alert alert-danger" role="alert">
+            <input type="text" id="siret" formControlName="siret" class="form-control input-form-custom" />
+            <div
+              *ngIf="businessForm.controls['siret'].invalid  && (businessForm.controls['siret'].dirty || businessForm.controls['siret'].touched)"
+              class="alert alert-danger rounded-pill" role="alert">
               <div *ngIf="businessForm.controls['siret'].errors.required">
                 Ce champ est obligatoire
               </div>
@@ -105,13 +95,10 @@
           <hr />
           <div class="form-group">
             <label class="control-label" for="phone">Téléphone : </label>
-            <input
-              type="text"
-              id="phone"
-              formControlName="phone"
-              class="form-control input-form-custom"
-            />
-            <div *ngIf="businessForm.controls['phone'].invalid  && (businessForm.controls['phone'].dirty || businessForm.controls['phone'].touched)" class="alert alert-danger" role="alert">
+            <input type="text" id="phone" formControlName="phone" class="form-control input-form-custom" />
+            <div
+              *ngIf="businessForm.controls['phone'].invalid  && (businessForm.controls['phone'].dirty || businessForm.controls['phone'].touched)"
+              class="alert alert-danger rounded-pill" role="alert">
               <div *ngIf="businessForm.controls['phone'].errors.pattern">
                 Les 10 chiffres du numéros de téléphone sont requis
               </div>
@@ -119,62 +106,34 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="address">Adresse : </label>
-            <input
-              type="text"
-              id="address"
-              formControlName="address"
-              class="form-control input-form-custom"
-            />
+            <input type="text" id="address" formControlName="address" class="form-control input-form-custom" />
           </div>
           <div class="form-group">
             <label class="control-label" for="additionalAddress">Complément d'adresse : </label>
-            <input
-              type="text"
-              id="additionalAddress"
-              formControlName="additionalAddress"
-              class="form-control"
-            />
+            <input type="text" id="additionalAddress" formControlName="additionalAddress" class="form-control" />
           </div>
           <div class="form-group">
             <label class="control-label" for="zipCode">Code Postal : </label>
-            <input
-              type="text"
-              id="zipCode"
-              formControlName="zipCode"
-              class="form-control"
-              (change)="getCityByZipCode($event)"
-            />
+            <input type="text" id="zipCode" formControlName="zipCode" class="form-control"
+              (change)="getCityByZipCode($event)" />
             <div *ngIf="cityUnknowError" class="alert alert-danger" role="alert">
               Aucune ville trouvée pour ce code postal
             </div>
           </div>
           <div class="form-group">
             <label class="control-label input-form-custom" for="city">Ville : </label>
-            <input
-              type="text"
-              id="city"
-              formControlName="city"
-              class="form-control"
-            />
+            <input type="text" id="city" formControlName="city" class="form-control" />
           </div>
           <div class="form-group">
             <label class="control-label" for="pays">Pays : </label>
-            <input
-              type="text"
-              id="pays"
-              formControlName="pays"
-              class="form-control input-form-custom"
-            />
+            <input type="text" id="pays" formControlName="pays" class="form-control input-form-custom" />
           </div>
           <div class="form-group required">
             <label class="control-label" for="email">Email : </label>
-            <input
-              type="text"
-              id="email"
-              formControlName="email"
-              class="form-control input-form-custom"
-            />
-            <div *ngIf="businessForm.controls['email'].invalid  && (businessForm.controls['email'].dirty || businessForm.controls['email'].touched)" class="alert alert-danger" role="alert">
+            <input type="text" id="email" formControlName="email" class="form-control input-form-custom" />
+            <div
+              *ngIf="businessForm.controls['email'].invalid  && (businessForm.controls['email'].dirty || businessForm.controls['email'].touched)"
+              class="alert alert-danger rounded-pill" role="alert">
               <div *ngIf="businessForm.controls['email'].errors.required">
                 Ce champ est obligatoire
               </div>
@@ -185,12 +144,7 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="website">Site web : </label>
-            <input
-              type="text"
-              id="website"
-              formControlName="website"
-              class="form-control input-form-custom"
-            />
+            <input type="text" id="website" formControlName="website" class="form-control input-form-custom" />
           </div>
           <!-- <div class="form-group">
             <label class="control-label " for="openingHours">Horaires : </label>
@@ -203,12 +157,13 @@
             />
           </div> -->
           <div class="form-inline">
-            <button class="form-control" type="submit" class="btn btn-defaut btn-round" (click)="back()">
+            <button class="form-control" type="button" class="btn btn-defaut btn-round" (click)="back()">
               Annuler
             </button>
-            <button class="form-control form-button-save" type="submit" class="btn btn-primary btn-round" [disabled]="businessForm.invalid">
+            <button class="form-control form-button-save" type="submit" class="btn btn-primary btn-round"
+              [disabled]="businessForm.invalid">
               Enregistrer
-            </button>            
+            </button>
           </div>
         </form>
       </div>

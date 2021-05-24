@@ -20,7 +20,6 @@ export class PageSignupComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log('ici');
     this.initLoginForm();
   }
 
@@ -46,7 +45,7 @@ export class PageSignupComponent implements OnInit {
     console.log('email : ', email);
     console.log('password : ', password);
 
-    this.loginService.SignUpUser(email, password).then(
+    this.loginService.signUpUser(email, password).then(
       success => {
         this.router.navigate(['business']);
       }
