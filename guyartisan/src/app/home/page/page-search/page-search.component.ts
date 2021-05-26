@@ -44,7 +44,7 @@ export class PageSearchComponent implements OnInit {
     let indexSector = this.homeSearchForm.get('searchSector').value;
     let sector = this.sectors[indexSector].sectorName;
     let job = this.homeSearchForm.get('searchJob').value;
-    let city = this.citySuccess ? this.homeSearchForm.get('searchCity').value : "";
+    let city = this.citySuccess ? this.homeSearchForm.get('searchCity').value.toUpperCase() : "";
 
     this.router.navigate(['search', sector, job, city], { relativeTo: this.route.parent })
       .catch(error => {
@@ -58,7 +58,6 @@ export class PageSearchComponent implements OnInit {
     // let inputDomFilter = input.substring(0, 2) === '97';
     if (input.length > 1) {
       this.utilsService.getCities(input).subscribe((data: any) => {
-        console.log(data);
         if(data && data.cities.length > 0){
          this.citySuccess = true;
           this.cities = data.cities;
@@ -77,6 +76,10 @@ export class PageSearchComponent implements OnInit {
   onChangeSector(event) {
     const sectorSelectValue = event.target.value;
     this.jobs = this.sectors[sectorSelectValue].jobs;
+  }
+
+  offClickHandler(){
+    this.cities = [];
   }
 
 

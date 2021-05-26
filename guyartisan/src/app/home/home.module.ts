@@ -12,6 +12,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { PageMapComponent } from './page/page-map/page-map.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PageMapComponent } from './page/page-map/page-map.component';
     FormsModule,
     NgbRatingModule,
     NgbPaginationModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyButSfdS4GtoB3hW6REpzDEyd2oOlauPPQ'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyButSfdS4GtoB3hW6REpzDEyd2oOlauPPQ'}),
+    SharedModule
   ],
   providers: [DatePipe, GoogleMapsAPIWrapper],
 })

@@ -15,8 +15,12 @@ export class PageHomeComponent implements OnInit {
 
   }
 
-  hideHeader(event: any){
+  hideHeader(event: any) {
     this.enableHeader = false;
+  }
+
+  offClickHandler() {
+    console.log('out');
   }
 
 }

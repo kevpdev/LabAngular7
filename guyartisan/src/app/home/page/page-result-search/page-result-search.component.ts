@@ -33,12 +33,17 @@ export class PageResultSearchComponent implements OnInit {
 
       //required data test
       if (critere.sector && critere.city) {
-        this.homeService.getBusinessByCriteria(critere);
+        this.homeService.getBusinessByCriteria(critere)
+        .catch((error) => {
+          console.error('Catch error : ', error);
+        }).finally(() =>{
+          this.initializeComponent = false;          
+        });
+
         this.businessesSubscription = this.homeService.businessesSubject.subscribe(data => {
           this.businesses = [];
           this.paginationData = [];
           this.initializeComponent = false;
-
           if (data.length > 0) {
             this.businesses = data;
             this.collectionPageSize = this.businesses.length;

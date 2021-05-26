@@ -21,7 +21,7 @@
             <div class="col-xl-3 col-md-12 col-12">
                 <input id="searchCity" type="text" class="form-control input-form-custom" formControlName="searchCity"
                     formname (keyup)="getCityKeyPress($event)" placeholder="Ville ou code postal" autocomplete="off">
-                <ul class="list-group" id="city-list">
+                <ul class="list-group" id="city-list" (clickOutside)="offClickHandler()">
                     <li *ngFor="let city of cities; let i = index" [attr.data-index]="i" class="list-group-item"
                         (click)="onCitySelected($event)">{{city.code}} {{city.city}}</li>
                 </ul>

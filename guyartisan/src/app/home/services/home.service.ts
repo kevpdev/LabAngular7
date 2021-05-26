@@ -1,5 +1,7 @@
+import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
+import { rejects } from 'assert';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Business } from 'src/app/shared/models/business';
 import { Comment } from 'src/app/shared/models/comment';
@@ -32,28 +34,31 @@ export class HomeService {
       .then(querySnapshot => {
         querySnapshot.forEach(docUser => {
 
-          let querySector = docUser.ref.collection('businesses').where("sector", "==", critere.sector);
-          let queryJob = querySector;
-          if (critere.job) {
-           queryJob = querySector.where("job", "==", critere.job);
-          }
+          if (cityArray.length == 2) {
+            let querySector = docUser.ref.collection('businesses').where("sector", "==", critere.sector);
+            let queryJob = querySector;
+            if (critere.job) {
+              queryJob = querySector.where("job", "==", critere.job);
+            }
+            let queryCity = queryJob;
 
-          let queryCity = queryJob.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
-          
-          queryCity.onSnapshot(querySnapshot2 => {
-            querySnapshot2.forEach(docBusiness => {
+            queryCity = queryJob.where("address.zipCode", "==", cityArray[0]).where("address.city", "==", cityArray[1]);
 
-              this.getFieldsAndCommentBusinessByCriteria(docBusiness);
+            queryCity.onSnapshot(querySnapshot2 => {
+              querySnapshot2.forEach(docBusiness => {
 
+                this.getFieldsAndCommentBusinessByCriteria(docBusiness);
+
+              });
             });
-          });
+          }
         });
       });
 
   }
 
   emitBusinessByCriteria() {
-    console.log(this.businessesResultSearch);
+    console.log(this.businessesResultSearch, this.businessesResultSearch.length);
     this.businessesSubject.next(this.businessesResultSearch);
   }
 
