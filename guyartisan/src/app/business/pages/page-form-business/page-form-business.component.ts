@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FirebaseErrorHandlerService } from 'src/app/error/services/firebase-error-handler.service';
 import { Address } from 'src/app/shared/models/address';
 import { Business } from 'src/app/shared/models/business';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
@@ -38,6 +39,7 @@ export class PageFormBusinessComponent implements OnInit {
     private businessService: BusinessService,
     private route: ActivatedRoute,
     private utilsService: UtilsService,
+    private errorService: FirebaseErrorHandlerService,
     private location: Location
 
   ) { }
@@ -116,9 +118,15 @@ export class PageFormBusinessComponent implements OnInit {
 
     console.log('newBusiness : ', newBusiness);
     if (this.editBusiness) {
-      this.businessService.updateBusiness(newBusiness);
+      this.businessService.updateBusiness(newBusiness).catch(error => {
+          this.errorService.errorHandler(error);
+        }        
+      );
     } else {
-      this.businessService.createBusiness(newBusiness);
+      this.businessService.createBusiness(newBusiness).catch(error => {
+          this.errorService.errorHandler(error);
+        }        
+      );
     }
     this.router.navigate(['/business']);
   }
@@ -174,7 +182,7 @@ export class PageFormBusinessComponent implements OnInit {
   }
 
   getCityByZipCode(event) {
-    console.log('event zipcode ici');
+
     const codesPostaux = require('codes-postaux');
     const zipCode = event.target.value;
     const response = codesPostaux.find(zipCode);
@@ -195,7 +203,7 @@ export class PageFormBusinessComponent implements OnInit {
     this.sectorSelected = true;
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 

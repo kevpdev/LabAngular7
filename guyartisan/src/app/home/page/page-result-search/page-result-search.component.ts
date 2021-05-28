@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FirebaseErrorHandlerService } from 'src/app/error/services/firebase-error-handler.service';
 import { Business } from 'src/app/shared/models/business';
 import { Critere } from 'src/app/shared/models/critere';
 import { HomeService } from '../../services/home.service';
@@ -21,7 +22,11 @@ export class PageResultSearchComponent implements OnInit {
   paginationData: Business[] = [];
   initializeComponent = true;
 
-  constructor(private homeService: HomeService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private homeService: HomeService,
+    private errorService: FirebaseErrorHandlerService,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -35,7 +40,9 @@ export class PageResultSearchComponent implements OnInit {
       if (critere.sector && critere.city) {
         this.homeService.getBusinessByCriteria(critere)
         .catch((error) => {
-          console.error('Catch error : ', error);
+
+          this.errorService.errorHandler(error);
+
         }).finally(() =>{
           this.initializeComponent = false;          
         });
@@ -62,7 +69,7 @@ export class PageResultSearchComponent implements OnInit {
           }
         },
           error => {
-            console.log('Error service: ' + error);
+            this.errorService.errorHandler(error);
           });
 
       } else {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirebaseErrorHandlerService } from 'src/app/error/services/firebase-error-handler.service';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class PageLoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private errorService: FirebaseErrorHandlerService,
     private router: Router
   ) { }
 
@@ -41,8 +43,12 @@ export class PageLoginComponent implements OnInit {
       }
     ).catch(
       (error) => {
-        console.log(error);
-        this.invalidsignin = true;
+        console.error(error);
+        if (error.code == "auth/wrong-password") {
+          this.invalidsignin = true;
+        } else {
+            this.errorService.errorHandler(error);
+        }
       }
     );
 
@@ -52,7 +58,7 @@ export class PageLoginComponent implements OnInit {
     this.router.navigate(['signup']);
   }
 
-  forgotYourPassword(){
+  forgotYourPassword() {
     this.router.navigate(['send-reset-pwd']);
   }
 

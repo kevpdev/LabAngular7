@@ -11,6 +11,7 @@ export class PageConfirmSendResetPasswordComponent implements OnInit {
   
   message: string;
   error = false;
+  code: string;
   constructor(
   private router: Router,
   private utilsService: UtilsService) { }
@@ -19,8 +20,15 @@ export class PageConfirmSendResetPasswordComponent implements OnInit {
     
   this.utilsService.messageSource.subscribe(data => {
     if(data){
-      this.message = data.content;
-      this.error = data.error;
+      console.log(data);
+      if(!data.error){
+        this.message = data.content;
+      }else{
+        this.message = data.error.message;
+        this.code = data.error.code;
+        this.error = true;
+      }
+      
     }
   })
   }

@@ -5,6 +5,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Local } from 'protractor/built/driverProviders';
 import { Subscription } from 'rxjs';
+import { FirebaseErrorHandlerService } from 'src/app/error/services/firebase-error-handler.service';
 import { Business } from 'src/app/shared/models/business';
 import { Comment } from 'src/app/shared/models/comment';
 import { Critere } from 'src/app/shared/models/critere';
@@ -28,7 +29,12 @@ export class PageCommentSpaceComponent implements OnInit {
   page = 1;
   paginationData: Comment[];
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private homeService: HomeService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    private homeService: HomeService,
+    private errorService: FirebaseErrorHandlerService
+      ) {
     
    }
 
@@ -64,7 +70,9 @@ export class PageCommentSpaceComponent implements OnInit {
     newComment.name = name;
     newComment.rate = rate;
 
-    this.homeService.addCommentBusiness(newComment, this.business.id);
+    this.homeService.addCommentBusiness(newComment, this.business.id).catch(error =>{
+      this.errorService.errorHandler(error);
+    });
     this.businessSubscription = this.homeService.businessSubject.subscribe(data => {
       if(data){
         this.business = data;

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { exception } from 'console';
-import { rejects } from 'assert';
+
 
 
 
@@ -20,29 +19,28 @@ export class LoginService {
         this.firestore.collection('users').doc(credential.user.uid).collection('roles').add({
           name: 'employer'
         });
-        console.log('connecté');
-        // resolve();
-      }
-    ).catch(
-      (error) => {
-        console.log(error);
       }
     );
   }
 
   signinUser(email: string, password: string): Promise<any> {
 
-    return firebase.auth().signInWithEmailAndPassword(email, password).then(
-      () => {
-        console.log('connecté');
-      }
+    // return new Promise((resolve, reject) => {
+    //   let error = new Error();
+    //   error.code = '500';
+    //   error.message = 'Le service est indisponible'
+    //  reject(error);
+    // })
+    return firebase.auth().signInWithEmailAndPassword(email, password);
 
-    );
   }
 
-  sendPasswordReset(email: string){
+  sendPasswordReset(email: string) {
     // return new Promise((resolve, reject) => {
-    //  reject("Le service de réiniialisation de mot de passe n'est pas disponible");
+    //   let error = new Error();
+    //   error.code = '500';
+    //   error.message = 'Le service est indisponible'
+    //  reject(error);
     // })
     return firebase.auth().sendPasswordResetEmail(email);
   }

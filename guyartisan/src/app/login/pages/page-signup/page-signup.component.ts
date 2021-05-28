@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
+import { FirebaseErrorHandlerService } from 'src/app/error/services/firebase-error-handler.service';
+import { Error } from 'src/app/shared/models/error';
+import { Message } from 'src/app/shared/models/message';
+import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { ConfirmedValidator } from 'src/app/shared/utils/Validators';
 import { LoginService } from '../../services/login.service';
 
@@ -16,6 +20,7 @@ export class PageSignupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private errorService: FirebaseErrorHandlerService, 
     private router: Router
     ) { }
 
@@ -51,7 +56,8 @@ export class PageSignupComponent implements OnInit {
       }
     ).catch(
       (error) => {
-        console.log(error);
+        this.errorService.errorHandler(error);
+
       }
     );
 

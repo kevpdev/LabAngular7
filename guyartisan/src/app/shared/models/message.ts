@@ -1,6 +1,8 @@
+import { Error } from "./error";
+
 export class Message {
     content: string;
-    error : boolean;
+    error : Error;
 
     constructor(obj?: Partial<Message>) {
         if (obj) {
